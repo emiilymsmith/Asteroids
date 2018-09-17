@@ -10,11 +10,11 @@ public class Game extends Form{
 	private Point2D location;
 	private int color;
 	
-	//	constructor
+	//	Game Constructor
 	public Game() {
 		gw = new GameWorld();
 		//gw.init();
-		//play();
+		//gw.play();
 	}
 	
 	
