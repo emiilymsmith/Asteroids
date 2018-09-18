@@ -14,7 +14,10 @@ public class PlayerShip extends Ship implements ISteerable{
 		
 	}
 	//steerHeading(){}
-	//setColor()
+//	public void setColor() {
+//		int
+//		super.setColor(color);
+//	}
 	//getMissileCount()
 	//addMissile()
 	//decrementMissile()

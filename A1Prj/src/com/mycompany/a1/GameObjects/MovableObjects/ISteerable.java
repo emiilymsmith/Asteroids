@@ -1,6 +1,8 @@
 package com.mycompany.a1.GameObjects.MovableObjects;
 
 public interface ISteerable {
-	//changeSpeed(){}
-	//changeDirection(){}
+	//public int increaseSpeed(){}
+	//public int decreaseSpeed(){}
+	//public int turnLeft(){}
+	//public int turnRight(){}
 }

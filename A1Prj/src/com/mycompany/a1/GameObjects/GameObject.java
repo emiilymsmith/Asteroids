@@ -22,12 +22,20 @@ public class GameObject{
 		this.size = size;
 	}
 
-	public Point2D getLocation() {
-		return location;
+	public double getX() {
+		return location.getX();
 	}
-
-	public void setLocation(Point2D location) {
-		this.location = location;
+	
+	public void setX(double x) {
+		location.setX(x);
+	}
+	
+	public double getY() {
+		return location.getY();
+	}
+	
+	public void setY(double y) {
+		location.setY(y);
 	}
 
 	public int getColor() {
@@ -38,4 +46,14 @@ public class GameObject{
 		this.color = color;
 	}
 	
+	public String toString(){
+		double x = Math.round(this.getX());
+		double y = Math.round(this.getY());
+		String returnStr = "";
+		returnStr += "___________________________";
+		returnStr += "Location: ( "+x+" , "+y+" )";
+		returnStr += "___________________________";
+		return returnStr;
+	}
+
 }

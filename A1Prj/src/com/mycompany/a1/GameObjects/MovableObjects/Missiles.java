@@ -6,7 +6,7 @@ public class Missiles extends MovableObject{
 	private int speed;
 	private int fuelLevel;
 	
-	//Missilesconstructor
+	//Missiles Constructor
 	public Missiles(){
 		
 	}
@@ -18,5 +18,13 @@ public class Missiles extends MovableObject{
 	public void setFuelLevel(int fuelLevel) {
 		this.fuelLevel = fuelLevel;
 	}
+	
+	//public void move() {}
+//	public int getSpeed() {}
+//	public void setSpeed(int speed) {}
+//	public void setDefaultSpeed(int defaultSpeed) {}
+//	public int getHeading() {}
+//	public void setHeading(int heading) {}
+	
 	//public String toString(){}
 }

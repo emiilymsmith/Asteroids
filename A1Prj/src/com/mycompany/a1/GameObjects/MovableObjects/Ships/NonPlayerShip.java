@@ -4,4 +4,7 @@ import com.mycompany.a1.GameObjects.MovableObjects.Ship;
 
 public class NonPlayerShip extends Ship{
 
+	public NonPlayerShip() {
+		
+	}
 }

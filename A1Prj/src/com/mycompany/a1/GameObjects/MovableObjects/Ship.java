@@ -1,5 +1,11 @@
 package com.mycompany.a1.GameObjects.MovableObjects;
 
-public abstract class Ship {
+import com.mycompany.a1.GameObjects.MovableObject;
+
+public abstract class Ship extends MovableObject{
 	//private int missileCount;
+	public Ship() {
+		
+	}
+	
 }

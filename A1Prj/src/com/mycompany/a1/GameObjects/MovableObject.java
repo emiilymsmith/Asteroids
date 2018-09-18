@@ -7,23 +7,11 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	public MovableObject() {
 		
 	}
+	//abstract void move();
+//	abstract public int getSpeed();
+//	abstract public void setSpeed(int speed);
+//	abstract public void setDefaultSpeed(int defaultSpeed); //setters don't need a return type back
+//	abstract public int getHeading();
+//	abstract public void setHeading(int heading);
 
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	public int getHeading() {
-		return heading;
-	}
-
-	public void setHeading(int heading) {
-		this.heading = heading;
-	}
-	
-	//move();
-	//public String toString(){}
 }
