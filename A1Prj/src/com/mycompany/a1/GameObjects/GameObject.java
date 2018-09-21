@@ -8,12 +8,13 @@ public abstract class GameObject{
 	
 	private Point2D location;
 	private int color;
-	protected Random rand = new Random();
+	protected Random r = new Random();
 	
 	//GameObject constructors
 	public GameObject(){
-
+		
 	}
+	
 	//getters and setters
 	public int getColor() {
 		return color;
@@ -23,12 +24,12 @@ public abstract class GameObject{
 		this.color = color;
 	}
 
-	public void getLocation() {
-		
+	public Point2D getLocation() {
+		return this.location;
 	}
 	
-	public void setLocation() {
-		
+	public void setLocation(Point2D point) {
+		this.location = point;
 	}
 	
 	public double getX() {
@@ -36,7 +37,11 @@ public abstract class GameObject{
 	}
 	
 	public void setX(double x) {
-		location.setX(x);
+		if (x >= 0 && x <= 1024) {
+			location.setX(x);
+		} else {
+			System.out.println("Input is out of bounds!");
+		}
 	}
 	
 	public double getY() {
@@ -44,20 +49,31 @@ public abstract class GameObject{
 	}
 	
 	public void setY(double y) {
-		location.setY(y);
+		if (y >= 0 && y <= 768) {
+			location.setY(y);
+		} else {
+			System.out.println("Input is out of bounds!");
+		}
 	}
 	
+	//print color and location here
 	public String toString(){
-		double x = Math.round(this.getX());
-		double y = Math.round(this.getY());
 		String returnStr = "";
-		returnStr += "___________________________";
-		returnStr += "Location: ( "+x+" , "+y+" )";
-		returnStr += "___________________________";
-		returnStr += " " + "[" + ColorUtil.red(getColor()) + ","
-                + ColorUtil.green(getColor()) + ","
-                + ColorUtil.blue(getColor()) + "] ";
+		returnStr += "Location: ("+this.getX()+", "+this.getY()+")\n";
+		returnStr += "Color: " + "[" + ColorUtil.red(getColor()) + ","
+                	+ ColorUtil.green(getColor()) + ","
+                	+ ColorUtil.blue(getColor()) + "] ";
+		returnStr += "\n";
 		return returnStr;
+		//every game object should have a location
+		// movable - set the random, or fixed: set as fixed
+	}
+	
+	public void setRandomLocation() {
+		Point2D point = new Point2D(0,0);
+		point.setX(r.nextFloat()*1024);
+		point.setY(r.nextFloat()*768);
+		this.location = point;
 	}
 
 }

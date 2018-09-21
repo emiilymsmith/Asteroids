@@ -25,8 +25,8 @@ public class GameWorld{
 		//add asteroid to storage vector
 		store.add(asteroid);
 		//feedback for creation
+		System.out.println("An ASTEROID has been created.");	
 		System.out.println(asteroid);
-		//System.out.println("An ASTEROID has been created.");	
 	}
 	
 	public void addNPS() {
@@ -36,7 +36,6 @@ public class GameWorld{
 		store.add(nps);
 		//feedback for creation
 		System.out.println("A new NON-PLAYERSHIP has been created.");
-		nps.setSpeed();
 		System.out.println(nps);
 
 	}
@@ -45,6 +44,7 @@ public class GameWorld{
 		SpaceStation bs = new SpaceStation();
 		store.add(bs);
 		System.out.println("A new SPACE STATION has been created.");
+		//System.out.println(bs);
 	}
 	
 	public void addPS() {
@@ -66,6 +66,7 @@ public class GameWorld{
 	public void firePSMissile() {
 		Missiles m = new Missiles();
 		store.add(m);
+		System.out.println("A new MISSILE has been created.");
 		System.out.println(m);
 	}
 //	public void launchNPSMissile() {}
@@ -80,10 +81,16 @@ public class GameWorld{
 //	public void impact() {}
 //	public void ticked() {}
 //	public void printDisplay() {}
-//	public void map() {}
+	public void map() {
+		//prints out a list of all the objects
+		for (GameObject go: store)
+			System.out.println(go.toString());
+	}
 	
 	public void quitGW() {
 		System.exit(0);
 	}
+	
+	public String toString() {return null;}
 	
 }
