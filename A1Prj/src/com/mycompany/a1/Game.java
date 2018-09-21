@@ -17,7 +17,7 @@ public class Game extends Form{
 	//	Game Constructor
 	public Game() {
 		gw = new GameWorld();
-		//init();
+		gw.init();
 		play();
 		
 	}
@@ -62,7 +62,7 @@ public class Game extends Form{
 						//gw.changeAngle();
 						break;
 					case 'f':
-						//gw.firePSMissile();
+						gw.firePSMissile();
 						break;
 					case 'L':
 						//gw.launchNPSMissile();

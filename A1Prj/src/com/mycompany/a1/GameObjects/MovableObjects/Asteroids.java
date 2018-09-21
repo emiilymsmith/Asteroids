@@ -1,39 +1,38 @@
 package com.mycompany.a1.GameObjects.MovableObjects;
 
+import java.util.Random;
+
+import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a1.GameObjects.MovableObject;
 
 public class Asteroids extends MovableObject{
 	private int size;
-
+	
 	public Asteroids(){
-		size = 1;
+		super.setColor(ColorUtil.BLACK);
+		size = randomSize();
+		super.setSpeed(); //me asking parent what my speed is
 	}
 	
 	//getters and setters
-	public int getSize() {
-		 return super.getSize();
-	}
-
 	public void setSize(int size) {
 		this.size = size;
 	}
+
+	public int randomSize() {
+		int num = rand.nextInt((30 - 6) + 1) + 6;
+		return num;
+	}
 	
-//	//public void move() {}
-//	public int getSpeed() {}
-//
-//	//set speed 2 kinds setDefaultSpeed random number 1-10 and normal setter
-//	public void setSpeed(int speed) {}
-//	public void setDefaultSpeed(int defaultSpeed) {}
+//	public void setRandomHeading(int heading) {
+//		//location = setX(rand.nextFloat()*1024);
+//	}
 //	public int getHeading() {}
-//	public void setHeading(int heading) {}
-	
-	
 	
 	public String toString() {
 		String returnStr = "";
-		returnStr += "___________________________";
-		returnStr += "Size: "+size;
-		returnStr += "___________________________";
+		returnStr += "Asteroid Size: "+size;
+		returnStr += "___________";
 		return returnStr;
 	}
 	

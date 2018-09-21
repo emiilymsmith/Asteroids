@@ -1,7 +1,7 @@
 package com.mycompany.a1.GameObjects;
 
 public class FixedObject extends GameObject {
-	private int id;
+	private static int id;
 	
 	public FixedObject() {
 		
