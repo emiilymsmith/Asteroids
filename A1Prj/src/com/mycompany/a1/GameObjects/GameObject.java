@@ -65,7 +65,7 @@ public abstract class GameObject{
                 	+ ColorUtil.blue(getColor()) + "] ";
 		returnStr += "\n";
 		return returnStr;
-		//every game object should have a location
+		/*every game object should have a location */
 		// movable - set the random, or fixed: set as fixed
 	}
 	

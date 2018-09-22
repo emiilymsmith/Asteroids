@@ -101,7 +101,7 @@ public class Game extends Form{
 						//gw.printDisplay();
 						break;
 					case 'm':
-						gw.map();
+						//gw.map();
 						break;
 					case 'q':
 						gw.quitGW();

@@ -4,14 +4,30 @@ import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.MovableObject;
 
 public abstract class Ship extends MovableObject{
-	//abstract??
 	private int missileCount;
-	private int color;
-	private Point2D location;
-	private int speed;
 	
+	// Ship Constructor
 	public Ship() {
 		
 	}
 	
+	//getters and setters
+	public int getMissileCount() {
+		return this.missileCount;
+	}
+	
+	public void setMissileCount(int missile) {
+		this.missileCount = missile;
+	}
+	
+	public void setFixedMissileCount() {
+		this.missileCount = 1000;
+	}
+	
+	public String toString() {
+		String returnStr = "";
+		returnStr += super.toString();
+		returnStr += "Missile Count: "+this.getMissileCount()+"\n";
+		return returnStr;
+	}
 }

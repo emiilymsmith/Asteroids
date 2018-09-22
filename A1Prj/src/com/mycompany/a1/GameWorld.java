@@ -37,20 +37,20 @@ public class GameWorld{
 		//feedback for creation
 		System.out.println("A new NON-PLAYERSHIP has been created.");
 		System.out.println(nps);
-
 	}
 	
 	public void addSpaceStation() {
-		SpaceStation bs = new SpaceStation();
+		SpaceStation bs = new SpaceStation(); //blinking space station
 		store.add(bs);
 		System.out.println("A new SPACE STATION has been created.");
-		//System.out.println(bs);
+		System.out.println(bs);
 	}
 	
 	public void addPS() {
 		PlayerShip ps = new PlayerShip();
 		store.add(ps);
 		System.out.println("A new PLAYER SHIP has been created.");
+		System.out.println(ps);
 	}
 	
 //	public void increaseSpeed() {

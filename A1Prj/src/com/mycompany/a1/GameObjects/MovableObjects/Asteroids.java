@@ -1,7 +1,5 @@
 package com.mycompany.a1.GameObjects.MovableObjects;
 
-import java.util.Random;
-
 import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a1.GameObjects.MovableObject;
 
@@ -9,11 +7,12 @@ import com.mycompany.a1.GameObjects.MovableObject;
 public class Asteroids extends MovableObject{
 	private int size;
 	
+	/* Asteroid Constructor */
 	public Asteroids(){
-		super.setColor(ColorUtil.BLACK);
-		this.size = getRandomSize();
+		super.setColor(ColorUtil.BLACK); // from GameObject
+		this.size = getRandomSize(); //from here
 		super.setRandomHeading();// from MovableObject
-		super.setSpeed(); //me asking parent what my speed is
+		super.setRandomSpeed(); //me asking parent what my speed is
 		super.setRandomLocation(); //from GameObject
 	}
 	
@@ -31,8 +30,6 @@ public class Asteroids extends MovableObject{
 		String returnStr = "";
 		returnStr += super.toString();
 		returnStr += "Asteroid Size: "+this.size+"\n";
-		returnStr += "___________";
 		return returnStr;
 	}
-	
 }

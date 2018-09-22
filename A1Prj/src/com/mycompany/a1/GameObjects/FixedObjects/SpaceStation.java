@@ -1,27 +1,37 @@
 package com.mycompany.a1.GameObjects.FixedObjects;
 
+import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a1.GameObjects.FixedObject;
 
+// b adds a Space Station
 public class SpaceStation extends FixedObject {
 	private int blinkRate;
-	//private int period;
 	
+	// SpaceStation Constructor
 	public SpaceStation() {
-		
+		this.blinkRate = getBlinkRate(); //from here
+		super.setColor(ColorUtil.BLUE); //from GameObject
+		super.setRandomLocation(); //from GameObject
+		//super.setId();
 	}
-	//public setColor(){}
+
 	public void toggleLight() {
 		
 	}
 	
-	public void getBlinkRate(){
-		
+	public void setBlinkRate() {
+		this.blinkRate = r.nextInt(5)+1; //+1 so it doesn't start at 0
+
 	}
 	
-//	public void setBlinkRate(){}????
-	
-	public void setId() {
-		
+	public int getBlinkRate(){
+		return this.blinkRate;
 	}
-	//public void toString() {}
+	
+	public String toString() {
+		String returnStr = "";
+		returnStr += super.toString();
+		returnStr += "Blink Rate: "+this.blinkRate+"\n";
+		return returnStr;
+	}
 }

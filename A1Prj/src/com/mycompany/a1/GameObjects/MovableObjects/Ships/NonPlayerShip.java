@@ -2,32 +2,36 @@ package com.mycompany.a1.GameObjects.MovableObjects.Ships;
 
 import java.util.Random;
 
-import com.codename1.ui.geom.Point2D;
+import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a1.GameObjects.MovableObjects.Ship;
 
+// y creates NPS
 public class NonPlayerShip extends Ship{
 	private int size;
-	private int speed;
-	private Point2D heading;
-	
+
 	public NonPlayerShip() {
-		
+		super.setColor(ColorUtil.GREEN);
+		this.size = this.getRandomSize();
+		super.setSpeed(15);
+		super.setRandomHeading();
+		super.setFixedMissileCount(); //random
 	}
 	
-	public void setSpeed() {
-//		this.speed = rand.nextInt(10)+1;
-	}
-	
-	public void setSize() {
+	public void setSize(int size) {
 //		this.size = rand.nextInt(3)+1; //includes 0, discludes 2
+		this.size = size;
+	}
+	
+	public int getRandomSize() {
+		int num = r.nextInt(3) + 1; //+1 so it doesn't start at 0
+		return num;
 	}
 	
 	public String toString() {
 		String returnStr = "";
-		returnStr += "Set NPS Size to: " +size+"0,";
-		returnStr += " Set NPS Speed: "+speed;
+		returnStr += super.toString();
+		returnStr += "Set NPS Size to: "+this.size+"0\n";
+		//returnStr += " Set NPS Speed: "+speed;
 		return returnStr;
 	}
-//	public void steerHeading(); //this doesn't move, do we initialize this once and thats it?
-	
 }

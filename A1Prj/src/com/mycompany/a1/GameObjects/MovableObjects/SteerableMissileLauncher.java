@@ -10,5 +10,12 @@ public class SteerableMissileLauncher extends MovableObject implements ISteerabl
 	}
 	
 //	public String toString() {}
-	
+	@Override
+	public void turnLeft() {
+		
+	}
+	@Override
+	public void turnRight() {
+		
+	}
 }

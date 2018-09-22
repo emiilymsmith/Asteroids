@@ -9,8 +9,10 @@ public class MissileLauncher extends MovableObject{
 		
 	}
 	
-	public void setMissileCount() {}
-	public void getMissileCount() {}
+
 //	public String toString() {}
+//	@Override
+//	public void move() {}
+
 }
-//implicit
+

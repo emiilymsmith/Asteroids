@@ -1,7 +1,5 @@
 package com.mycompany.a1.GameObjects.MovableObjects;
 
-import java.util.Random;
-
 import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a1.GameObjects.MovableObject;
 
@@ -11,25 +9,21 @@ public class Missiles extends MovableObject{
 	
 	//Missiles Constructor
 	public Missiles(){
-		super.setColor(ColorUtil.GREEN);
-		super.setSpeed();
-		super.setRandomHeading();
-		this.fuelLevel = getFuelLevel();
+		super.setColor(ColorUtil.GREEN); //from GameObject
+		//super.setRandomSpeed(); //from MovableObject //speed is greater than ships
+		//super.setRandomHeading(); //from MovableObject //heading comes from ship
+		this.setFuelLevel(10); //= getFuelLevel(); //from here
 	}
-
-//	public void setColor() {}
 	
 	public int getFuelLevel() {
 		//put in timer, ticks down as time goes on, 10 ticks to failure
 		return fuelLevel = 10;
 	}
 
-	public void setFuelLevel(int fuelLevel) {
-		this.fuelLevel = fuelLevel;
+	public void setFuelLevel(int fuel) {
+		//this.fuelLevel = fuelLevel;
+		this.fuelLevel = fuel;
 	}
-//	public void decrememntFuelLevel() {}s
-//	public int getHeading() {}
-//	public void setHeading(int heading) {}
 	
 	public String toString(){
 		String returnStr = "";

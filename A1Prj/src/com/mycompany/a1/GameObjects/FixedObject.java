@@ -1,26 +1,25 @@
 package com.mycompany.a1.GameObjects;
 
 public class FixedObject extends GameObject {
-	private static int id;
+	private int id;
+	private static int bsid; // static??
 	
 	public FixedObject() {
 		
 	}
 	
 	public int getId() {
-		return id;
+		return this.id;
 	}
-//	public void setId(int id) {
-//		this.id = id;
-//	}
 	
-//	public void setX(double x) {
-//		GameObject.setX();
-//	}
-//	
-//	public void setY(double y) {
-//		location.setY(y);
-//	}
-	//public class toString(){}
+	public void setId() {
+		this.id = ++bsid;
+	}
 	
+	public String toString(){
+		String returnStr = "";
+		returnStr += super.toString();
+		returnStr += "Space Station ID: 1"+this.getId()+"\n";
+		return returnStr;
+	}
 }

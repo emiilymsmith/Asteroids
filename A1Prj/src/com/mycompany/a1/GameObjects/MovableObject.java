@@ -1,7 +1,5 @@
 package com.mycompany.a1.GameObjects;
 
-import com.codename1.io.Util;
-
 public abstract class MovableObject extends GameObject implements IMovable{
 	private int speed; //HERE IS THE SPEED
 	private int heading; //HERE IS THE HEADING
@@ -14,18 +12,21 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	public int getSpeed() {
 		return this.speed;
 	}
-	public void setSpeed() {
-		this.speed = r.nextInt(10)+1; //this means here in this file
-	}
-//	abstract public void setDefaultSpeed(int defaultSpeed); //setters don't need a return type back
-//	abstract public int getHeading();
-//	abstract public void setHeading(int heading);
-	public void setHeading(int heading) {
-		this.heading = heading;
+	
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 	
 	public int getHeading() {
 		return this.heading;
+	}
+	
+	public void setHeading(int heading) {
+		this.heading = heading;
+	}
+	
+	public void setRandomSpeed() {
+		this.speed = r.nextInt(10)+1; //"this" means HERE in this file
 	}
 	
 	public void setRandomHeading() {
@@ -36,7 +37,7 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	public String toString() {
 		String returnStr = "";
 		returnStr += super.toString();
-		returnStr += "Speed: "+this.getSpeed()+"\n";
+		returnStr += "Speed: "+this.getSpeed()+"\n"; /* getSpeed() according to the object it's printing */
 		returnStr += "Heading: "+this.getHeading()+"\n";
 		return returnStr;
 	}
