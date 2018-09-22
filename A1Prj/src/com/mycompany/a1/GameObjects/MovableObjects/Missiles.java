@@ -10,7 +10,7 @@ public class Missiles extends MovableObject{
 	//Missiles Constructor
 	public Missiles(){
 		super.setColor(ColorUtil.GREEN); //from GameObject
-		//super.setRandomSpeed(); //from MovableObject //speed is greater than ships
+		//super.setRandomSpeed(); //from MovableObject //speed is greater than playership's like +2
 		//super.setRandomHeading(); //from MovableObject //heading comes from ship
 		this.setFuelLevel(10); //= getFuelLevel(); //from here
 	}

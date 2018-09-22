@@ -47,7 +47,7 @@ public class Game extends Form{
 						gw.addPS();
 						break;
 					case 'i':
-						//gw.increaseSpeed();
+						gw.increaseSpeed();
 						break;
 					case 'd':
 						//gw.decreaseSpeed();
@@ -74,7 +74,7 @@ public class Game extends Form{
 						//gw.loadMissiles();
 						break;
 					case 'k':
-						//gw.killedAsteroid();
+						gw.killedAsteroid();
 						break;
 					case 'e':
 						//gw.eliminatedNPS();

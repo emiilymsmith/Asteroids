@@ -12,7 +12,7 @@ public class NonPlayerShip extends Ship{
 	public NonPlayerShip() {
 		super.setColor(ColorUtil.GREEN);
 		this.size = this.getRandomSize();
-		super.setSpeed(15);
+		super.setSpeed(5);
 		super.setRandomHeading();
 		super.setFixedMissileCount(); //random
 	}
@@ -31,7 +31,7 @@ public class NonPlayerShip extends Ship{
 		String returnStr = "";
 		returnStr += super.toString();
 		returnStr += "Set NPS Size to: "+this.size+"0\n";
-		//returnStr += " Set NPS Speed: "+speed;
+		//returnStr += " Set NPS Speed: "+this.speed;
 		return returnStr;
 	}
 }
