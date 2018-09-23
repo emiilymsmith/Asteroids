@@ -3,18 +3,23 @@ package com.mycompany.a1.GameObjects.MovableObjects.Ships;
 import java.util.Random;
 
 import com.codename1.charts.util.ColorUtil;
+import com.mycompany.a1.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a1.GameObjects.MovableObjects.Ship;
+import com.mycompany.a1.GameObjects.MovableObjects.SteerableMissileLauncher;
 
 // y creates NPS
 public class NonPlayerShip extends Ship{
 	private int size;
+	private MissileLauncher nonPlayerShipML;
 
 	public NonPlayerShip() {
 		super.setColor(ColorUtil.GREEN);
 		this.size = this.getRandomSize();
 		super.setSpeed(5);
 		super.setRandomHeading();
-		super.setFixedMissileCount(); //random
+		super.setFixedMissileCount(); // 2 at most
+		
+		nonPlayerShipML = new MissileLauncher();
 	}
 	
 	public void setSize(int size) {

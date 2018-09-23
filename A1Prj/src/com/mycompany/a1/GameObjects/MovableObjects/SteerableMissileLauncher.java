@@ -19,7 +19,7 @@ public class SteerableMissileLauncher extends MovableObject implements ISteerabl
 		//TODO: change to be individual
 	}
 	
-	public void changeHeading(int degChange) {
+	public void changeAngle(int degChange) {
 		this.setHeading(this.getHeading() + degChange);
 	}
 	
