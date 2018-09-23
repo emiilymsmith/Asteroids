@@ -8,6 +8,7 @@ import com.mycompany.a1.GameObjects.GameObject;
 import com.mycompany.a1.GameObjects.FixedObjects.SpaceStation;
 import com.mycompany.a1.GameObjects.MovableObjects.Asteroids;
 import com.mycompany.a1.GameObjects.MovableObjects.Missiles;
+import com.mycompany.a1.GameObjects.MovableObjects.SteerableMissileLauncher;
 import com.mycompany.a1.GameObjects.MovableObjects.Ships.NonPlayerShip;
 import com.mycompany.a1.GameObjects.MovableObjects.Ships.PlayerShip;
 
@@ -136,7 +137,7 @@ public class GameWorld{
 		if (psExists()) {
 			for(GameObject ps : storage) {
 				if(ps instanceof PlayerShip) {
-					//SteerableMissileLauncher playerShipML = ((PlayerShip) ps).getPlayerShipMissileLauncher();
+					//SteerableMissileLauncher sml = ((PlayerShip) ps).getSteerableMissileLauncher();
 					//playerShipML.changeHeading(-10);
 					System.out.println("PLAYERSHIP MISSILE LAUNCHER rotated");
 				}
@@ -152,9 +153,30 @@ public class GameWorld{
 		System.out.println(m);
 	}
 	
-//	public void launchNPSMissile() {}
+	public void launchNPSMissile() {
+		if(psExists()) {
+            int index = getPlayerShipIndex();
+            PlayerShip ps = (PlayerShip) storage.get(index);
+            int numOfMissiles = ps.getMissileCount();
+            if (numOfMissiles < 1)
+                System.err.println("PLAYERSHIP is out of missiles, cannot fire");
+            else {
+                ps.setMissileCount(numOfMissiles - 1);
+                //SteerableMissileLauncher sml = ps.getSteerableMissileLauncher();
+                Missiles firedMissile = new Missiles();
+                storage.add(firedMissile);
+                System.out.println("PLAYERSHIP MISSILE FIRED");
+            }
+        }
+        else
+            System.err.println("PLAYERSHIP MISSILE FIRE UNSUCCESSFUL");
+	}
+	
 //	public void jump() {}
 //	public void loadMissiles() {}
+	
+	
+	
 	/* k */
 	public void killedAsteroid() {
 		if( asteroidExists() & missileExists()) {
@@ -274,6 +296,16 @@ public class GameWorld{
         if(!mexists)
             System.out.println("A MISSILE does not exist.");
         return mexists;
+    }
+	
+	private int getPlayerShipIndex(){
+        int psLoc = 0; //player ship location in storage
+        for (GameObject ps : storage) {
+            if (ps instanceof PlayerShip) {
+                psLoc = storage.indexOf(ps);
+            }
+        }
+        return psLoc;
     }
 
 }

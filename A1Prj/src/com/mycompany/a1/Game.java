@@ -50,22 +50,22 @@ public class Game extends Form{
 						gw.increaseSpeed();
 						break;
 					case 'd':
-						//gw.decreaseSpeed();
+						gw.decreaseSpeed();
 						break;
 					case 'l':
-						//gw.turnLeft();
+						gw.turnLeft();
 						break;
 					case 'r':
-						//gw.turnRight();
+						gw.turnRight();
 						break;
 					case '<':
-						//gw.changeAngle();
+						gw.aimML(); //aim missile launcher
 						break;
 					case 'f':
 						gw.firePSMissile();
 						break;
 					case 'L':
-						//gw.launchNPSMissile();
+						gw.launchNPSMissile();
 						break;
 					case 'j':
 						//gw.jump();
@@ -110,6 +110,6 @@ public class Game extends Form{
 			}//action Performed
 		} //new ActionListener()
 		); //addActionListener -- lambda expressions
-		}//play
+	}//play
 	
 }
