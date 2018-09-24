@@ -1,8 +1,8 @@
 package com.mycompany.a1.GameObjects;
 
 public class FixedObject extends GameObject {
-	private int id;
-	private static int bsid; // static??
+	private int id; // counter
+	private static int bsid;
 	
 	public FixedObject() {
 		
@@ -13,7 +13,7 @@ public class FixedObject extends GameObject {
 	}
 	
 	public void setId() {
-		this.id = ++bsid;
+		id = ++bsid;
 	}
 	
 	public String toString(){

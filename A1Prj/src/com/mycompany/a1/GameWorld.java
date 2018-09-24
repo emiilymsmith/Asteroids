@@ -1,9 +1,7 @@
 package com.mycompany.a1;
 
-import java.util.Random;
 import java.util.Vector;
 
-import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a1.GameObjects.GameObject;
 import com.mycompany.a1.GameObjects.FixedObjects.SpaceStation;
 import com.mycompany.a1.GameObjects.MovableObjects.Asteroids;
@@ -20,7 +18,7 @@ public class GameWorld{
 	private int ticks;
 	private int score;
 	
-	
+	//get rid of these
 	//private final int PLAYERSHIP_LIVES = 3;
 	private final int ASTEROID_SCORE = 10;
 	private final int NPS_SCORE = 30;
@@ -41,7 +39,7 @@ public class GameWorld{
 	}
 	
 	public void addNPS() {
-		//create NonPlayerShip object
+		/*create NonPlayerShip object*/
 		NonPlayerShip nps = new NonPlayerShip();
 		//add NonPlayerShip to storage vector
 		storage.add(nps);
@@ -73,14 +71,15 @@ public class GameWorld{
 	/* Increases PLAYERSHIP's Speed*/
 	public void increaseSpeed() {
 		if(psExists()) {
-            for (GameObject pShip : storage) {
-                if (pShip instanceof PlayerShip) {
-                    int currSpeed = ((PlayerShip) pShip).getSpeed();
-                    if (currSpeed > 8) {
+            for (GameObject ps : storage) {
+                if (ps instanceof PlayerShip) {
+                    int currSpeed = ((PlayerShip) ps).getSpeed();
+                    if (currSpeed > 10) {
                         System.out.println("Already at MAX PLAYERSHIP speed.");
                     } else {
-                        ((PlayerShip) pShip).setSpeed(currSpeed + 2);
-                        System.out.println("PLAYERSHIP speed has INCREASED");
+                        ((PlayerShip) ps).increaseSpeed();
+                        System.out.println("\nPLAYERSHIP speed has INCREASED");
+                        System.out.println(ps);
                     }
                 }
             }
@@ -94,11 +93,12 @@ public class GameWorld{
             for (GameObject ps : storage) {
                 if (ps instanceof PlayerShip) {
                     int currentSpeed = ((PlayerShip) ps).getSpeed();
-                    if (currentSpeed < 2) {
+                    if (currentSpeed < 0) {
                         System.out.println("Already at MIN PLAYERSHIP speed.");
                     } else {
-                        ((PlayerShip) ps).setSpeed(currentSpeed - 2);
-                        System.out.println("PLAYERSHIP speed DECREASED");
+                        ((PlayerShip) ps).decreaseSpeed();
+                        System.out.println("\nPLAYERSHIP speed has DECREASED");
+                        System.out.println(ps);
                     }
                 }
             }
@@ -137,8 +137,8 @@ public class GameWorld{
 		if (psExists()) {
 			for(GameObject ps : storage) {
 				if(ps instanceof PlayerShip) {
-					//SteerableMissileLauncher sml = ((PlayerShip) ps).getSteerableMissileLauncher();
-					//playerShipML.changeHeading(-10);
+					SteerableMissileLauncher sml = ((PlayerShip) ps).getPSML();
+					sml.changeAngle(-10);
 					System.out.println("PLAYERSHIP MISSILE LAUNCHER rotated");
 				}
 			}

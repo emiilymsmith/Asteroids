@@ -3,15 +3,15 @@ package com.mycompany.a1.GameObjects.MovableObjects.Ships;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.MovableObjects.ISteerable;
+import com.mycompany.a1.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a1.GameObjects.MovableObjects.Ship;
 import com.mycompany.a1.GameObjects.MovableObjects.SteerableMissileLauncher;
 
 // s creates a player ship
 public class PlayerShip extends Ship implements ISteerable{
-	//private int size;
+	private int size;
 	private int lives;
-	private int missileCount;
-	
+
 	private SteerableMissileLauncher playerShipML;
 	
 	public PlayerShip(){
@@ -21,12 +21,16 @@ public class PlayerShip extends Ship implements ISteerable{
 		super.setSpeed(0);
 		super.setHeading(0);
 		super.setLocation(point);
-		this.missileCount = 10; // has to be 10
-		
-		playerShipML = new SteerableMissileLauncher();
+		super.setMissileCount(10); // has to be 10
+		 /*TODO: copy missile launcher and NPS*/
+		playerShipML = new SteerableMissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed());
 	}
 	
 	// getters and setters
+	public SteerableMissileLauncher getPSML() {
+        return playerShipML;
+    }
+	
 	public int getLives() {
 		return lives = 3;
 	}
@@ -35,23 +39,26 @@ public class PlayerShip extends Ship implements ISteerable{
 		this.lives = lives;
 	}
 	
-	public int getMissileCount() {
-		return this.missileCount;
-	}
-	
-	public void setMissileCount(int missile) {
-		this.missileCount = missile;
-	}
-	
 	public void changeHeading(int degChange){
 		this.setHeading(this.getHeading() + degChange);
+	}
+	
+	public void increasePSSpeed() {
+		super.increaseSpeed();
+		playerShipML.increaseSpeed();
+	}
+	
+	public void decreasePSSpeed() {
+		super.decreaseSpeed();
+		playerShipML.decreaseSpeed();
 	}
 	
 	public String toString(){
 		String returnStr = "";
 		returnStr += super.toString();
-		returnStr += "Player Ship Missile Count: "+this.getMissileCount()+"\n";
+		returnStr += "Player Ship Missile Count: "+super.getMissileCount()+"\n";
 		returnStr += "Ship Lives: "+ this.getLives();
+		returnStr += "\n";
 		return returnStr;
 	}
 	

@@ -9,10 +9,10 @@ public class SpaceStation extends FixedObject {
 	
 	// SpaceStation Constructor
 	public SpaceStation() {
+		super.setId();
 		this.blinkRate = getBlinkRate(); //from here
 		super.setColor(ColorUtil.BLUE); //from GameObject
 		super.setRandomLocation(); //from GameObject
-		//super.setId();
 	}
 
 	public void toggleLight() {

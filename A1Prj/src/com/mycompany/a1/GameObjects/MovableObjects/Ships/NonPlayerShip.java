@@ -3,24 +3,31 @@ package com.mycompany.a1.GameObjects.MovableObjects.Ships;
 import java.util.Random;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a1.GameObjects.MovableObjects.Ship;
 import com.mycompany.a1.GameObjects.MovableObjects.SteerableMissileLauncher;
 
-// y creates NPS
+/* y creates a new NPS */
 public class NonPlayerShip extends Ship{
 	private int size;
 	private MissileLauncher nonPlayerShipML;
 
 	public NonPlayerShip() {
+		super.setRandomLocation();
 		super.setColor(ColorUtil.GREEN);
 		this.size = this.getRandomSize();
 		super.setSpeed(5);
 		super.setRandomHeading();
 		super.setFixedMissileCount(); // 2 at most
 		
-		nonPlayerShipML = new MissileLauncher();
+		/* location, heading, speed */
+		nonPlayerShipML = new MissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed());
 	}
+	
+	public MissileLauncher getML() {
+        return nonPlayerShipML;
+    }
 	
 	public void setSize(int size) {
 //		this.size = rand.nextInt(3)+1; //includes 0, discludes 2
@@ -31,6 +38,14 @@ public class NonPlayerShip extends Ship{
 		int num = r.nextInt(3) + 1; //+1 so it doesn't start at 0
 		return num;
 	}
+	
+//	public void updateLocation(double) {
+//		//temporary = nonPlayerShipML(this.location);
+//		//NonPlayerShip.nonPlayerShipML.super.setLocation();
+//		temporary = super.getLocation();
+//		double temporaryX = super.getX();
+//		double temporaryY = super.getY();
+//	}
 	
 	public String toString() {
 		String returnStr = "";

@@ -7,11 +7,11 @@ import com.mycompany.a1.GameObjects.MovableObject;
 public class Missiles extends MovableObject{
 	private int fuelLevel;
 	
-	//Missiles Constructor
+	/* Missiles Constructor */
 	public Missiles(){
 		super.setColor(ColorUtil.GREEN); //from GameObject
 		//super.setRandomSpeed(); //from MovableObject //speed is greater than playership's like +2
-		//super.setRandomHeading(); //from MovableObject //heading comes from ship
+		//super.setRandomHeading(); //from MovableObject //heading comes from ship8
 		this.setFuelLevel(10); //= getFuelLevel(); //from here
 	}
 	

@@ -3,15 +3,15 @@ package com.mycompany.a1.GameObjects;
 import com.codename1.ui.geom.Point2D;
 
 public abstract class MovableObject extends GameObject implements IMovable{
-	private int speed; //HERE IS THE SPEED
-	private int heading; //HERE IS THE HEADING
+	private int speed; //'HERE' IS THE SPEED
+	private int heading; //'HERE' IS THE HEADING
 	
 	public MovableObject() {
 		this.heading = getHeading();
 	}
 
 	public void move() {
-		/*gets the new location based on current params*/
+		/*gets the new location based on current parameters*/
 		double newX = Math.cos(Math.toRadians(90 - this.getHeading())) * this.getSpeed();
 		double newY = Math.sin(Math.toRadians(90 - this.getHeading())) * this.getSpeed();
 		
@@ -44,7 +44,6 @@ public abstract class MovableObject extends GameObject implements IMovable{
 		} else {
 			this.heading = degChange;
 		}
-		//this.heading = heading;
 	}
 	
 	public void setRandomSpeed() {
@@ -54,6 +53,22 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	public void setRandomHeading() {
 		this.heading = r.nextInt(359)+1;
 		//something with angles
+	}
+	
+	public void increaseSpeed() {
+		if(this.speed < 10 && this.speed >= 0) {
+			this.speed++;
+		} else {
+			System.out.println("Error: Object speed could not be increased!");
+		}
+	}
+	
+	public void decreaseSpeed() {
+		if(this.speed < 10 && this.speed >= 0) {
+			this.speed--;
+		} else {
+			System.out.println("Error: Object speed could not be increased!");
+		}
 	}
 	
 	public String toString() {
