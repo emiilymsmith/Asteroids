@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.GameObject;
+import com.mycompany.a1.GameObjects.IMovable;
 import com.mycompany.a1.GameObjects.FixedObjects.SpaceStation;
 import com.mycompany.a1.GameObjects.MovableObjects.Asteroids;
 import com.mycompany.a1.GameObjects.MovableObjects.MissileLauncher;
@@ -170,7 +171,7 @@ public class GameWorld{
 	}
 	
 	public void launchNPSMissile() {
-		if(nonPShipExists()) {
+		if(nonPSExists()) {
             int index = getNonPlayerShipIndex();
             NonPlayerShip nps = (NonPlayerShip) storage.get(index);
             int numMissiles = nps.getMissileCount();
@@ -228,7 +229,7 @@ public class GameWorld{
 	
 	/* PS missile hit NPS */
 	public void eliminatedNPS() {
-		if( psExists() & nonPShipExists()) {
+		if( psExists() & nonPSExists()) {
 			removeNPS();
 			score += 8;
 			System.out.println("NonPlayerShip was destroyed by PLAYERSHIP MISSILE");
@@ -238,7 +239,7 @@ public class GameWorld{
 	
 	/* NPS missile hit PS */
 	public void explodePS() {
-		if( psExists() & nonPShipExists()) {
+		if( psExists() & nonPSExists()) {
 			removePS();
 			score += 8;
 			System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
@@ -247,20 +248,136 @@ public class GameWorld{
 	}
 	
 	public void crash() {
+		if( asteroidExists() & psExists()) {
+            removeAsteroid();
+            if(decrementPSLives())
+                System.out.println("PLAYER SHIP hit an ASTEROID");
+        }
+        else
+            System.err.println("Could not hit a Player Ship with an Asteroid");
+	}
+	
+	public void hit() {
+		if(nonPSExists() & psExists()) {
+        removeNPS();
+        if(decrementPSLives())
+            System.out.println("PLAYER SHIP hit a NON-PLAYER SHIP");
+    }
+    else
+        System.err.println("Could not hit a Player Ship with a Non-Player Ship");
+	}
+	
+	public void exterminate() {
+		if(asteroidExists()){
+			removeAsteroid();
+            if(asteroidExists()){
+                removeAsteroid();
+                System.out.println("Two ASTEROIDS collided and EXTERMINATED each other");
+            } else
+            	System.err.println("Only one ASTEROID was removed...");
+		} else
+            System.err.println("Couldn't crash two Asteroids together");
+	}
+	
+	public void impact() {
+		if( nonPSExists() & asteroidExists()) {
+            removeNPS();
+            removeAsteroid();
+            System.out.println("ASTEROID impact with a NONPLAYERSHIP");
+        }
+        else
+            System.err.println("Could not hit a NONPLAYERSHIP with an ASTEROID");
+	}
+	
+	/* Each 'tick' does the following, split into 4 functions: 
+	 * 1. moveAllObjects() - all movable objects update position based on speed and heading
+	 * 2. updateFuel() - missiles fuel level is reduced, those empty are removed
+	 * 3. blinkSS() - space station blinks
+	 * 4. ticked() - (main) calls the above methods and elapses game time by 1 tick
+	 * 
+	 * */
+	public void moveAllObjects() {
+		/* Check if something moves */
+		boolean movable = false;
+        for(GameObject moveObj: storage){
+            if(moveObj instanceof IMovable){
+                ((IMovable) moveObj).move();
+                movable = true;
+            }
+        }
+        /* If something moves, move it, meaning the PLAYERSHIP mostly */
+        if(movable) {
+        	if(psExists()){
+                for (GameObject ps : storage) {
+                    if (ps instanceof PlayerShip) {
+                        SteerableMissileLauncher sml = ((PlayerShip) ps).getPSML();
+                        sml.setLocation(ps.getLocation());
+                    }
+                }
+            } System.out.println("TICK: moved all the moveable objects");
+        } else
+            System.out.println("TICK: No moveable objects exist!");
+	}
+	
+	public void updateFuel() {
+		if(missileExists()){
+            Missiles missile = (Missiles) storage.get(missileIndex());
+            int fuelLevel = missile.getFuelLevel();
+            if (fuelLevel <= 1) {
+                storage.remove(missile);
+                System.out.println("Removed a MISSILE that ran out of fuel");
+            } else
+                missile.setFuelLevel(fuelLevel - 1);
+        }
+        else
+            System.out.println("No MISSILES exist");
+	}
+	
+	private void blinkSS(){
+		boolean ssExists = false;
+        if (ssExists) {
+        	for(GameObject ss: storage) {
+                if (ss instanceof SpaceStation) {
+                    ((SpaceStation) ss).toggleLight();
+                    ssExists = true;
+                }
+            }
+        	System.out.println("SPACESTATION light was triggered");
+        } else
+        	System.out.println("No SPACESTATIONS exists");
+	}
+	
+	public void ticked() {
+		moveAllObjects();
+		updateFuel();
+		blinkSS();
+		ticks ++;
+		System.out.println("============TICK goes the clock============");
+	}
+	
+	/* Print display gives the following: 
+	 * 1. current score 
+	 * 2. number of missiles
+	 * 3. elapsed time
+	 * 
+	 * */
+	public void printDisplay() {
+		
 		
 	}
-	public void hit() {}
-	public void exterminate() {}
-	public void impact() {}
-	public void ticked() {}
-	public void printDisplay() {}
+	
+	
+	/* Map of current world state
+	 * m */
 	public void map() {
 		//prints out a list of all the objects
 		for (GameObject go: storage)
 			System.out.println(go.toString());
 	}
 	
-	/* q */
+	/* Quit to terminate
+	 * confirm with user
+	 * q */
 	public void quitGW() {
 		System.exit(0);
 	}
@@ -312,7 +429,7 @@ public class GameWorld{
         return psexists;
 	}
 	
-	private boolean nonPShipExists() {
+	private boolean nonPSExists() {
         boolean npsexists = false;
         for(GameObject nonPS: storage) {
             if(nonPS instanceof NonPlayerShip) {
@@ -335,7 +452,36 @@ public class GameWorld{
             System.out.println("A MISSILE does not exist.");
         return mexists;
     }
-	
+
+	 /*
+	  * Gets called @ crash() with Asteroid
+	  * decrements lives
+	  * */
+	private boolean decrementPSLives() {
+		boolean quit = false;
+        int numLives;
+        if(psExists()) {
+            for (GameObject ps : storage) {
+                if (ps instanceof PlayerShip) {
+                    numLives = ((PlayerShip) ps).getLives();
+                    if (numLives > 1) {
+                    	((PlayerShip) ps).setLives(numLives - 1);
+                    	return true;
+                    } else {
+                    	((PlayerShip) ps).setLives(numLives - 1);
+                    	quit = true;
+                    }
+                }
+            }
+        }
+        //Game exits if the ship is out of lives
+        if(quit)
+            gameOver();
+        return false;
+	}
+	 /*
+	  * The following 3 methods are getters for object indexes
+	  * */
 	private int getPlayerShipIndex(){
         int psLoc = 0; //player ship location in storage
         for (GameObject ps : storage) {
@@ -354,6 +500,16 @@ public class GameWorld{
             }
         }
         return npsLoc;
+	}
+	
+	public int missileIndex() {
+		int missileIndex = 0;
+        for (GameObject missile : storage) {
+            if (missile instanceof Missiles) {
+                missileIndex = storage.indexOf(missile);
+            }
+        }
+        return missileIndex;
 	}
 	
 	private boolean removeAsteroid(){
