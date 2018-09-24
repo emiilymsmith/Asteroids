@@ -68,40 +68,40 @@ public class Game extends Form{
 						gw.launchNPSMissile();
 						break;
 					case 'j':
-						//gw.jump();
+						gw.jump();
 						break;
 					case 'n':
-						//gw.loadMissiles();
+						gw.loadMissiles();
 						break;
 					case 'k':
-						gw.killedAsteroid();
+						gw.destroyAsteroid(); /*formerly killedAsteroid*/
 						break;
 					case 'e':
-						//gw.eliminatedNPS();
+						gw.eliminatedNPS();
 						break;
 					case 'E':
-						//gw.explodePS();
+						gw.explodePS();
 						break;
 					case 'c':
-						//gw.crash();
+						gw.crash();
 						break;
 					case 'h':
-						//gw.hit();
+						gw.hit();
 						break;
 					case 'x':
-						//gw.exterminate();
+						gw.exterminate();
 						break;
 					case 'I':
-						//gw.impact();
+						gw.impact();
 						break;
 					case 't':
-						//gw.ticked();
+						gw.ticked();
 						break;
 					case 'p':
-						//gw.printDisplay();
+						gw.printDisplay();
 						break;
 					case 'm':
-						//gw.map();
+						gw.map();
 						break;
 					case 'q':
 						gw.quitGW();

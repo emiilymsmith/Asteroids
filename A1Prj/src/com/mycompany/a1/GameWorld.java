@@ -2,6 +2,7 @@ package com.mycompany.a1;
 
 import java.util.Vector;
 
+import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.GameObject;
 import com.mycompany.a1.GameObjects.FixedObjects.SpaceStation;
 import com.mycompany.a1.GameObjects.MovableObjects.Asteroids;
@@ -19,8 +20,6 @@ public class GameWorld{
 	private int ticks;
 	private int score;
 	
-	//get rid of these
-	//private final int PLAYERSHIP_LIVES = 3;
 	private final int ASTEROID_SCORE = 10;
 	private final int NPS_SCORE = 30;
 	
@@ -151,85 +150,115 @@ public class GameWorld{
 		if(psExists()) {
             int index = getPlayerShipIndex();
             PlayerShip ps = (PlayerShip) storage.get(index);
-            int numOfMissiles = ps.getMissileCount();
-            if (numOfMissiles < 1)
+            /* Gets the number of missiles and checks if there's enough to fire one*/
+            int numMissiles = ps.getMissileCount();
+            if (numMissiles < 1)
                 System.err.println("Player Ship is out of missiles, could not fire");
             else {
-                ps.setMissileCount(numOfMissiles - 1);
-                SteerableMissileLauncher  sml = ps.getPSML();
-                Missiles firedMissile = new Missiles();
-                storage.add(firedMissile);
+            	/* decrements number of missiles*/
+            	ps.setMissileCount(numMissiles - 1);
+                SteerableMissileLauncher sml = ps.getPSML();
+                /* creates object Missiles called missile, uses playership's params*/
+                Missiles missile = new Missiles(ps.getLocation(), ps.getHeading(), ps.getSpeed());
+                storage.add(missile);
                 System.out.println("A PLAYER SHIP missile has been FIRED");
             }
 		}
         else
-            System.err.println("Could not fire a Player Ship Missile");
+            System.err.println("Could not fire a PLAYERSHIP Missile because there is no PLAYERSHIP");
 		
 	}
 	
 	public void launchNPSMissile() {
-		if(psExists()) {
-            int index = getPlayerShipIndex();
+		if(nonPShipExists()) {
+            int index = getNonPlayerShipIndex();
             NonPlayerShip nps = (NonPlayerShip) storage.get(index);
-            int numOfMissiles = nps.getMissileCount();
-            if (numOfMissiles < 1)
-                System.err.println("PLAYERSHIP is out of missiles, cannot fire");
+            int numMissiles = nps.getMissileCount();
+            if (numMissiles < 1)
+                System.err.println("NONPLAYERSHIP is out of missiles, cannot fire");
             else {
-                nps.setMissileCount(numOfMissiles - 1);
+                nps.setMissileCount(numMissiles - 1);
                 MissileLauncher ml = nps.getML();
-                Missiles firedMissile = new Missiles();
-                storage.add(firedMissile);
-                System.out.println("PLAYERSHIP MISSILE FIRED");
+                /* creates object Missiles called missile, uses NONplayership's params*/
+                Missiles missile = new Missiles(nps.getLocation(), nps.getHeading(), nps.getSpeed());
+                storage.add(missile);
+                System.out.println("NONPLAYERSHIP MISSILE FIRED");
             }
         }
         else
-            System.err.println("PLAYERSHIP MISSILE FIRE UNSUCCESSFUL");
+            System.err.println("Could not fire a NONPLAYERSHIP Missile because there is no NONPLAYERSHIP");
 	}
 	
-//	public void jump() {}
-//	public void loadMissiles() {}
+	public void jump() {
+		Point2D point = new Point2D(512,384); /* original starting location */
+		if(psExists()) {
+			for(GameObject ps: storage) {
+            	if(ps instanceof PlayerShip) {
+            		ps.setLocation(point);
+            		SteerableMissileLauncher sml = ((PlayerShip) ps).getPSML();
+            		sml.setLocation(point); //gets the location of the PlayerShip to match
+            		System.out.println("PLAYERSHIP has JUMPED through hyperspace");
+                }
+            }
+		}else
+            System.err.println("Could not JUMP through hyperspace");
+	}
 	
-	
-	
-	/* k */
-	public void killedAsteroid() {
+	public void loadMissiles() {
+		if(psExists()) {
+			for (GameObject ps : storage) {
+				if (ps instanceof PlayerShip) {
+					((PlayerShip) ps).setMissileCount(10); /* resets missile count to 10 */
+					System.out.println("PLAYERSHIP missiles were reloaded");
+				}
+			}
+		} else
+			System.err.println("Cannot reload PLAYERSHIP missiles");
+		}
+
+	public void destroyAsteroid() {
 		if( asteroidExists() & missileExists()) {
 			removeAsteroid();
 			removeMissile();
-			score += ASTEROID_SCORE;
-			System.out.println("Asteroid was HIT by PS MISSILE");
-		} else{System.err.println("Could not hit Asteroid with a Player Ship Missile");}
+			score += 4;
+			System.out.println("Asteroid was destroyed by PLAYERSHIP MISSILE");
+		} else
+			System.err.println("Did not hit ASTEROID with a PLAYERSHIP Missile");
 	}
 	
-//	public void eliminatedNPS() {}
+	/* PS missile hit NPS */
+	public void eliminatedNPS() {
+		if( psExists() & nonPShipExists()) {
+			removeNPS();
+			score += 8;
+			System.out.println("NonPlayerShip was destroyed by PLAYERSHIP MISSILE");
+		} else
+			System.err.println("Did not hit NonPlayerShip with a PLAYERSHIP Missile");
+	}
 	
+	/* NPS missile hit PS */
 	public void explodePS() {
-		System.out.println("Your PLAYER SHIP has exploded.");
+		if( psExists() & nonPShipExists()) {
+			removePS();
+			score += 8;
+			System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
+		} else
+			System.err.println("NonPlayerShip did not hit PLAYERSHIP with a missile");
 	}
-//	public void crash() {}
-//	public void hit() {}
-//	public void exterminate() {}
-//	public void impact() {}
-//	public void ticked() {}
-//	public void printDisplay() {}
+	
+	public void crash() {
+		
+	}
+	public void hit() {}
+	public void exterminate() {}
+	public void impact() {}
+	public void ticked() {}
+	public void printDisplay() {}
 	public void map() {
 		//prints out a list of all the objects
 		for (GameObject go: storage)
 			System.out.println(go.toString());
 	}
-
-
-	private boolean removeAsteroid(){
-        for(GameObject asteroid: storage) {
-            if(asteroid instanceof Asteroids) {
-                storage.remove(asteroid);
-                System.out.println("Removed ASTEROID.");
-                return true;
-            }
-        }
-        System.err.println("Did not remove ASTEROID.");
-        return false;
-    }
 	
 	/* q */
 	public void quitGW() {
@@ -238,20 +267,8 @@ public class GameWorld{
 	
 	public String toString() {return null;}
 	
-	private boolean removeMissile() {
-        for(GameObject missile: storage) {
-            if(missile instanceof Missiles) {
-                storage.remove(missile);
-                System.out.println("Removed MISSILE.");
-                return true;
-            }
-        }
-        System.err.println("Did not remove MISSILE.");
-        return false;
-    }
-	
 	private void gameOver() {
-        System.out.println("===========================================");
+        System.out.println("===========================================================");
         System.err.println("GAME OVER");
         System.out.println("The PLAYERSHIP ran out of lives");
         //System.out.println("\tIf you would like to quit type 'Y'");
@@ -269,8 +286,7 @@ public class GameWorld{
 	 * 
 	 * */
 	
-	
-	
+
 	
 	private boolean asteroidExists() {
         boolean aexists = false;
@@ -286,8 +302,8 @@ public class GameWorld{
 	
 	public boolean psExists() {
 		boolean psexists = false;
-        for(GameObject pShip: storage) {
-            if(pShip instanceof PlayerShip) {
+        for(GameObject ps: storage) {
+            if(ps instanceof PlayerShip) {
                 psexists = true;
             }
         }
@@ -339,7 +355,56 @@ public class GameWorld{
         }
         return npsLoc;
 	}
-}
+	
+	private boolean removeAsteroid(){
+        for(GameObject asteroid: storage) {
+            if(asteroid instanceof Asteroids) {
+                storage.remove(asteroid);
+                System.out.println("Removed ASTEROID.");
+                return true;
+            }
+        }
+        System.err.println("Did not remove ASTEROID.");
+        return false;
+    }
+	
+	private boolean removeMissile() {
+        for(GameObject missile: storage) {
+            if(missile instanceof Missiles) {
+                storage.remove(missile);
+                System.out.println("Removed MISSILE.");
+                return true;
+            }
+        }
+        System.err.println("Did not remove MISSILE.");
+        return false;
+    }
+	
+	private boolean removeNPS() {
+		for(GameObject nps: storage) {
+            if(nps instanceof NonPlayerShip) {
+                storage.remove(nps);
+                System.out.println("Removed NonPlayerShip from GAMEWORLD.");
+                return true;
+            }
+        }
+        System.err.println("Did not remove NonPlayerShip.");
+        return false;
+	}
+	
+	private boolean removePS() {
+		for(GameObject ps: storage) {
+            if(ps instanceof PlayerShip) {
+                storage.remove(ps);
+                System.out.println("Removed PLAYERSHIP from GAMEWORLD.");
+                return true;
+            }
+        }
+        System.err.println("Did not remove PLAYERSHIP.");
+        return false;
+	}
+	
+}/* End Game World */
 
 /*
  * TODO
