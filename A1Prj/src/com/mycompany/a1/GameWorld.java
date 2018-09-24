@@ -250,8 +250,9 @@ public class GameWorld{
 		} else
 			System.err.println("Cannot reload PLAYERSHIP missiles");
 		}
-	/** TODO
-	 * formerly killed asteroid
+	/** Destroy Asteriod 
+	 *  PlayerShip Missile hit an asteroid and destroyed it
+	 *  Awarded 4 points
 	 * k */
 	public void destroyAsteroid() {
 		if( asteroidExists() & missileExists()) {
@@ -263,8 +264,8 @@ public class GameWorld{
 			System.err.println("Did not hit ASTEROID with a PLAYERSHIP Missile");
 	}
 	/** Eliminate NonPlayerShip
-	 * PS missile hit NPS 
-	 * 
+	 * PlayerShip Missile hit a NonPlayerShip and destroyed it 
+	 * Awarded 8 points
 	 * e */
 	public void eliminatedNPS() {
 		if( psExists() & nonPSExists()) {
@@ -274,7 +275,8 @@ public class GameWorld{
 		} else
 			System.err.println("Did not hit NonPlayerShip with a PLAYERSHIP Missile");
 	}
-	/** NPS missile hit PS 
+	/** NonPlayerShip missile hit PlayerShip
+	 *  Remove PlayerShip 
 	 * E */
 	public void explodePS() {
 		if( psExists() & nonPSExists()) {
@@ -284,7 +286,8 @@ public class GameWorld{
 		} else
 			System.err.println("NonPlayerShip did not hit PLAYERSHIP with a missile");
 	}
-	/** Crash
+	/** PlayerShip Crashed into an Asteriod
+	 * Lose a life
 	 * c */
 	public void crash() {
 		if( asteroidExists() & psExists()) {
@@ -295,10 +298,9 @@ public class GameWorld{
         else
             System.err.println("Could not hit a Player Ship with an Asteroid");
 	}
-	/** 
-	 * 
-	 * 
-	 * L */
+	/** PlayerShip hit a NonPlayerShip
+	 * Lose a life
+	 * h */
 	public void hit() {
 		if(nonPSExists() & psExists()) {
         removeNPS();
@@ -308,10 +310,10 @@ public class GameWorld{
     else
         System.err.println("Could not hit a Player Ship with a Non-Player Ship");
 	}
-	/** 
-	 * 
+	/** Asteroid Collision both get exterminated
+	 * remove both objects
 	 *  
-	 * L */
+	 * x */
 	public void exterminate() {
 		if(asteroidExists()){
 			removeAsteroid();
@@ -326,7 +328,7 @@ public class GameWorld{
 	/** 
 	 * 
 	 *  
-	 * L */
+	 * I */
 	public void impact() {
 		if( nonPSExists() & asteroidExists()) {
             removeNPS();
@@ -394,7 +396,7 @@ public class GameWorld{
         } else
         	System.out.println("No SPACESTATIONS exists");
 	}
-	
+	/* t */
 	public void ticked() {
 		moveAllObjects();
 		updateFuel();
@@ -408,7 +410,7 @@ public class GameWorld{
 	 * 2. number of missiles
 	 * 3. elapsed time
 	 * 
-	 * */
+	 * p */
 	public void printDisplay() {
 		
 		
@@ -432,6 +434,7 @@ public class GameWorld{
 	
 	public String toString() {return null;}
 	
+	/*EDIT TODO*/
 	private void gameOver() {
         System.out.println("===========================================================");
         System.err.println("GAME OVER");

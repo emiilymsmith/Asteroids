@@ -1,7 +1,14 @@
 package com.mycompany.a1.GameObjects.MovableObjects;
 
 import com.mycompany.a1.GameObjects.MovableObject;
-
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * Ship is an Abstract class that only has the 
+ * missile count for both PlayerShip and NonPlayerShip
+ * 
+ */
 public abstract class Ship extends MovableObject{
 	private int missileCount;
 	

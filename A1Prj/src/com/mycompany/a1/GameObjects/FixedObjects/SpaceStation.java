@@ -3,11 +3,17 @@ package com.mycompany.a1.GameObjects.FixedObjects;
 import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a1.GameObjects.FixedObject;
 
-// b adds a Space Station
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * Blinking Space Station
+ * 
+ */
 public class SpaceStation extends FixedObject {
 	private int blinkRate;
 	
-	// SpaceStation Constructor
+	/* SpaceStation Constructor */
 	public SpaceStation() {
 		super.setId();
 		this.blinkRate = getBlinkRate(); //from here

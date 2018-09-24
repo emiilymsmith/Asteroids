@@ -3,7 +3,14 @@ package com.mycompany.a1.GameObjects.MovableObjects;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.MovableObject;
-
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * Missiles
+ * A Missile is an individual object because once it is fired it moves on it's own and can exist without a ship
+ * 
+ */
 // f fires Missile
 public class Missiles extends MovableObject{
 	private int fuelLevel;
@@ -23,7 +30,6 @@ public class Missiles extends MovableObject{
 	}
 
 	public void setFuelLevel(int fuel) {
-		//this.fuelLevel = fuelLevel;
 		this.fuelLevel = fuel;
 	}
 	

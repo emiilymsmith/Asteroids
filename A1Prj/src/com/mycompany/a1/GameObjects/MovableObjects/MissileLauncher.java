@@ -3,7 +3,13 @@ package com.mycompany.a1.GameObjects.MovableObjects;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.MovableObject;
-
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * Missile Launcher is assigned to NonPlayerShip and also is the parent class for Steerable Missile Launcher.
+ * 
+ */
 public class MissileLauncher extends MovableObject{
 	
 	/*we need to pass through location, heading, speed*/

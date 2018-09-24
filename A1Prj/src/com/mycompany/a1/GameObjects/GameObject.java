@@ -4,18 +4,26 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
 import java.util.Random;
 
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * GameObject has 2 kinds of abstract objects: FixedObjects and MovableObjects.
+ * 
+ */
+
 public abstract class GameObject{
 	
 	private Point2D location;
 	private int color;
 	protected Random r = new Random();
 	
-	//GameObject constructors
+	/*GameObject constructor*/
 	public GameObject(){
 		
 	}
 	
-	//getters and setters
+	/* getters and setters */
 	public int getColor() {
 		return color;
 	}
@@ -56,7 +64,7 @@ public abstract class GameObject{
 		}
 	}
 	
-	//print color and location here
+	/*print color and location here*/
 	public String toString(){
 		String returnStr = "";
 		returnStr += "Location: ("+this.getX()+", "+this.getY()+")\n";
@@ -66,7 +74,6 @@ public abstract class GameObject{
 		returnStr += "\n";
 		return returnStr;
 		/*every game object should have a location*/
-		// movable - set the random, or fixed: set as fixed
 	}
 	
 	public void setRandomLocation() {

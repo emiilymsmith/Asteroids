@@ -2,8 +2,13 @@ package com.mycompany.a1.GameObjects.MovableObjects;
 
 import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a1.GameObjects.MovableObject;
-
-// a creates an Asteroid
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * Asteroids
+ * 
+ */
 public class Asteroids extends MovableObject{
 	private int size;
 	
@@ -16,7 +21,7 @@ public class Asteroids extends MovableObject{
 		super.setRandomLocation(); //from GameObject
 	}
 	
-	//getters and setters
+	/* getters and setters */
 	public void setSize(int size) {
 		this.size = size;
 	}

@@ -3,7 +3,13 @@ package com.mycompany.a1.GameObjects.MovableObjects;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.GameObject;
 import com.mycompany.a1.GameObjects.MovableObjects.Ships.PlayerShip;
-
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * Steerable Missile Launcher is extended from Missile Launcher and assigned to the PlayerShip.
+ * It's only difference is that its heading rotates independently of the PlayerShip.
+ */
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable{
 	
 	public SteerableMissileLauncher(Point2D location, int heading, int speed){

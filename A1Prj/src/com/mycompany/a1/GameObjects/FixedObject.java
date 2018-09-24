@@ -1,5 +1,13 @@
 package com.mycompany.a1.GameObjects;
-
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * FixedObject is an abstract class that one objects that extends it.
+ * Blinking Space Station
+ * It has a Fixed location.
+ * 
+ */
 public class FixedObject extends GameObject {
 	private int id; // counter
 	private static int bsid;

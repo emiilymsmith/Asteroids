@@ -6,7 +6,15 @@ import com.mycompany.a1.GameObjects.MovableObjects.ISteerable;
 import com.mycompany.a1.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a1.GameObjects.MovableObjects.Ship;
 import com.mycompany.a1.GameObjects.MovableObjects.SteerableMissileLauncher;
-
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * PlayerShip inherits MissileCount from abstract class Ship
+ * implements interface "ISteerable"
+ * uses a steerable missile launcher
+ * 
+ */
 // s creates a player ship
 public class PlayerShip extends Ship implements ISteerable{
 	private int size;

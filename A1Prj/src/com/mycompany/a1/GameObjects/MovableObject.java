@@ -1,7 +1,15 @@
 package com.mycompany.a1.GameObjects;
 
 import com.codename1.ui.geom.Point2D;
-
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * MovableObject is an abstract class that has many objects that extends it.
+ * Ships, Missiles, and Asteroids.
+ * They all have changable locations.
+ * 
+ */
 public abstract class MovableObject extends GameObject implements IMovable{
 	private int speed; //'HERE' IS THE SPEED
 	private int heading; //'HERE' IS THE HEADING
