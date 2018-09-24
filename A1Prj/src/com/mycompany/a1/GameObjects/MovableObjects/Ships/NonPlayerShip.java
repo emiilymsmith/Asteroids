@@ -49,8 +49,8 @@ public class NonPlayerShip extends Ship{
 	public String toString() {
 		String returnStr = "";
 		returnStr += super.toString();
-		returnStr += "Set NPS Size to: "+this.size+"0\n";
-		//returnStr += " Set NPS Speed: "+this.speed;
+		returnStr += "NPS Size: "+this.size+"0\n";
+		returnStr += "NonPlayerShip\n";		
 		return returnStr;
 	}
 }

@@ -64,9 +64,8 @@ public class PlayerShip extends Ship implements ISteerable{
 	public String toString(){
 		String returnStr = "";
 		returnStr += super.toString();
-		returnStr += "Player Ship Missile Count: "+super.getMissileCount()+"\n";
-		returnStr += "Ship Lives: "+ this.getLives();
-		returnStr += "\n";
+		returnStr += "Ship Lives: "+ this.getLives()+"\n";
+		returnStr += "PlayerShip\n";
 		return returnStr;
 	}
 	

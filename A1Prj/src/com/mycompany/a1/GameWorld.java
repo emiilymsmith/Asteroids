@@ -36,9 +36,9 @@ public class GameWorld{
 	private int score;
 	
 	public void init(){
-		ticks = 0;
 		score = 0;
 	}
+
 	
 	/** Create a new Asteroid Object 
 	 *  Adds it to vector: 'storage'
@@ -364,9 +364,9 @@ public class GameWorld{
                         sml.setLocation(ps.getLocation());
                     }
                 }
-            } System.out.println("TICK: moved all the moveable objects");
+            } System.out.println("TICKTOCK: Moved all the moveable objects");
         } else
-            System.out.println("TICK: No moveable objects exist!");
+            System.out.println("TICKTOCK: No movable objects exist!");
 	}
 	
 	public void updateFuel() {
@@ -384,12 +384,10 @@ public class GameWorld{
 	}
 	
 	private void blinkSS(){
-		boolean ssExists = false;
-        if (ssExists) {
+        if (spaceStationExists()) {
         	for(GameObject ss: storage) {
                 if (ss instanceof SpaceStation) {
                     ((SpaceStation) ss).toggleLight();
-                    ssExists = true;
                 }
             }
         	System.out.println("SPACESTATION light was triggered");
@@ -401,8 +399,8 @@ public class GameWorld{
 		moveAllObjects();
 		updateFuel();
 		blinkSS();
-		ticks ++;
-		System.out.println("============TICK goes the clock============");
+		ticks++;
+		System.out.println("-------------------TICKTOCK goes the CLOCK--------------------");
 	}
 	
 	/* Print display gives the following: 
@@ -412,18 +410,36 @@ public class GameWorld{
 	 * 
 	 * p */
 	public void printDisplay() {
-		
+		int psi, missileCount = -1;
+        if (psExists()) {
+            psi = getPlayerShipIndex();
+            PlayerShip ps = (PlayerShip) storage.get(psi);
+            missileCount = ps.getMissileCount();
+        }
+        System.out.println("--------------------------------------------------------------------------------\n"
+                         + "---------------------------- Current Game States: ------------------------------\n"
+                         + "--------------- Points: "+score+" -------- Missiles: "+missileCount+" -------- Time: "+ticks
+                         +"----------------\n"
+                         + "--------------------------------------------------------------------------------\n");
 		
 	}
-	
 	
 	/* Map of current world state
 	 * m */
 	public void map() {
-		//prints out a list of all the objects
-		for (GameObject go: storage)
+		/* prints out a list of all the objects */
+		System.out.println("---------------------------------------\n"
+                + "=============== Game Map  ==============\n"
+                + "----------------------------------------");
+		for(GameObject go: storage) {
 			System.out.println(go.toString());
+		}
+		System.out.println("---------------------------------------\n");
 	}
+	
+	/** All subclasses write over this toString()
+	 * */
+	public String toString() {return null;}
 	
 	/* Quit to terminate
 	 * confirm with user
@@ -431,15 +447,11 @@ public class GameWorld{
 	public void quitGW() {
 		System.exit(0);
 	}
-	
-	public String toString() {return null;}
-	
-	/*EDIT TODO*/
+
 	private void gameOver() {
-        System.out.println("===========================================================");
-        System.err.println("GAME OVER");
-        System.out.println("The PLAYERSHIP ran out of lives");
-        //System.out.println("\tIf you would like to quit type 'Y'");
+        System.out.println("---------------------------------------");
+        System.err.println("GAME OVER - You ran out of Lives!");
+        System.out.println("\tIf you would like to quit, type 'Y'");
         storage.removeAllElements();
     }
 	
@@ -454,7 +466,7 @@ public class GameWorld{
 	 * 
 	 * */
 	
-
+	/* Returns true if there is a PlayerShip in GameWorld Vector: storage */
 	
 	private boolean asteroidExists() {
         boolean aexists = false;
@@ -467,7 +479,7 @@ public class GameWorld{
             System.out.println("No ASTEROIDS exist.");
         return aexists;
     }
-	
+
 	public boolean psExists() {
 		boolean psexists = false;
         for(GameObject ps: storage) {
@@ -504,6 +516,18 @@ public class GameWorld{
         return mexists;
     }
 
+	private boolean spaceStationExists(){
+		boolean ssexists = false;
+        for(GameObject ss: storage) {
+            if(ss instanceof SpaceStation) {
+                ssexists = true;
+            }
+        }
+        if(!ssexists)
+            System.out.println("A SPACESTATION does not exist.");
+        return ssexists;
+	}
+	
 	 /*
 	  * Gets called @ crash() with Asteroid
 	  * decrements lives
@@ -527,7 +551,7 @@ public class GameWorld{
         }
         //Game exits if the ship is out of lives
         if(quit)
-            gameOver();
+            gameOver(); /* Called when lives are 0 */
         return false;
 	}
 	 /*
@@ -563,6 +587,7 @@ public class GameWorld{
         return missileIndex;
 	}
 	
+	/* The following methods remove objects from the GameWorld*/
 	private boolean removeAsteroid(){
         for(GameObject asteroid: storage) {
             if(asteroid instanceof Asteroids) {
@@ -616,7 +641,6 @@ public class GameWorld{
 /*
  * TODO
  * rename fired missile
- * left off on launchNPS
  * 
  * 
  * 

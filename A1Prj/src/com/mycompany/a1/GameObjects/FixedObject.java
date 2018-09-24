@@ -1,4 +1,5 @@
 package com.mycompany.a1.GameObjects;
+
 /**
  * @author Emily Smith
  * @version 1.0
@@ -27,7 +28,7 @@ public class FixedObject extends GameObject {
 	public String toString(){
 		String returnStr = "";
 		returnStr += super.toString();
-		returnStr += "Space Station ID: 1"+this.getId()+"\n";
+		returnStr += "Space Station ID: "+this.getId()+"\n";
 		return returnStr;
 	}
 }

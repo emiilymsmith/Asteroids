@@ -37,6 +37,7 @@ public class Missiles extends MovableObject{
 		String returnStr = "";
 		returnStr += super.toString();
 		returnStr += "Missile Fuel Level: "+ this.fuelLevel+"\n";
+		returnStr += "Missile \n";
 		return returnStr;
 	}
 }
