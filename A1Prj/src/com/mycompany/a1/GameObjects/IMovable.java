@@ -1,5 +1,13 @@
 package com.mycompany.a1.GameObjects;
 
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * IMovable is an interface that MovableObject provides to 
+ * all movable objects to tell them to move.
+ * 
+ * */
 public interface IMovable {
 	public void move();
 	

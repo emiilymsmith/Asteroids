@@ -7,22 +7,31 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.geom.Point2D;
 
-public class Game extends Form{
+/**
+ * @author Emily Smith
+ * @version 1.0
+ * 
+ * A Game object contains a GameWorld that holds a collection of game objects 
+ * and other state variables. It also holds a method play() to accept and 
+ * execute user commands. Instance constructed in Starter().
+ * 
+ * MVC role = Controller
+ * Enforces rules: what actions from user and the corresponding result.
+ * Will also be responsible for displaying information.
+ */
+
+public class Game extends Form {
+	/* State Variable */
 	private GameWorld gw;
 	
-	private int size;
-	private Point2D location;
-	private int color;
-	
-	//	Game Constructor
+	/* Game Constructor */
 	public Game() {
 		gw = new GameWorld();
 		gw.init();
 		play();
-		
 	}
 	
-	public void play(){
+	public void play() {
 		Label myLabel = new Label("Enter a Command:");
 		this.addComponent(myLabel);
 		final TextField myTextField = new TextField();
@@ -32,8 +41,7 @@ public class Game extends Form{
 			public void actionPerformed(ActionEvent evt) {
 				String sCommand = myTextField.getText().toString();
 				myTextField.clear();
-				switch(sCommand.charAt(0)) 
-				{
+				switch(sCommand.charAt(0)) {
 					case 'a':
 						gw.addAsteroid();
 						break;
@@ -59,7 +67,7 @@ public class Game extends Form{
 						gw.turnRight();
 						break;
 					case '<':
-						gw.aimML(); //aim missile launcher
+						gw.aimML();
 						break;
 					case 'f':
 						gw.firePSMissile();
@@ -74,7 +82,7 @@ public class Game extends Form{
 						gw.loadMissiles();
 						break;
 					case 'k':
-						gw.destroyAsteroid(); /*formerly killedAsteroid*/
+						gw.destroyAsteroid();
 						break;
 					case 'e':
 						gw.eliminatedNPS();
@@ -106,10 +114,9 @@ public class Game extends Form{
 					case 'q':
 						gw.quitGW();
 						break;
-				} //end switch
-			}//action Performed
-		} //new ActionListener()
-		); //addActionListener -- lambda expressions
-	}//play
-	
-}
+				} /*end switch*/
+			}/*action Performed*/
+		} /*new ActionListener*/
+		); /*addActionListener -- lambda expressions*/
+	}/*end play*/
+}/*end Game*/
