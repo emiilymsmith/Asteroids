@@ -1,6 +1,8 @@
 package com.mycompany.a1.GameObjects.MovableObjects;
 
 import com.codename1.ui.geom.Point2D;
+import com.mycompany.a1.GameObjects.GameObject;
+import com.mycompany.a1.GameObjects.MovableObjects.Ships.PlayerShip;
 
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable{
 	
@@ -15,11 +17,13 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 //	public String toString() {}
 	@Override
 	public void turnLeft() {
-		
+		//SteerableMissileLauncher.changeHeading(-15); //changeHeading from Steerable
+		System.out.println("PLAYERSHIP LEFT");
 	}
+	
 	@Override
 	public void turnRight() {
-		
+		System.out.println("PLAYERSHIP RIGHT");
 	}
 }
 /*

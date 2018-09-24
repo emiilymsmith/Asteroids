@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.mycompany.a1.GameObjects.GameObject;
 import com.mycompany.a1.GameObjects.FixedObjects.SpaceStation;
 import com.mycompany.a1.GameObjects.MovableObjects.Asteroids;
+import com.mycompany.a1.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a1.GameObjects.MovableObjects.Missiles;
 import com.mycompany.a1.GameObjects.MovableObjects.SteerableMissileLauncher;
 import com.mycompany.a1.GameObjects.MovableObjects.Ships.NonPlayerShip;
@@ -147,22 +148,35 @@ public class GameWorld{
 	}
 	
 	public void firePSMissile() {
-		Missiles m = new Missiles();
-		storage.add(m);
-		System.out.println("A new MISSILE has been created.");
-		System.out.println(m);
-	}
-	
-	public void launchNPSMissile() {
 		if(psExists()) {
             int index = getPlayerShipIndex();
             PlayerShip ps = (PlayerShip) storage.get(index);
             int numOfMissiles = ps.getMissileCount();
             if (numOfMissiles < 1)
-                System.err.println("PLAYERSHIP is out of missiles, cannot fire");
+                System.err.println("Player Ship is out of missiles, could not fire");
             else {
                 ps.setMissileCount(numOfMissiles - 1);
-                //SteerableMissileLauncher sml = ps.getSteerableMissileLauncher();
+                SteerableMissileLauncher  sml = ps.getPSML();
+                Missiles firedMissile = new Missiles();
+                storage.add(firedMissile);
+                System.out.println("A PLAYER SHIP missile has been FIRED");
+            }
+		}
+        else
+            System.err.println("Could not fire a Player Ship Missile");
+		
+	}
+	
+	public void launchNPSMissile() {
+		if(psExists()) {
+            int index = getPlayerShipIndex();
+            NonPlayerShip nps = (NonPlayerShip) storage.get(index);
+            int numOfMissiles = nps.getMissileCount();
+            if (numOfMissiles < 1)
+                System.err.println("PLAYERSHIP is out of missiles, cannot fire");
+            else {
+                nps.setMissileCount(numOfMissiles - 1);
+                MissileLauncher ml = nps.getML();
                 Missiles firedMissile = new Missiles();
                 storage.add(firedMissile);
                 System.out.println("PLAYERSHIP MISSILE FIRED");
@@ -245,7 +259,15 @@ public class GameWorld{
     }
 	
 
-	
+	/*
+	 * 
+	 * Below are helper functions to aid in streamlining the above required methods.
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
 	
 	
 	
@@ -307,5 +329,24 @@ public class GameWorld{
         }
         return psLoc;
     }
-
+	
+	private int getNonPlayerShipIndex(){
+		int npsLoc = 0; //player ship location in storage
+        for (GameObject nps : storage) {
+            if (nps instanceof NonPlayerShip) {
+                npsLoc = storage.indexOf(nps);
+            }
+        }
+        return npsLoc;
+	}
 }
+
+/*
+ * TODO
+ * rename fired missile
+ * left off on launchNPS
+ * 
+ * 
+ * 
+ * 
+ * */
