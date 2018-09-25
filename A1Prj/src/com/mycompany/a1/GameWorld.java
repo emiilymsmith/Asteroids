@@ -58,7 +58,7 @@ public class GameWorld{
 	public void addNPS() {
 		NonPlayerShip nps = new NonPlayerShip();
 		storage.add(nps);
-		System.out.println("A new NON-PLAYERSHIP has been created.");
+		System.out.println("A NON-PLAYERSHIP has been created.");
 		System.out.println(nps);
 	}
 	/** Create a new Blinking Space Station Object
@@ -67,7 +67,7 @@ public class GameWorld{
 	public void addSpaceStation() {
 		SpaceStation bs = new SpaceStation();
 		storage.add(bs);
-		System.out.println("A new SPACE STATION has been created.");
+		System.out.println("A SPACE STATION has been created.");
 		System.out.println(bs);
 	}
 	/** Create a new Player Ship Object
@@ -78,10 +78,10 @@ public class GameWorld{
 		if(!psExists()) {
 			PlayerShip ps = new PlayerShip();
 			storage.add(ps);
-			System.out.println("A new PLAYER SHIP has been created.");
+			System.out.println("A PLAYER SHIP has been created.");
 			System.out.println(ps);
 		} else {
-			System.err.println("A PLAYERSHIP already exists");
+			System.err.println("A PLAYERSHIP already exists.");
 		}
 	}
 	/** Increase PlayerShip's Speed
@@ -91,18 +91,18 @@ public class GameWorld{
 		if(psExists()) {
             for (GameObject ps : storage) {
                 if (ps instanceof PlayerShip) {
-                    int currSpeed = ((PlayerShip) ps).getSpeed();
-                    if (currSpeed > 10) {
+                    int currentSpeed = ((PlayerShip) ps).getSpeed();
+                    if (currentSpeed > 10) {
                         System.out.println("Already at MAX PLAYERSHIP speed.");
-                    } else {
+                    } else if (currentSpeed >= 0 ) {
                         ((PlayerShip) ps).increaseSpeed();
-                        System.out.println("\nPLAYERSHIP speed has INCREASED");
+                        System.out.println("PLAYERSHIP speed INCREASED.");
                         System.out.println(ps);
                     }
                 }
             }
-        }
-        else {System.err.println("PLAYERSHIP speed has not increased.");}
+        }else
+        	System.err.println("PLAYERSHIP speed cannot be increased.");
     }
 	/** Decrease PlayerShip's Speed
 	 *  checks validity, checks boundaries, calls PlayerShip method
@@ -112,18 +112,18 @@ public class GameWorld{
             for (GameObject ps : storage) {
                 if (ps instanceof PlayerShip) {
                     int currentSpeed = ((PlayerShip) ps).getSpeed();
-                    if (currentSpeed < 0) {
+                    if (currentSpeed == 0) {
                         System.out.println("Already at MIN PLAYERSHIP speed.");
-                    } else {
+                    } else if (currentSpeed < 10) {
                         ((PlayerShip) ps).decreaseSpeed();
-                        System.out.println("\nPLAYERSHIP speed has DECREASED");
+                        System.out.println("PLAYERSHIP speed DECREASED.");
                         System.out.println(ps);
                     }
                 }
             }
         }
         else
-            System.err.println("Cannot decrease PLAYERSHIP speed");
+            System.err.println("PLAYERSHIP speed cannot be decreased.");
 	}
 	/** Turn PlayerShip Left
 	 *  checks validity, for each instance (1) in storage
@@ -131,15 +131,14 @@ public class GameWorld{
 	 * l (ell) */
 	public void turnLeft(){
 		if(psExists()) {
-            for (GameObject ps : storage) {
-                if (ps instanceof PlayerShip) {
-                    ((PlayerShip) ps).changeHeading(-15); 
-                    System.out.println("PLAYERSHIP LEFT");
+			for (GameObject ps : storage) {
+            	if (ps instanceof PlayerShip) {
+                	((PlayerShip) ps).changeHeading(-15); 
+                    System.out.println("PLAYERSHIP LEFT.");
                 }
             }
-        }
-        else
-            System.err.println("Cannot turn PLAYERSHIP LEFT");
+        } else
+            System.err.println("Cannot turn PLAYERSHIP LEFT.");
     }
 	/** Turn PlayerShip Right
 	 *  checks validity, for each instance (1) in storage
@@ -150,12 +149,11 @@ public class GameWorld{
             for (GameObject ps : storage) {
                 if (ps instanceof PlayerShip) {
                     ((PlayerShip) ps).changeHeading(15); //changeHeading from Steerable
-                    System.out.println("PLAYERSHIP RIGHT");
+                    System.out.println("PLAYERSHIP RIGHT.");
                 }
             }
-        }
-        else
-            System.err.println("Cannot turn PLAYERSHIP RIGHT");
+        } else
+            System.err.println("Cannot turn PLAYERSHIP RIGHT.");
     	}
 	/** Aim PlayerShip Missile Launcher
 	 *  checks validity, for each instance (1) in storage of steerable missile launcher
@@ -167,11 +165,11 @@ public class GameWorld{
 				if(ps instanceof PlayerShip) {
 					SteerableMissileLauncher sml = ((PlayerShip) ps).getPSML();
 					sml.changeAngle(-10);
-					System.out.println("PLAYERSHIP MISSILE LAUNCHER rotated");
+					System.out.println("PLAYERSHIP has aimed MISSILE LAUNCHER.");
 				}
 			}
 		} else
-			System.err.println("Cannot aim PLAYERSHIP Missile Launcher");
+			System.err.println("Cannot aim PLAYERSHIP MISSILE LAUNCHER.");
 	}
 	/** Fire PlayerShip Missile
 	 *  checks validity, for each instance (1) in storage of steerable missile launcher and PlayerShip
@@ -184,7 +182,7 @@ public class GameWorld{
             /* Gets the number of missiles and checks if there's enough to fire one*/
             int numMissiles = ps.getMissileCount();
             if (numMissiles < 1)
-            	System.err.println("Player Ship is out of missiles, could not fire");
+            	System.err.println("PLAYERSHIP is out of MISSILES.");
             else {
             	/* decrements number of missiles*/
             	ps.setMissileCount(numMissiles - 1);
@@ -192,10 +190,10 @@ public class GameWorld{
                 /* creates object Missiles called missile, uses playership's params*/
                 Missiles missile = new Missiles(ps.getLocation(), ps.getHeading(), ps.getSpeed());
                 storage.add(missile);
-                System.out.println("A PLAYER SHIP missile has been FIRED");
+                System.out.println("PLAYERSHIP missile FIRED.");
             }
 		} else
-            System.err.println("Could not fire a PLAYERSHIP Missile because there is no PLAYERSHIP");
+            System.err.println("Cannot fire a PLAYERSHIP MISSILE, a PLAYERSHIP does not exist.");
 	}
 	/** Launch NonPlayerShip Missile
 	 *  checks validity, for each instance in storage of NonPlayerShip
@@ -207,17 +205,17 @@ public class GameWorld{
 			NonPlayerShip nps = (NonPlayerShip) storage.get(index);
 			int numMissiles = nps.getMissileCount();
 			if (numMissiles < 1)
-				System.err.println("NONPLAYERSHIP is out of missiles, cannot fire");
+				System.err.println("NONPLAYERSHIP is out of missiles, cannot fire.");
 			else {
 				nps.setMissileCount(numMissiles - 1);
 				MissileLauncher ml = nps.getML();
 				/* creates object Missiles called missile, uses NONplayership's params*/
 				Missiles missile = new Missiles(nps.getLocation(), nps.getHeading(), nps.getSpeed());
 				storage.add(missile);
-				System.out.println("NONPLAYERSHIP MISSILE FIRED");
+				System.out.println("NONPLAYERSHIP MISSILE FIRED.");
             }
 		} else
-            System.err.println("Could not fire a NONPLAYERSHIP Missile because there is no NONPLAYERSHIP");
+            System.err.println("Cannot fire a NONPLAYERSHIP Missile, a NONPLAYERSHIP does not exist.");
 	}
 	/** Jump through Hyperspace
 	 *  PlayerShip jumps back to default position center screen
@@ -231,11 +229,11 @@ public class GameWorld{
             		ps.setLocation(point);
             		SteerableMissileLauncher sml = ((PlayerShip) ps).getPSML();
             		sml.setLocation(point); //gets the location of the PlayerShip to match
-            		System.out.println("PLAYERSHIP has JUMPED through hyperspace");
+            		System.out.println("PLAYERSHIP JUMPED through hyperspace.");
                 }
             }
 		}else
-            System.err.println("Could not JUMP through hyperspace");
+            System.err.println("Could not JUMP through hyperspace.");
 	}
 	/** Reload new supply of PlayerShip Missiles 
 	 * n */
@@ -244,11 +242,11 @@ public class GameWorld{
 			for (GameObject ps : storage) {
 				if (ps instanceof PlayerShip) {
 					((PlayerShip) ps).setMissileCount(10); /* resets missile count to 10 */
-					System.out.println("PLAYERSHIP missiles were reloaded");
+					System.out.println("PLAYERSHIP missile reload.");
 				}
 			}
 		} else
-			System.err.println("Cannot reload PLAYERSHIP missiles");
+			System.err.println("Cannot reload PLAYERSHIP missiles.");
 		}
 	/** Destroy Asteriod 
 	 *  PlayerShip Missile hit an asteroid and destroyed it
@@ -259,9 +257,9 @@ public class GameWorld{
 			removeAsteroid();
 			removeMissile();
 			score += 4;
-			System.out.println("Asteroid was destroyed by PLAYERSHIP MISSILE");
+			System.out.println("Asteroid was destroyed by PLAYERSHIP MISSILE.");
 		} else
-			System.err.println("Did not hit ASTEROID with a PLAYERSHIP Missile");
+			System.err.println("Did not hit ASTEROID with a PLAYERSHIP MISSILE.");
 	}
 	/** Eliminate NonPlayerShip
 	 * PlayerShip Missile hit a NonPlayerShip and destroyed it 
@@ -271,9 +269,9 @@ public class GameWorld{
 		if( psExists() & nonPSExists()) {
 			removeNPS();
 			score += 8;
-			System.out.println("NonPlayerShip was destroyed by PLAYERSHIP MISSILE");
+			System.out.println("NonPlayerShip was destroyed by PLAYERSHIP MISSILE.");
 		} else
-			System.err.println("Did not hit NonPlayerShip with a PLAYERSHIP Missile");
+			System.err.println("Did not hit NonPlayerShip with PLAYERSHIP MISSILE.");
 	}
 	/** NonPlayerShip missile hit PlayerShip
 	 *  Remove PlayerShip 
@@ -284,7 +282,7 @@ public class GameWorld{
 			score += 8;
 			System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
 		} else
-			System.err.println("NonPlayerShip did not hit PLAYERSHIP with a missile");
+			System.err.println("NonPlayerShip did not hit PLAYERSHIP with a MISSILE.");
 	}
 	/** PlayerShip Crashed into an Asteriod
 	 * Lose a life
@@ -293,10 +291,10 @@ public class GameWorld{
 		if( asteroidExists() & psExists()) {
             removeAsteroid();
             if(decrementPSLives())
-                System.out.println("PLAYER SHIP hit an ASTEROID");
+                System.out.println("PLAYERSHIP hit an ASTEROID.");
         }
         else
-            System.err.println("Could not hit a Player Ship with an Asteroid");
+            System.err.println("An ASTEROID did not hit your PLAYERSHIP.");
 	}
 	/** PlayerShip hit a NonPlayerShip
 	 * Lose a life
@@ -305,10 +303,10 @@ public class GameWorld{
 		if(nonPSExists() & psExists()) {
         removeNPS();
         if(decrementPSLives())
-            System.out.println("PLAYER SHIP hit a NON-PLAYER SHIP");
+            System.out.println("PLAYER SHIP hit a NonPlayerShip.");
     }
     else
-        System.err.println("Could not hit a Player Ship with a Non-Player Ship");
+        System.err.println("Did not hit PLAYERSHIP with NonPlayerShip.");
 	}
 	/** Asteroid Collision both get exterminated
 	 * remove both objects
@@ -319,11 +317,11 @@ public class GameWorld{
 			removeAsteroid();
             if(asteroidExists()){
                 removeAsteroid();
-                System.out.println("Two ASTEROIDS collided and EXTERMINATED each other");
+                System.out.println("Two ASTEROIDS collided and EXTERMINATED each other.");
             } else
             	System.err.println("Only one ASTEROID was removed...");
 		} else
-            System.err.println("Couldn't crash two Asteroids together");
+            System.err.println("Cannot collide two ASTEROIDS together.");
 	}
 	/** 
 	 * 
@@ -364,7 +362,7 @@ public class GameWorld{
                         sml.setLocation(ps.getLocation());
                     }
                 }
-            } System.out.println("TICKTOCK: Moved all the moveable objects");
+            } System.out.println("TICKTOCK: Moved all the moveable objects.");
         } else
             System.out.println("TICKTOCK: No movable objects exist!");
 	}
@@ -375,12 +373,12 @@ public class GameWorld{
             int fuelLevel = missile.getFuelLevel();
             if (fuelLevel <= 1) {
                 storage.remove(missile);
-                System.out.println("Removed a MISSILE that ran out of fuel");
+                System.out.println("Removed a MISSILE that ran out of fuel.");
             } else
                 missile.setFuelLevel(fuelLevel - 1);
         }
         else
-            System.out.println("No MISSILES exist");
+            System.out.println("No MISSILES exist.");
 	}
 	
 	private void blinkSS(){
@@ -390,9 +388,9 @@ public class GameWorld{
                     ((SpaceStation) ss).toggleLight();
                 }
             }
-        	System.out.println("SPACESTATION light was triggered");
+        	System.out.println("SPACESTATION light was triggered.");
         } else
-        	System.out.println("No SPACESTATIONS exists");
+        	System.out.println("No SPACESTATIONS exist.");
 	}
 	/* t */
 	public void ticked() {
@@ -400,7 +398,7 @@ public class GameWorld{
 		updateFuel();
 		blinkSS();
 		ticks++;
-		System.out.println("-------------------TICKTOCK goes the CLOCK--------------------");
+		System.out.println("-------------------TICKTOCK goes the CLOCK---------------------");
 	}
 	
 	/* Print display gives the following: 
@@ -421,7 +419,6 @@ public class GameWorld{
                          + "--------------- Points: "+score+" -------- Missiles: "+missileCount+" -------- Time: "+ticks
                          +"----------------\n"
                          + "--------------------------------------------------------------------------------\n");
-		
 	}
 	
 	/* Map of current world state
@@ -429,7 +426,7 @@ public class GameWorld{
 	public void map() {
 		/* prints out a list of all the objects */
 		System.out.println("---------------------------------------\n"
-                + "=============== Game Map  ==============\n"
+                + "-------------- Game Map ----------------\n"
                 + "----------------------------------------");
 		for(GameObject go: storage) {
 			System.out.println(go.toString());
@@ -454,8 +451,6 @@ public class GameWorld{
         System.out.println("\tIf you would like to quit, type 'Y'");
         storage.removeAllElements();
     }
-	
-
 	/*
 	 * 
 	 * Below are helper functions to aid in streamlining the above required methods.

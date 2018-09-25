@@ -17,15 +17,15 @@ public class Missiles extends MovableObject{
 	
 	/* Missiles Constructor */
 	public Missiles(Point2D location, int heading, int speed){
-		super.setColor(ColorUtil.GREEN); //from GameObject
+		super.setColor(ColorUtil.BLACK); //from GameObject
 		super.setLocation(location); //from MovableObject
 		super.setHeading(heading); //from MovableObject //heading comes from ship
 		super.setSpeed(speed+3); //from MovableObject //speed is greater than playership's like +2
 		this.setFuelLevel(10); //= getFuelLevel(); //from here
 	}
 	
+	/* Getters and Setters */
 	public int getFuelLevel() {
-		//put in timer, ticks down as time goes on, 10 ticks to failure
 		return fuelLevel = 10;
 	}
 

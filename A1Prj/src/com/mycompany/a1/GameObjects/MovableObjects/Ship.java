@@ -12,12 +12,12 @@ import com.mycompany.a1.GameObjects.MovableObject;
 public abstract class Ship extends MovableObject{
 	private int missileCount;
 	
-	// Ship Constructor
+	/* Ship Constructor */
 	public Ship() {
 		
 	}
 	
-	//getters and setters
+	/* getters and setters */
 	public int getMissileCount() {
 		return this.missileCount;
 	}

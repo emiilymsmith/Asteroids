@@ -18,7 +18,7 @@ public abstract class GameObject{
 	private int color;
 	protected Random r = new Random();
 	
-	/*GameObject constructor*/
+	/* GameObject constructor */
 	public GameObject(){
 		
 	}
@@ -66,16 +66,21 @@ public abstract class GameObject{
 	
 	/*print color and location here*/
 	public String toString(){
+		/* Round locations to one decimal digit */
+		double x = Math.round(this.getX()*10.0)/10.0;
+		double y = Math.round(this.getY()*10.0)/10.0;
+		
 		String returnStr = "";
-		returnStr += "Location: ("+this.getX()+", "+this.getY()+")\n";
+		returnStr += "Location: ("+x+", "+y+")\n";
 		returnStr += "Color: " + "[" + ColorUtil.red(getColor()) + ","
                 	+ ColorUtil.green(getColor()) + ","
                 	+ ColorUtil.blue(getColor()) + "] ";
 		returnStr += "\n";
 		return returnStr;
-		/*every game object should have a location*/
+		/* every game object should have a location */
 	}
 	
+	/* Sets a new random location on the map */
 	public void setRandomLocation() {
 		Point2D point = new Point2D(0,0);
 		point.setX(r.nextFloat()*1024);

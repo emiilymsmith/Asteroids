@@ -18,7 +18,6 @@ public class MissileLauncher extends MovableObject{
 		this.setHeading(heading); //get NPS heading
 		super.setSpeed(speed); //same as NPS
 		super.setColor(ColorUtil.WHITE);
-
 	}
 	
 	public String toString() {
@@ -27,13 +26,5 @@ public class MissileLauncher extends MovableObject{
 		returnStr += "Missile Launcher: ";
 		return returnStr;
 	}
-//	@Override
-//	public void move() {}
-	
 
 }
-/*
- * Tests:
- * turn playership without turning missile launcher
- * 
- * */

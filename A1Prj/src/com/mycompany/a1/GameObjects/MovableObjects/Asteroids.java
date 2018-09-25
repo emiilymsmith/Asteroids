@@ -14,7 +14,7 @@ public class Asteroids extends MovableObject{
 	
 	/* Asteroid Constructor */
 	public Asteroids(){
-		super.setColor(ColorUtil.BLACK); // from GameObject
+		super.setColor(ColorUtil.BLUE); // from GameObject
 		this.size = getRandomSize(); //from here
 		super.setRandomHeading();// from MovableObject
 		super.setRandomSpeed(); //me asking parent what my speed is

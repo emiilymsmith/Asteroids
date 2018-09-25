@@ -114,6 +114,8 @@ public class Game extends Form {
 					case 'q':
 						gw.quitGW();
 						break;
+					default:
+						System.out.println("Sorry, that character doesn't do anything!");
 				} /*end switch*/
 			}/*action Performed*/
 		} /*new ActionListener*/

@@ -3,7 +3,6 @@ package com.mycompany.a1.GameObjects.MovableObjects.Ships;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a1.GameObjects.MovableObjects.ISteerable;
-import com.mycompany.a1.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a1.GameObjects.MovableObjects.Ship;
 import com.mycompany.a1.GameObjects.MovableObjects.SteerableMissileLauncher;
 /**
@@ -15,9 +14,7 @@ import com.mycompany.a1.GameObjects.MovableObjects.SteerableMissileLauncher;
  * uses a steerable missile launcher
  * 
  */
-// s creates a player ship
 public class PlayerShip extends Ship implements ISteerable{
-	private int size;
 	private int lives;
 
 	private SteerableMissileLauncher playerShipML;
@@ -30,11 +27,10 @@ public class PlayerShip extends Ship implements ISteerable{
 		super.setHeading(0);
 		super.setLocation(point);
 		super.setMissileCount(10); // has to be 10
-		 /*TODO: copy missile launcher and NPS*/
 		playerShipML = new SteerableMissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed());
 	}
 	
-	// getters and setters
+	/* getters and setters */
 	public SteerableMissileLauncher getPSML() {
         return playerShipML;
     }
@@ -51,6 +47,7 @@ public class PlayerShip extends Ship implements ISteerable{
 		this.setHeading(this.getHeading() + degChange);
 	}
 	
+	/* Have to reflect and update speed in the playership missile launcher and playership*/
 	public void increasePSSpeed() {
 		super.increaseSpeed();
 		playerShipML.increaseSpeed();
@@ -71,10 +68,22 @@ public class PlayerShip extends Ship implements ISteerable{
 	
 	@Override
 	public void turnLeft() {
-		
+		int heading = super.getHeading();
+		if(heading-15 >= 0) {
+			super.setHeading(heading-15);
+		} else {
+			super.setHeading(heading-15+360);
+		}
+		System.out.println("PLAYERSHIP TURNED LEFT");
 	}
 	@Override
 	public void turnRight() {
-		
+		int heading = super.getHeading();
+		if(heading+15 <= 0) {
+			super.setHeading(heading+15);
+		} else {
+			super.setHeading(heading+15-360);
+		}
+		System.out.println("PLAYERSHIP TURNED RIGHT");
 	}
 }
