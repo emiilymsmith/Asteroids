@@ -33,7 +33,12 @@ import com.mycompany.a2.GameObjects.MovableObjects.Ships.PlayerShip;
 
 public class GameWorld extends Observable implements IGameWorld{
 	/* Collection of Objects */
-	Vector<GameObject> storage = new Vector<GameObject>();
+//	Vector<GameObject> storage = new Vector<GameObject>();
+	
+	/* All State Variables are stored here */
+	private GameCollection go;
+	
+	private boolean soundOn;
 	
 	/* Fixed Window Dimensions */
 	private int height = 768;
@@ -43,10 +48,32 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int ticks;
 	private int score;
 	
+	public GameWorld() {
+		/* Create the Collection */
+		go = new GameCollection();
+		this.init(); /*Initialize the world*/
+		
+		/* Add some objects in the collections */
+		go.add(new Asteroids());
+		go.add(new NonPlayerShip());
+		go.add(new SpaceStation());
+		go.add(new PlayerShip());
+		
+	}
+	
 	public void init(){
 		score = 0;
 	}
 
+	/* Display objects in the collection */
+	public void displayCollection() {
+		IIterator theElements = go.getIterator();
+		while(theElements.hasNext()) {
+			GameObject go = (GameObject) theElements.getNext();
+			System.out.println(go);
+		}
+	}
+	
 	
 	/** Create a new Asteroid Object 
 	 *  Adds it to vector: 'storage'
@@ -55,7 +82,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		/*create Asteroid object*/
 		Asteroids asteroid = new Asteroids();
 		/*add asteroid to storage vector*/
-		storage.add(asteroid);
+//		storage.add(asteroid);
 		/*feedback for creation*/
 		System.out.println("An ASTEROID has been created.");	
 		System.out.println(asteroid);
@@ -65,7 +92,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * y */
 	public void addNPS() {
 		NonPlayerShip nps = new NonPlayerShip();
-		storage.add(nps);
+//		storage.add(nps);
 		System.out.println("A NON-PLAYERSHIP has been created.");
 		System.out.println(nps);
 	}
@@ -74,7 +101,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * b */
 	public void addSpaceStation() {
 		SpaceStation bs = new SpaceStation();
-		storage.add(bs);
+//		storage.add(bs);
 		System.out.println("A SPACE STATION has been created.");
 		System.out.println(bs);
 	}
@@ -85,7 +112,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addPS() {
 		if(!psExists()) {
 			PlayerShip ps = new PlayerShip();
-			storage.add(ps);
+//			storage.add(ps);
 			System.out.println("A PLAYER SHIP has been created.");
 			System.out.println(ps);
 		} else {
@@ -96,9 +123,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	 *  checks validity, checks boundaries, calls PlayerShip method
 	 * i */
 	public void increaseSpeed() {
+		IIterator theElements = go.getIterator();
 		if(psExists()) {
-            for (GameObject ps : storage) {
-                if (ps instanceof PlayerShip) {
+            while(theElements.hasNext()) {
+                //changed a for loop to a while to look through iterator
+            	if (ps instanceof PlayerShip) {
                     int currentSpeed = ((PlayerShip) ps).getSpeed();
                     if (currentSpeed > 10) {
                         System.out.println("Already at MAX PLAYERSHIP speed.");
@@ -108,7 +137,7 @@ public class GameWorld extends Observable implements IGameWorld{
                         System.out.println(ps);
                     }
                 }
-            }
+            }//end while
         }else
         	System.err.println("PLAYERSHIP speed cannot be increased.");
     }
@@ -116,8 +145,9 @@ public class GameWorld extends Observable implements IGameWorld{
 	 *  checks validity, checks boundaries, calls PlayerShip method
 	 * d */
 	public void decreaseSpeed() {
+		IIterator theElements = go.getIterator();
 		if(psExists()) {
-            for (GameObject ps : storage) {
+            for (GameObject ps : go) {
                 if (ps instanceof PlayerShip) {
                     int currentSpeed = ((PlayerShip) ps).getSpeed();
                     if (currentSpeed == 0) {
@@ -638,12 +668,19 @@ public class GameWorld extends Observable implements IGameWorld{
         System.err.println("Did not remove PLAYERSHIP.");
         return false;
 	}
+
+	@Override
+	public int getPlayerScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 }/* End Game World */
 
 /*
  * TODO
- * rename fired missile
+ * 
  * 
  * 
  * 

@@ -14,5 +14,15 @@ import java.util.Observable;
  */
 
 public class GameWorldProxy extends Observable implements IGameWorld{
+	private GameWorld gw;
+	
+	public GameWorldProxy(GameWorld gw) {
+		this.gw = gw;
+	}
+	
+	@Override
+	public int getPlayerScore() {
+		return gw.getPlayerScore();
+	}
 	
 }

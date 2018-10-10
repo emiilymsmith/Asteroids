@@ -27,15 +27,15 @@ public class Game extends Form {
 	/* State Variable */
 	private GameWorld gw;
 	private MapView mv;
-	//private PointsView pv;
+	private PointsView pv;
 	
 	/* Game Constructor */
 	public Game() {
 		gw = new GameWorld();
 		mv = new MapView(); //uncomment
-		//pv = new PointsView(gw);
+//		pv = new PointsView(gw);
 		gw.addObserver(mv);
-		//gw.addObserver(pv);
+		gw.addObserver(pv);
 		
 		gw.init(); //this gets commented out
 		play();

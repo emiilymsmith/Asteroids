@@ -33,13 +33,13 @@ public class PointsView extends Container implements Observer{
 	// updates the label text based on GameWorld state variables
 	// update is called whenever the observable is updates
 	public void update(Observable o, Object arg) {
-		// casting o as a GameWorld
-//		IGameWorld gw = (IGameWorld) arg;
+		// casting arg as a GameWorld (proxy = arg)
+		IGameWorld gw = (IGameWorld) arg;
 		
 		//Getting Player Score
-//		int score = gw.getPlayerScore();
-//		pointsValueLabel.setText(""+ (score > 99 ? "" : "0") + (score > 9 ? "" : "0") + score );
-//		this.repaint();
+		int score = gw.getPlayerScore();
+		pointsValueLabel.setText(""+ (score > 99 ? "" : "0") + (score > 9 ? "" : "0") + score );
+		this.repaint();
 	}
 }
 //TODO RENAME CONTAINER
