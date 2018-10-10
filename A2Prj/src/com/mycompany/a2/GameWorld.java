@@ -1,6 +1,9 @@
 package com.mycompany.a2;
 
+import java.util.Observable;
 import java.util.Vector;
+
+import com.codename1.io.gzip.Adler32;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a2.GameObjects.GameObject;
 import com.mycompany.a2.GameObjects.IMovable;
@@ -14,16 +17,21 @@ import com.mycompany.a2.GameObjects.MovableObjects.Ships.PlayerShip;
 
 /**
  * @author Emily Smith
- * @version 1.0
+ * @version 2.0
  * 
  * The GameWorld contains a Vector which aggregates objects of abstract type GameObject.
  * Holds the methods that are called to manipulate and display data when users input commands.
  * 
  * MVC role = Model
  * 
+ * A2 additions:
+ * 		extends observable implements IGameWorld
+ * code to hold and manipulate world objects, handle observer registration,
+ * invoke observer callbacks by passing a GameWorld proxy, etc.
+ * 
  */
 
-public class GameWorld{
+public class GameWorld extends Observable implements IGameWorld{
 	/* Collection of Objects */
 	Vector<GameObject> storage = new Vector<GameObject>();
 	

@@ -9,7 +9,7 @@ import com.codename1.ui.geom.Point2D;
 
 /**
  * @author Emily Smith
- * @version 1.0
+ * @version 2.0
  * 
  * A Game object contains a GameWorld that holds a collection of game objects 
  * and other state variables. It also holds a method play() to accept and 
@@ -18,18 +18,40 @@ import com.codename1.ui.geom.Point2D;
  * MVC role = Controller
  * Enforces rules: what actions from user and the corresponding result.
  * Will also be responsible for displaying information.
+ * 
+ * A2 additions:
+ * 		removing functionality of play() to initializing mapview and pointsview
  */
 
 public class Game extends Form {
 	/* State Variable */
 	private GameWorld gw;
+	private MapView mv;
+	//private PointsView pv;
 	
 	/* Game Constructor */
 	public Game() {
 		gw = new GameWorld();
-		gw.init();
+		mv = new MapView(); //uncomment
+		//pv = new PointsView(gw);
+		gw.addObserver(mv);
+		//gw.addObserver(pv);
+		
+		gw.init(); //this gets commented out
 		play();
+		//this.show(); //uncomment
 	}
+	
+	/* *
+	 * The following edits replaces A1's play() method
+	 * 
+	 * creating interface IGameWorld
+	 * extending Observable from GameWorld and implementing IGameWorld
+	 * creating GameWorldProxy extending Observable from GameWorld and implementing IGameWorld
+	 * creating MapView extends container implements Observer
+	 * creating PointsView extends container implements Observer
+	 * 
+	 * */
 	
 	public void play() {
 		Label myLabel = new Label("Enter a Command:");
