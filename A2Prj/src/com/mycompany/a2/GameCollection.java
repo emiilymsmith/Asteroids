@@ -24,6 +24,10 @@ public class GameCollection implements ICollection{
 		theCollection.addElement(newObject);
 	}
 	
+	public void remove(Object object) {
+		theCollection.removeElement(object);
+	}
+	
 	public IIterator getIterator() {
 		return new GameVectorIterator();
 	}
@@ -47,6 +51,11 @@ public class GameCollection implements ICollection{
 			currElementIndex ++;
 			return(theCollection.elementAt(currElementIndex));
 		}
+		
+		public Object checkNext() {
+			return(theCollection.elementAt(currElementIndex));
+		}
+		
 	}
 	
 }

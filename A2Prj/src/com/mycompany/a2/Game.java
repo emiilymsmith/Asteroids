@@ -35,7 +35,7 @@ public class Game extends Form {
 		mv = new MapView(); //uncomment
 //		pv = new PointsView(gw);
 		gw.addObserver(mv);
-		gw.addObserver(pv);
+//		gw.addObserver(pv);
 		
 		gw.init(); //this gets commented out
 		play();
@@ -98,7 +98,7 @@ public class Game extends Form {
 						gw.launchNPSMissile();
 						break;
 					case 'j':
-						gw.jump();
+						//gw.jump();
 						break;
 					case 'n':
 						gw.loadMissiles();
