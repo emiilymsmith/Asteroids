@@ -36,6 +36,8 @@ public class Game extends Form {
 	private MapView mv;
 	private PointsView pv;
 	
+	private LeftTurnCommand ltCommand;
+	
 	/* Game Constructor */
 	public Game() {
 		setLayout(new BorderLayout());
@@ -45,6 +47,8 @@ public class Game extends Form {
 		pv = new PointsView(gw);
 		//gw.addObserver(mv);
 		gw.addObserver(pv);
+		
+		ltCommand = new LeftTurnCommand(gw);
 		
 		/* Button toolbar */
 		Container menu = new Container();
@@ -108,6 +112,14 @@ public class Game extends Form {
 		menu.add(bDecelerate);
 
 		//LEFT TURN
+		/* Left Turn Button */
+		Button bleft = new Button("Left Turn");
+		bleft.getAllStyles().setBgTransparency(200);
+		bleft.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bleft.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bleft);
+		bleft.setCommand(ltCommand);
+		
 		//RIGHT TURN KEYSTROKES
 		
 		/* Fire Missile Button */

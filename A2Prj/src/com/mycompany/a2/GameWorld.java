@@ -149,7 +149,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * d */
 	public void decreaseSpeed() {
 		IIterator theElements = go.getIterator();
-		if(psExists()) {
+		if(psExists()) { //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< GAME OBJECT
 			while(theElements.hasNext()) {
                 if (theElements instanceof PlayerShip) {
                     int currentSpeed = ((PlayerShip) theElements).getSpeed();
