@@ -1,11 +1,18 @@
 package com.mycompany.a2;
 
+import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Button;
+import com.codename1.ui.Component;
+import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.geom.Point2D;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Border;
 
 /**
  * @author Emily Smith
@@ -31,15 +38,153 @@ public class Game extends Form {
 	
 	/* Game Constructor */
 	public Game() {
+		setLayout(new BorderLayout());
 		gw = new GameWorld();
-		mv = new MapView(); //uncomment
-//		pv = new PointsView(gw);
-		gw.addObserver(mv);
-//		gw.addObserver(pv);
-		
 		gw.init(); //this gets commented out
-		play();
-		//this.show(); //uncomment
+		//mv = new MapView(); //uncomment
+		pv = new PointsView(gw);
+		//gw.addObserver(mv);
+		gw.addObserver(pv);
+		
+		/* Button toolbar */
+		Container menu = new Container();
+		menu.setLayout(new BoxLayout(BoxLayout.Y_AXIS));//Next one goes below
+		menu.add(new Label("Commands"));
+		menu.getAllStyles().setBgTransparency(255);
+		menu.getAllStyles().setBgColor(ColorUtil.LTGRAY);
+		menu.getAllStyles().setFgColor(ColorUtil.WHITE);
+		menu.getAllStyles().setBorder(Border.createLineBorder(4,ColorUtil.LTGRAY));
+		
+		/* Demo Button */
+		Button demo = new Button("Demo");
+		demo.getAllStyles().setBgTransparency(200);
+		demo.getAllStyles().setBgColor(ColorUtil.BLUE);
+		demo.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		//demo.getAllStyles().setPadding(Component.TOP, 5);
+		menu.add(demo);
+
+		/* AddAsteroid Button */
+		Button bAddAsteroid = new Button("Add Asteroid");
+		bAddAsteroid.getAllStyles().setBgTransparency(200);
+		bAddAsteroid.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bAddAsteroid.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		//demo.getAllStyles().setPadding(Component.TOP, 5);
+		menu.add(bAddAsteroid);
+		
+		/* AddNonPlayerShip Button */
+		Button bAddNonPlayerShip = new Button("Add Non Player Ship");
+		bAddNonPlayerShip.getAllStyles().setBgTransparency(200);
+		bAddNonPlayerShip.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bAddNonPlayerShip.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		//demo.getAllStyles().setPadding(Component.TOP, 5);
+		menu.add(bAddNonPlayerShip);
+		
+		/* AddSpaceStation Button */
+		Button bAddSpaceStation = new Button("Add Space Station");
+		bAddSpaceStation.getAllStyles().setBgTransparency(200);
+		bAddSpaceStation.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bAddSpaceStation.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bAddSpaceStation);
+		
+		/* AddPlayerShip Button */
+		Button bAddPlayerShip = new Button("Add Player Ship");
+		bAddPlayerShip.getAllStyles().setBgTransparency(200);
+		bAddPlayerShip.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bAddPlayerShip.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bAddPlayerShip);
+		
+		/* Accelerate Button */
+		Button bAccelerate = new Button("Accelerate");
+		bAccelerate.getAllStyles().setBgTransparency(200);
+		bAccelerate.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bAccelerate.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bAccelerate);
+		
+		/* Decelerate Button */
+		Button bDecelerate = new Button("Decelerate");
+		bDecelerate.getAllStyles().setBgTransparency(200);
+		bDecelerate.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bDecelerate.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bDecelerate);
+
+		//LEFT TURN
+		//RIGHT TURN KEYSTROKES
+		
+		/* Fire Missile Button */
+		Button bFireMissile = new Button("Fire Missile");
+		bFireMissile.getAllStyles().setBgTransparency(200);
+		bFireMissile.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bFireMissile.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bFireMissile);
+		
+		/* Hyperspace Jump Button */
+		Button bJump = new Button("Hyperspace Jump");
+		bJump.getAllStyles().setBgTransparency(200);
+		bJump.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bJump.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bJump);
+		
+		/* Decelerate Button */
+		Button bReload = new Button("Reload Missiles");
+		bReload.getAllStyles().setBgTransparency(200);
+		bReload.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bReload.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bReload);
+		
+		/* Missile Destroys Asteroid Button */
+		Button bDestroyAsteroid = new Button("Missile Destroy Asteroid");
+		bDestroyAsteroid.getAllStyles().setBgTransparency(200);
+		bDestroyAsteroid.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bDestroyAsteroid.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bDestroyAsteroid);
+		
+		/* Missile Strikes Non Player Ship Button */
+		Button bHit= new Button("Missile Hits NonPlayerShip");
+		bHit.getAllStyles().setBgTransparency(200);
+		bHit.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bHit.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bHit);
+		
+		/* PlayerShip crashes into Asteroid Button */
+		Button bCrash = new Button("PlayerShip Crash into Asteroid");
+		bCrash.getAllStyles().setBgTransparency(200);
+		bCrash.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bCrash.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bCrash);
+		
+		/* PlayerShip hits NonPlayerShip Button */
+		Button bPSCollision = new Button("PlayerShip Hits NonPlayerShip");
+		bPSCollision.getAllStyles().setBgTransparency(200);
+		bPSCollision.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bPSCollision.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bPSCollision);
+		
+		/* Asteroids Collide Button */
+		Button bACollision = new Button("Asteroids Collids");
+		bACollision.getAllStyles().setBgTransparency(200);
+		bACollision.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bACollision.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bACollision);
+		
+		/* Asteroid hits NonPlayerShip Button */
+		Button bANPSCollision = new Button("Asteroid hits NonPlayerShip");
+		bANPSCollision.getAllStyles().setBgTransparency(200);
+		bANPSCollision.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bANPSCollision.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bANPSCollision);
+		
+		/* Game Clock Tick Button */
+		Button bTick = new Button("Game Clock Tick");
+		bTick.getAllStyles().setBgTransparency(200);
+		bTick.getAllStyles().setBgColor(ColorUtil.BLUE);
+		bTick.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
+		menu.add(bTick);
+		
+		add(BorderLayout.WEST,menu);
+		
+		
+		//play();
+		this.show(); //uncomment
 	}
 	
 	/* *

@@ -9,9 +9,11 @@ import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 
 public class PointsView extends Container implements Observer{
+	private GameWorld gw;
 	private Label pointsValueLabel;
 	
-	public PointsView() {
+	public PointsView(GameWorld gw) {
+		this.gw = gw;
 		// Instantiate text Labels
 		Label pointsTextLabel = new Label("Points: ");
 		
