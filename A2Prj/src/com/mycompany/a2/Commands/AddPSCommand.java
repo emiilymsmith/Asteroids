@@ -17,6 +17,6 @@ public class AddPSCommand extends Command{
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		gw.addPS();
-		System.out.println("Add Space Station Command");
+		System.out.println("Add Player Ship Command");
 	}
 }

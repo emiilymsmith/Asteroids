@@ -110,13 +110,14 @@ public class GameWorld extends Observable implements IGameWorld{
 	 *  Adds it to vector: 'storage'
 	 * s */
 	public void addPS() {
-		//IIterator theElements = go.getIterator();
-		if(!psExists()) {
+		IIterator theElements = go.getIterator();
+		if(psExists() == true) { //returning false
 			PlayerShip ps = new PlayerShip();
 			go.add(ps);
 			System.out.println("A PLAYER SHIP has been created.");
 			System.out.println(ps);
 		} else {
+			//GameObject GameObj = of type PlayerShip, count if theres one,more than one jump out
 			System.err.println("A PLAYERSHIP already exists.");
 		}
 	}
@@ -540,13 +541,13 @@ public class GameWorld extends Observable implements IGameWorld{
 	public boolean psExists() {
 		IIterator theElements = go.getIterator();
 		boolean psexists = false;
-		GameObject GameObject = (GameObject) theElements.getNext();
-		while(GameObject.hasNext()) {
-            if(GameObject instanceof PlayerShip) {
+		while(theElements.hasNext()) {
+			GameObject GameObj = (GameObject) theElements.getNext();
+			if(GameObj instanceof PlayerShip) {
                 psexists = true;
             }
         }
-        if(!psexists)
+        if(psexists == false)
             System.out.println("PLAYER SHIP does not exist.");
         return psexists;
 	}
