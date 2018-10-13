@@ -79,7 +79,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	 *  Adds it to vector: 'storage'
 	 * a */
 	public void addAsteroid() {
-		
 		/*create Asteroid object*/
 		Asteroids asteroid = new Asteroids();
 		/*add asteroid to storage vector*/
@@ -541,8 +540,9 @@ public class GameWorld extends Observable implements IGameWorld{
 	public boolean psExists() {
 		IIterator theElements = go.getIterator();
 		boolean psexists = false;
-		while(theElements.hasNext()) {
-            if(theElements instanceof PlayerShip) {
+		GameObject GameObject = (GameObject) theElements.getNext();
+		while(GameObject.hasNext()) {
+            if(GameObject instanceof PlayerShip) {
                 psexists = true;
             }
         }
