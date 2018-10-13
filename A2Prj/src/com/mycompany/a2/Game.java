@@ -13,6 +13,11 @@ import com.codename1.ui.geom.Point2D;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
+import com.mycompany.a2.Commands.AddAsteroidCommand;
+import com.mycompany.a2.Commands.AddNPSCommand;
+import com.mycompany.a2.Commands.AddPSCommand;
+import com.mycompany.a2.Commands.AddSpaceStationCommand;
+import com.mycompany.a2.Commands.LeftTurnCommand;
 
 /**
  * @author Emily Smith
@@ -37,6 +42,10 @@ public class Game extends Form {
 	private PointsView pv;
 	
 	private LeftTurnCommand ltCommand;
+	private AddAsteroidCommand addAsteroidCommand;
+	private AddNPSCommand addNPSCommand;
+	private AddSpaceStationCommand addSSCommand;
+	private AddPSCommand addPSCommand;
 	
 	/* Game Constructor */
 	public Game() {
@@ -49,6 +58,10 @@ public class Game extends Form {
 		gw.addObserver(pv);
 		
 		ltCommand = new LeftTurnCommand(gw);
+		addAsteroidCommand = new AddAsteroidCommand(gw);
+		addNPSCommand = new AddNPSCommand(gw);
+		addSSCommand = new AddSpaceStationCommand(gw);
+		addPSCommand = new AddPSCommand(gw);
 		
 		/* Button toolbar */
 		Container menu = new Container();
@@ -58,30 +71,22 @@ public class Game extends Form {
 		menu.getAllStyles().setBgColor(ColorUtil.LTGRAY);
 		menu.getAllStyles().setFgColor(ColorUtil.WHITE);
 		menu.getAllStyles().setBorder(Border.createLineBorder(4,ColorUtil.LTGRAY));
-		
-		/* Demo Button */
-		Button demo = new Button("Demo");
-		demo.getAllStyles().setBgTransparency(200);
-		demo.getAllStyles().setBgColor(ColorUtil.BLUE);
-		demo.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
-		//demo.getAllStyles().setPadding(Component.TOP, 5);
-		menu.add(demo);
 
 		/* AddAsteroid Button */
 		Button bAddAsteroid = new Button("Add Asteroid");
 		bAddAsteroid.getAllStyles().setBgTransparency(200);
 		bAddAsteroid.getAllStyles().setBgColor(ColorUtil.BLUE);
 		bAddAsteroid.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
-		//demo.getAllStyles().setPadding(Component.TOP, 5);
 		menu.add(bAddAsteroid);
+		bAddAsteroid.setCommand(addAsteroidCommand);
 		
 		/* AddNonPlayerShip Button */
 		Button bAddNonPlayerShip = new Button("Add Non Player Ship");
 		bAddNonPlayerShip.getAllStyles().setBgTransparency(200);
 		bAddNonPlayerShip.getAllStyles().setBgColor(ColorUtil.BLUE);
 		bAddNonPlayerShip.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
-		//demo.getAllStyles().setPadding(Component.TOP, 5);
 		menu.add(bAddNonPlayerShip);
+		bAddNonPlayerShip.setCommand(addNPSCommand);
 		
 		/* AddSpaceStation Button */
 		Button bAddSpaceStation = new Button("Add Space Station");
@@ -89,6 +94,7 @@ public class Game extends Form {
 		bAddSpaceStation.getAllStyles().setBgColor(ColorUtil.BLUE);
 		bAddSpaceStation.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
 		menu.add(bAddSpaceStation);
+		bAddSpaceStation.setCommand(addSSCommand);
 		
 		/* AddPlayerShip Button */
 		Button bAddPlayerShip = new Button("Add Player Ship");
@@ -96,6 +102,8 @@ public class Game extends Form {
 		bAddPlayerShip.getAllStyles().setBgColor(ColorUtil.BLUE);
 		bAddPlayerShip.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
 		menu.add(bAddPlayerShip);
+		bAddPlayerShip.setCommand(addPSCommand);
+		
 		
 		/* Accelerate Button */
 		Button bAccelerate = new Button("Accelerate");
@@ -113,7 +121,7 @@ public class Game extends Form {
 
 		//LEFT TURN
 		/* Left Turn Button */
-		Button bleft = new Button("Left Turn");
+		Button bleft = new Button("TurnLeft");
 		bleft.getAllStyles().setBgTransparency(200);
 		bleft.getAllStyles().setBgColor(ColorUtil.BLUE);
 		bleft.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.LTGRAY));
@@ -210,94 +218,94 @@ public class Game extends Form {
 	 * 
 	 * */
 	
-	public void play() {
-		Label myLabel = new Label("Enter a Command:");
-		this.addComponent(myLabel);
-		final TextField myTextField = new TextField();
-		this.addComponent(myTextField);
-		this.show();
-		myTextField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				String sCommand = myTextField.getText().toString();
-				myTextField.clear();
-				switch(sCommand.charAt(0)) {
-					case 'a':
-						gw.addAsteroid();
-						break;
-					case 'y':
-						gw.addNPS();
-						break;
-					case 'b':
-						gw.addSpaceStation();
-						break;
-					case 's':
-						gw.addPS();
-						break;
-					case 'i':
-						gw.increaseSpeed();
-						break;
-					case 'd':
-						gw.decreaseSpeed();
-						break;
-					case 'l':
-						gw.turnLeft();
-						break;
-					case 'r':
-						gw.turnRight();
-						break;
-					case '<':
-						gw.aimML();
-						break;
-					case 'f':
-						gw.firePSMissile();
-						break;
-					case 'L':
-						gw.launchNPSMissile();
-						break;
-					case 'j':
-						//gw.jump();
-						break;
-					case 'n':
-						gw.loadMissiles();
-						break;
-					case 'k':
-						gw.destroyAsteroid();
-						break;
-					case 'e':
-						gw.eliminatedNPS();
-						break;
-					case 'E':
-						gw.explodePS();
-						break;
-					case 'c':
-						gw.crash();
-						break;
-					case 'h':
-						gw.hit();
-						break;
-					case 'x':
-						gw.exterminate();
-						break;
-					case 'I':
-						gw.impact();
-						break;
-					case 't':
-						gw.ticked();
-						break;
-					case 'p':
-						gw.printDisplay();
-						break;
-					case 'm':
-						gw.map();
-						break;
-					case 'q':
-						gw.quitGW();
-						break;
-					default:
-						System.out.println("Sorry, that character doesn't do anything!");
-				} /*end switch*/
-			}/*action Performed*/
-		} /*new ActionListener*/
-		); /*addActionListener -- lambda expressions*/
-	}/*end play*/
+//	public void play() {
+//		Label myLabel = new Label("Enter a Command:");
+//		this.addComponent(myLabel);
+//		final TextField myTextField = new TextField();
+//		this.addComponent(myTextField);
+//		this.show();
+//		myTextField.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent evt) {
+//				String sCommand = myTextField.getText().toString();
+//				myTextField.clear();
+//				switch(sCommand.charAt(0)) {
+//					case 'a':
+//						gw.addAsteroid();
+//						break;
+//					case 'y':
+//						gw.addNPS();
+//						break;
+//					case 'b':
+//						gw.addSpaceStation();
+//						break;
+//					case 's':
+//						gw.addPS();
+//						break;
+//					case 'i':
+//						gw.increaseSpeed();
+//						break;
+//					case 'd':
+//						gw.decreaseSpeed();
+//						break;
+//					case 'l':
+//						gw.turnLeft();
+//						break;
+//					case 'r':
+//						gw.turnRight();
+//						break;
+//					case '<':
+//						gw.aimML();
+//						break;
+//					case 'f':
+//						gw.firePSMissile();
+//						break;
+//					case 'L':
+//						gw.launchNPSMissile();
+//						break;
+//					case 'j':
+//						//gw.jump();
+//						break;
+//					case 'n':
+//						gw.loadMissiles();
+//						break;
+//					case 'k':
+//						gw.destroyAsteroid();
+//						break;
+//					case 'e':
+//						gw.eliminatedNPS();
+//						break;
+//					case 'E':
+//						gw.explodePS();
+//						break;
+//					case 'c':
+//						gw.crash();
+//						break;
+//					case 'h':
+//						gw.hit();
+//						break;
+//					case 'x':
+//						gw.exterminate();
+//						break;
+//					case 'I':
+//						gw.impact();
+//						break;
+//					case 't':
+//						gw.ticked();
+//						break;
+//					case 'p':
+//						gw.printDisplay();
+//						break;
+//					case 'm':
+//						gw.map();
+//						break;
+//					case 'q':
+//						gw.quitGW();
+//						break;
+//					default:
+//						System.out.println("Sorry, that character doesn't do anything!");
+//				} /*end switch*/
+//			}/*action Performed*/
+//		} /*new ActionListener*/
+//		); /*addActionListener -- lambda expressions*/
+//	}/*end play*/
 }/*end Game*/

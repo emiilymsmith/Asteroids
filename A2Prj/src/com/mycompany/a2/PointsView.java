@@ -36,7 +36,7 @@ public class PointsView extends Container implements Observer{
 	// update is called whenever the observable is updates
 	public void update(Observable o, Object arg) {
 		// casting arg as a GameWorld (proxy = arg)
-		IGameWorld gw = (IGameWorld) arg;
+		IGameWorld gw = (IGameWorld) o;
 		
 		//Getting Player Score
 		int score = gw.getPlayerScore();
