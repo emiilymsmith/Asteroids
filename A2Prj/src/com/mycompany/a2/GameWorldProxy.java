@@ -20,13 +20,44 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 		this.gw = gw;
 	}
 	
-	
-	
 	@Override
 	public int getPlayerScore() {
 		return gw.getPlayerScore();
 	}
 	
+	@Override
+	public boolean getSound() {
+		return gw.getSound();
+	}
 	
+	@Override
+	public int getLives() {
+		return gw.getLives();
+	}
+	
+	@Override
+	public int getMissileCount() {
+		return gw.getMissileCount();
+	}
+	
+	@Override
+	public int getTime() {
+		return gw.getTime();
+	}
+	
+	@Override
+	public void setWidth(int w) {
+		gw.setWidth(w);
+	}
+	
+	@Override
+	public void setHeight(int h) {
+		gw.setHeight(h);
+	}
+	
+	@Override
+	public void map() {
+		gw.map();
+	}
 	
 }

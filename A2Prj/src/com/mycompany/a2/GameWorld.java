@@ -2,6 +2,7 @@ package com.mycompany.a2;
 
 import java.util.Observable;
 //import java.util.Vector;
+import java.util.Vector;
 
 import com.codename1.io.gzip.Adler32;
 import com.codename1.ui.geom.Point2D;
@@ -36,44 +37,36 @@ public class GameWorld extends Observable implements IGameWorld{
 //	Vector<GameObject> storage = new Vector<GameObject>();
 	
 	/* All State Variables are stored here */
+	private Vector gameObjects = new Vector();
 	private GameCollection go;
 	
-	private boolean soundOn;
-	
 	/* Fixed Window Dimensions */
-	private int height = 768;
-	private int width = 1024;
+	private int height;
+	private int width;
 	
 	/* Private Data for functionality */
 	private int ticks;
-	private int score;
+	private int score, lives;
+	private boolean sound;
 	
-	public GameWorld() {
-		/* Create the Collection */
-		go = new GameCollection();
-		this.init(); /*Initialize the world*/
+	public void init(int w, int h){
+		this.score = 0;
+		this.width = w;
+		this.height = h;
+		this.lives = 3;
+		this.ticks = 0;
+		this.go = new GameCollection();
 		
-		/* Add some objects in the collections */
-		go.add(new Asteroids());
-		go.add(new NonPlayerShip());
-		go.add(new SpaceStation());
-		go.add(new PlayerShip());
-		
-	}
-	
-	public void init(){
-		score = 0;
 	}
 
-	/* Display objects in the collection */
-	public void displayCollection() {
-		IIterator theElements = go.getIterator();
-		while(theElements.hasNext()) {
-			GameObject go = (GameObject) theElements.getNext();
-			System.out.println(go);
-		}
-	}
-	
+//	/* Display objects in the collection */
+//	public void displayCollection() {
+//		IIterator theElements = go.getIterator();
+//		while(theElements.hasNext()) {
+//			GameObject go = (GameObject) theElements.getNext();
+//			System.out.println(go);
+//		}
+//	}
 	
 	/** Create a new Asteroid Object 
 	 *  Adds it to vector: 'storage'
@@ -467,17 +460,20 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * p */
 	public void printDisplay() {
 		IIterator theElements = go.getIterator();
-		int psi, missileCount = -1;
-        if (psExists()) {
-            psi = getPlayerShipIndex();
-//            PlayerShip ps = (PlayerShip) theElements.get(psi); //THIS DONT WORK!!!!!!!!!!!!!!!!!
-//            missileCount = ps.getMissileCount();
+		int missileCount = -1;
+        while(theElements.hasNext()) {
+			if (psExists()) {
+				GameObject GameObject = (GameObject) theElements.getNext();
+				if (GameObject instanceof PlayerShip) {
+                    missileCount = ((PlayerShip) GameObject).getMissileCount();
+                }
+	        }
         }
-        System.out.println("--------------------------------------------------------------------------------\n"
-                         + "---------------------------- Current Game States: ------------------------------\n"
-                         + "--------------- Points: "+score+" -------- Missiles: "+missileCount+" -------- Time: "+ticks
-                         +"----------------\n"
-                         + "--------------------------------------------------------------------------------\n");
+	        System.out.println("--------------------------------------------------------------------------------\n"
+	                         + "---------------------------- Current Game States: ------------------------------\n"
+	                         + "--------------- Points: "+score+" -------- Missiles: "+missileCount+" -------- Time: "+ticks
+	                         +"----------------\n"
+	                         + "--------------------------------------------------------------------------------\n");
 	}
 	
 	/* Map of current world state
@@ -489,7 +485,8 @@ public class GameWorld extends Observable implements IGameWorld{
                 + "-------------- Game Map ----------------\n"
                 + "----------------------------------------");
 		while(theElements.hasNext()) {
-			System.out.println(go.toString());
+			GameObject gameObject = (GameObject) theElements.getNext();
+			System.out.println(gameObject);
 		}
 		System.out.println("---------------------------------------\n");
 	}
@@ -513,6 +510,48 @@ public class GameWorld extends Observable implements IGameWorld{
         
         //go.removeAllElements(); 									SHIT DONT WORKKKK
     }
+	
+	@Override
+	public int getPlayerScore() {
+		return this.score;
+	}
+	
+	@Override
+	public int getLives() {
+		return this.lives;
+	}
+	
+	@Override
+	public boolean getSound( ) {
+		return this.sound;
+	}
+	
+	public void sound() {
+		this.sound = !this.getSound();
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
+	}
+	
+	@Override
+	public int getMissileCount( ) {
+		return 0;
+	}
+	
+	@Override
+	public int getTime() {
+		return this.ticks;
+	}
+	
+	@Override
+	public void setWidth(int w) {
+		this.width = w;
+	}
+	
+	@Override
+	public void setHeight(int h) {
+		this.height = h;
+	}
+	
 	/*
 	 * 
 	 * Below are helper functions to aid in streamlining the above required methods.
@@ -709,13 +748,6 @@ public class GameWorld extends Observable implements IGameWorld{
         System.err.println("Did not remove PLAYERSHIP.");
         return false;
 	}
-
-	@Override
-	public int getPlayerScore() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	
 }/* End Game World */
 
