@@ -36,6 +36,14 @@ public class PlayerShip extends Ship implements ISteerable{
         return playerShipML;
     }
 	
+	public void moveMLLeft() {
+		playerShipML.turnLeft();
+	}
+	
+	public void moveMLRight() {
+		playerShipML.turnRight();
+	}
+	
 	public int getLives() {
 		return lives = 3;
 	}

@@ -13,7 +13,6 @@ import java.util.Random;
  */
 
 public abstract class GameObject{
-	
 	private Point2D location;
 	private int color;
 	protected Random r = new Random();
@@ -28,11 +27,11 @@ public abstract class GameObject{
 	
 	/* getters and setters */
 	public int getWidth() {
-		return this.getWidth();
+		return this.width;
 	}
 	
 	public int getHeight() {
-		return this.getHeight();
+		return this.height;
 	}
 	
 	public int getColor() {
@@ -94,8 +93,8 @@ public abstract class GameObject{
 	/* Sets a new random location on the map */
 	public void setRandomLocation() {
 		Point2D point = new Point2D(0,0);
-		point.setX(r.nextFloat()*1024);
-		point.setY(r.nextFloat()*768);
+		point.setX(r.nextFloat()*this.getWidth());
+		point.setY(r.nextFloat()*this.getHeight());
 		this.location = point;
 	}
 

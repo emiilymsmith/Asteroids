@@ -17,8 +17,9 @@ public class AddAsteroidCommand extends Command{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
-		gw.addAsteroid();
-		System.out.println("Asteroid Command");
-		
+		if(ev.getKeyEvent() != -1) {
+			gw.addAsteroid();
+			System.out.println("Asteroid Command");
+		}
 	}
 }

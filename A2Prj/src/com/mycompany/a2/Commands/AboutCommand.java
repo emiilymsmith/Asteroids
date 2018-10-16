@@ -1,15 +1,17 @@
 package com.mycompany.a2.Commands;
 
 import com.codename1.ui.Command;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class AddSpaceStationCommand extends Command{
+public class AboutCommand extends Command{
 	private GameWorld gw;
-
-	public AddSpaceStationCommand(GameWorld gw) {
-		super("Add Blinking Space Station");
-		this.gw = gw;
+	private String describe = "";
+	
+	public AboutCommand(){
+		super("About");
+		describe = "Emily Smith\\nCSC133\\nA2";
 	}
 	/**
 	 * Calls the turnLeft method in GameWorld
@@ -17,8 +19,7 @@ public class AddSpaceStationCommand extends Command{
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
-			gw.addSpaceStation();
-			System.out.println("Add Space Station Command");
+			Dialog.show("About",describe,"Done","Exit");
 		}
 	}
 }

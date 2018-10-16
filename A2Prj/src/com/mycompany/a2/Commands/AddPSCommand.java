@@ -16,7 +16,9 @@ public class AddPSCommand extends Command{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
-		gw.addPS();
-		System.out.println("Add Player Ship Command");
+		if(ev.getKeyEvent() != -1) {
+			gw.addPS();
+			System.out.println("Add Player Ship Command");
+		}
 	}
 }

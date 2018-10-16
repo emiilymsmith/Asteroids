@@ -17,8 +17,9 @@ public class AddNPSCommand extends Command{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
-		gw.addNPS();
-		System.out.println("Add NonPlayerShip Command");
-		
+		if (ev.getKeyEvent() != -1) {
+			gw.addNPS();
+			System.out.println("Add NonPlayerShip Command");
+		}
 	}
 }

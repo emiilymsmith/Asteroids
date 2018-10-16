@@ -4,21 +4,22 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class AddSpaceStationCommand extends Command{
+public class FireMissileCommand extends Command{
 	private GameWorld gw;
 
-	public AddSpaceStationCommand(GameWorld gw) {
-		super("Add Blinking Space Station");
+	public FireMissileCommand(GameWorld gw) {
+		super("FireMissile");
 		this.gw = gw;
 	}
+	
 	/**
-	 * Calls the turnLeft method in GameWorld
+	 * Calls the Increase Speed method in GameWorld
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
-			gw.addSpaceStation();
-			System.out.println("Add Space Station Command");
+			gw.firePSMissile();
+			System.out.println("Fire Missile");
 		}
 	}
 }

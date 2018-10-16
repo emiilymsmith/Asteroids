@@ -16,25 +16,25 @@ import com.codename1.ui.layouts.FlowLayout;
 public class MapView extends Container implements Observer{
 	public MapView() {
 		/* container for points view */
-		Container myContainer = new Container();
+		Container mapContainer = new Container();
 
-		myContainer.setLayout(new FlowLayout());
-		myContainer.getAllStyles().setBgTransparency(255);
-		myContainer.getAllStyles().setBgColor(ColorUtil.LTGRAY);
+		mapContainer.setLayout(new FlowLayout());
+		mapContainer.getAllStyles().setBgTransparency(255);
+		mapContainer.getAllStyles().setBgColor(ColorUtil.LTGRAY);
 		
 		Label textLabel = new Label(" Map View Area ");
 		textLabel.getAllStyles().setPaddingBottom(150);
-		textLabel.getAllStyles().setPaddingRight(39);
+		textLabel.getAllStyles().setPaddingRight(50);
 		
-		myContainer.add(textLabel);
+		mapContainer.add(textLabel);
 		
-		this.add(myContainer);
+		this.add(mapContainer);
 	}
 	
 	public void update(Observable o, Object arg) {
 		IGameWorld igw = (IGameWorld) arg;
-		igw.setHeight(this.getHeight());
 		igw.setWidth(this.getWidth());
+		igw.setHeight(this.getHeight());
 		igw.map();
 		this.repaint();
 		//System.out.println("Map Width: " + igw.getMapHeight() + "Map Height: " + igw.getMapWidth());

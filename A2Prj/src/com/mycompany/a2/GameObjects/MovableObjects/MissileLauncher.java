@@ -13,7 +13,7 @@ import com.mycompany.a2.GameObjects.MovableObject;
 public class MissileLauncher extends MovableObject{
 	
 	/*we need to pass through location, heading, speed*/
-	public MissileLauncher(Point2D location,int heading, int speed, int width, int height) {
+	public MissileLauncher(Point2D location,int heading,int speed,int width,int height) {
 		super(width, height);
 		super.setLocation(location); //get NPS location
 		this.setHeading(heading); //get NPS heading

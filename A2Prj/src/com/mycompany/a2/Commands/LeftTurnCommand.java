@@ -17,8 +17,9 @@ public class LeftTurnCommand extends Command{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
-		gw.turnLeft();
-		System.out.println("Turning Left");
-		
+		if(ev.getKeyEvent() != -1) {
+			gw.turnLeft();
+			System.out.println("Turning Left");
+		}
 	}
 }

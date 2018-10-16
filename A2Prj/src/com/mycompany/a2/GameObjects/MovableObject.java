@@ -56,12 +56,12 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	}
 	
 	public void setRandomSpeed() {
-		this.speed = r.nextInt(10)+1; //"this" means HERE in this file
+		this.speed = r.nextInt(10)+1;
 	}
 	
 	public void setRandomHeading() {
 		this.heading = r.nextInt(359)+1;
-		//something with angles
+		
 	}
 	
 	public void increaseSpeed() {

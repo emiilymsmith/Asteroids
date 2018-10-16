@@ -4,11 +4,11 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class AddSpaceStationCommand extends Command{
+public class ClockTickCommand extends Command{
 	private GameWorld gw;
 
-	public AddSpaceStationCommand(GameWorld gw) {
-		super("Add Blinking Space Station");
+	public ClockTickCommand(GameWorld gw){
+		super("Tick Tock");
 		this.gw = gw;
 	}
 	/**
@@ -17,8 +17,8 @@ public class AddSpaceStationCommand extends Command{
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
-			gw.addSpaceStation();
-			System.out.println("Add Space Station Command");
+			gw.ticked();
+			System.out.println("Tick Tock");
 		}
 	}
 }
