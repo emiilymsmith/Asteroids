@@ -13,8 +13,8 @@ public abstract class Ship extends MovableObject{
 	private int missileCount;
 	
 	/* Ship Constructor */
-	public Ship() {
-		
+	public Ship(int width,int height) {
+		super(width, height);
 	}
 	
 	/* getters and setters */

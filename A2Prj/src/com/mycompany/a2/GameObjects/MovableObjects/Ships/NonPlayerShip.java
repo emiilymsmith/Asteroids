@@ -16,7 +16,8 @@ public class NonPlayerShip extends Ship{
 	private int size;
 	private MissileLauncher nonPlayerShipML;
 
-	public NonPlayerShip() {
+	public NonPlayerShip(int width, int height) {
+		super(width,height);
 		super.setRandomLocation();
 		super.setColor(ColorUtil.GREEN);
 		this.size = this.getRandomSize();
@@ -25,7 +26,7 @@ public class NonPlayerShip extends Ship{
 		super.setFixedMissileCount(); // 2 at most
 		
 		/* location, heading, speed */
-		nonPlayerShipML = new MissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed());
+		nonPlayerShipML = new MissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed(), width, height);
 	}
 	
 	public MissileLauncher getML() {

@@ -44,11 +44,12 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int height;
 	private int width;
 	
-	/* Private Data for functionality */
-	private int ticks;
+	/* Fixed variables */
+	private int ticks; //time
 	private int score, lives;
 	private boolean sound;
 	
+	/* Constructor */
 	public void init(int w, int h){
 		this.score = 0;
 		this.width = w;
@@ -73,30 +74,37 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * a */
 	public void addAsteroid() {
 		/*create Asteroid object*/
-		Asteroids asteroid = new Asteroids();
+		Asteroids asteroid = new Asteroids(this.width, this.height);
 		/*add asteroid to storage vector*/
 		go.add(asteroid);
 		/*feedback for creation*/
 		System.out.println("An ASTEROID has been created.");	
 		System.out.println(asteroid);
+		
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	/** Create a new NonPlayerShip Object
 	 *  Adds it to vector: 'storage'
 	 * y */
 	public void addNPS() {
-		NonPlayerShip nps = new NonPlayerShip();
+		NonPlayerShip nps = new NonPlayerShip(this.width, this.height);
 		go.add(nps);
 		System.out.println("A NON-PLAYERSHIP has been created.");
 		System.out.println(nps);
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	/** Create a new Blinking Space Station Object
 	 *  Adds it to vector: 'storage'
 	 * b */
 	public void addSpaceStation() {
-		SpaceStation bs = new SpaceStation();
+		SpaceStation bs = new SpaceStation(this.width, this.height);
 		go.add(bs);
 		System.out.println("A SPACE STATION has been created.");
 		System.out.println(bs);
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 	/** Create a new Player Ship Object
 	 *  Checks if a PlayerShip does not exist
@@ -105,7 +113,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addPS() {
 		IIterator theElements = go.getIterator();
 		if(psExists() == true) { //returning false
-			PlayerShip ps = new PlayerShip();
+			PlayerShip ps = new PlayerShip(this.width, this.height);
 			go.add(ps);
 			System.out.println("A PLAYER SHIP has been created.");
 			System.out.println(ps);
@@ -227,7 +235,7 @@ public class GameWorld extends Observable implements IGameWorld{
             	ps.setMissileCount(numMissiles - 1);
             	SteerableMissileLauncher sml = ps.getPSML();
                 /* creates object Missiles called missile, uses playership's params*/
-                Missiles missile = new Missiles(ps.getLocation(), ps.getHeading(), ps.getSpeed());
+                Missiles missile = new Missiles(ps.getLocation(), ps.getHeading(), ps.getSpeed(), width, height);
                 go.add(missile);
                 System.out.println("PLAYERSHIP missile FIRED.");
             }
@@ -250,7 +258,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				nps.setMissileCount(numMissiles - 1);
 				MissileLauncher ml = nps.getML();
 				/* creates object Missiles called missile, uses NONplayership's params*/
-				Missiles missile = new Missiles(nps.getLocation(), nps.getHeading(), nps.getSpeed());
+				Missiles missile = new Missiles(nps.getLocation(), nps.getHeading(), nps.getSpeed(), width, height);
 				go.add(missile);
 				System.out.println("NONPLAYERSHIP MISSILE FIRED.");
             }

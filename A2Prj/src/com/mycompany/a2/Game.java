@@ -53,7 +53,7 @@ public class Game extends Form {
 	public Game() {
 		setLayout(new BorderLayout());
 		gw = new GameWorld();
-		mv = new MapView(); //uncomment
+		mv = new MapView();
 		pv = new PointsView(gw);
 		
 		gw.init(mv.getWidth(), mv.getHeight());
@@ -84,10 +84,10 @@ public class Game extends Form {
 		this.setToolbar(buttonBar);
 		buttonBar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
 		buttonBar.add(new Label("Commands"));
-//		buttonBar.getAllStyles().setBgTransparency(255);
-//		buttonBar.getAllStyles().setBgColor(ColorUtil.LTGRAY);
-//		buttonBar.getAllStyles().setFgColor(ColorUtil.WHITE);
-//		buttonBar.getAllStyles().setBorder(Border.createLineBorder(4,ColorUtil.LTGRAY));
+		buttonBar.getAllStyles().setBgTransparency(255);
+		buttonBar.getAllStyles().setBgColor(ColorUtil.LTGRAY);
+		buttonBar.getAllStyles().setFgColor(ColorUtil.WHITE);
+		buttonBar.getAllStyles().setBorder(Border.createLineBorder(4,ColorUtil.LTGRAY));
 
 		/* AddAsteroid Button */
 		Button bAddAsteroid = new Button("Add Asteroid");
@@ -243,8 +243,7 @@ public class Game extends Form {
 		add(BorderLayout.NORTH,topContainer);
 		add(BorderLayout.CENTER,mv);
 		
-		//play();
-		this.show(); //uncomment
+		this.show();
 	}
 	
 	/* *

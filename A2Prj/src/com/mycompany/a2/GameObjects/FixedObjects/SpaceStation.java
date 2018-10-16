@@ -17,7 +17,8 @@ public class SpaceStation extends FixedObject {
 	private int tickTock;
 	
 	/* SpaceStation Constructor */
-	public SpaceStation() {
+	public SpaceStation(int width, int height) {
+		super(width,height);
 		super.setId();
 		setBlinkRate(); //from here
 		super.setColor(ColorUtil.BLUE); //from GameObject

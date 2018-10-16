@@ -14,7 +14,8 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	private int speed;
 	private int heading;
 	
-	public MovableObject() {
+	public MovableObject(int width, int height) {
+		super(width,height);
 		this.heading = getHeading();
 	}
 

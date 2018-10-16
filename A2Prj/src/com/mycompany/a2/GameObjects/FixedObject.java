@@ -13,8 +13,8 @@ public class FixedObject extends GameObject {
 	private int id; // counter
 	private static int bsid;
 	
-	public FixedObject() {
-		
+	public FixedObject(int width, int height) {
+		super(width,height);
 	}
 	
 	public int getId() {

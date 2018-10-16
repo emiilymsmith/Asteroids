@@ -12,8 +12,8 @@ import com.mycompany.a2.GameObjects.MovableObjects.Ships.PlayerShip;
  */
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable{
 	
-	public SteerableMissileLauncher(Point2D location, int heading, int speed){
-		super(location, heading, speed);
+	public SteerableMissileLauncher(Point2D location, int heading, int speed, int width, int height){
+		super(location, heading, speed, width, height);
 		super.setColor(ColorUtil.YELLOW);
 	}
 	

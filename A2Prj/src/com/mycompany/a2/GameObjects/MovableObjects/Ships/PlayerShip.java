@@ -19,15 +19,16 @@ public class PlayerShip extends Ship implements ISteerable{
 
 	private SteerableMissileLauncher playerShipML;
 	
-	public PlayerShip(){
-		Point2D point = new Point2D(512,384);
-		
+	public PlayerShip(int width, int height){
+		super(width, height);
+		Point2D point = new Point2D(width/2, height/2);
+
 		super.setColor(ColorUtil.MAGENTA);
 		super.setSpeed(0);
 		super.setHeading(0);
 		super.setLocation(point);
 		super.setMissileCount(10); // has to be 10
-		playerShipML = new SteerableMissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed());
+		playerShipML = new SteerableMissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed(),width,height);
 	}
 	
 	/* getters and setters */

@@ -13,7 +13,8 @@ public class Asteroids extends MovableObject{
 	private int size;
 	
 	/* Asteroid Constructor */
-	public Asteroids(){
+	public Asteroids(int width, int height){
+		super(width,height);
 		super.setColor(ColorUtil.BLUE); // from GameObject
 		this.size = getRandomSize(); //from here
 		super.setRandomHeading();// from MovableObject

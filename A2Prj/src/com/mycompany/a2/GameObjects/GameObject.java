@@ -17,13 +17,24 @@ public abstract class GameObject{
 	private Point2D location;
 	private int color;
 	protected Random r = new Random();
+	private int width;
+	private int height;
 	
 	/* GameObject constructor */
-	public GameObject(){
-		
+	public GameObject(int width, int height){
+		this.width = width;
+		this.height = height;
 	}
 	
 	/* getters and setters */
+	public int getWidth() {
+		return this.getWidth();
+	}
+	
+	public int getHeight() {
+		return this.getHeight();
+	}
+	
 	public int getColor() {
 		return color;
 	}
@@ -45,7 +56,7 @@ public abstract class GameObject{
 	}
 	
 	public void setX(double x) {
-		if (x >= 0 && x <= 1024) {
+		if (x >= 0 && x <= this.getWidth()) {
 			location.setX(x);
 		} else {
 			System.out.println("Input is out of bounds!");
@@ -57,7 +68,7 @@ public abstract class GameObject{
 	}
 	
 	public void setY(double y) {
-		if (y >= 0 && y <= 768) {
+		if (y >= 0 && y <= this.getHeight()) {
 			location.setY(y);
 		} else {
 			System.out.println("Input is out of bounds!");
