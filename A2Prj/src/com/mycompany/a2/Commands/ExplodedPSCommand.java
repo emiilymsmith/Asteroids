@@ -8,7 +8,7 @@ public class ExplodedPSCommand extends Command{
 	private GameWorld gw;
 
 	public ExplodedPSCommand(GameWorld gw) {
-		super("FireMissile");
+		super("NPS Explodes PS");
 		this.gw = gw;
 	}
 	
