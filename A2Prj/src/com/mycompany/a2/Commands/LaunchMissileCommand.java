@@ -4,11 +4,11 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class FireMissileCommand extends Command{
+public class LaunchMissileCommand extends Command{
 	private GameWorld gw;
 
-	public FireMissileCommand(GameWorld gw) {
-		super("FireMissile");
+	public LaunchMissileCommand(GameWorld gw) {
+		super("LaunchNPSMissile");
 		this.gw = gw;
 	}
 	
@@ -18,7 +18,7 @@ public class FireMissileCommand extends Command{
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
-			gw.firePSMissile();
+			gw.launchNPSMissile();
 		}
 	}
 }

@@ -4,21 +4,20 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class FireMissileCommand extends Command{
+public class QuitCommand extends Command {
 	private GameWorld gw;
-
-	public FireMissileCommand(GameWorld gw) {
-		super("FireMissile");
+	
+	public QuitCommand(GameWorld gw) {
+		super("Quit");
 		this.gw = gw;
 	}
-	
 	/**
-	 * Calls the Increase Speed method in GameWorld
+	 * Calls the turnLeft method in GameWorld
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
-			gw.firePSMissile();
+			gw.quitGW();
 		}
 	}
 }

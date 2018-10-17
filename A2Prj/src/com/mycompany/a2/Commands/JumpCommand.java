@@ -4,11 +4,11 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class FireMissileCommand extends Command{
+public class JumpCommand extends Command{
 	private GameWorld gw;
 
-	public FireMissileCommand(GameWorld gw) {
-		super("FireMissile");
+	public JumpCommand(GameWorld gw) {
+		super("Hyperspace");
 		this.gw = gw;
 	}
 	
@@ -18,7 +18,8 @@ public class FireMissileCommand extends Command{
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
-			gw.firePSMissile();
+			gw.jump();
+			System.out.println("Hyperspace");
 		}
 	}
 }

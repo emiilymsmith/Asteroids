@@ -11,7 +11,7 @@ public class AboutCommand extends Command{
 	
 	public AboutCommand(){
 		super("About");
-		describe = "Emily Smith\\nCSC133\\nA2";
+		describe = "Emily Smith CSC 133 A2";
 	}
 	/**
 	 * Calls the turnLeft method in GameWorld

@@ -12,7 +12,7 @@ public class AddPSCommand extends Command{
 		this.gw = gw;
 	}
 	/**
-	 * Calls the turnLeft method in GameWorld
+	 * Calls the addPS method in GameWorld
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {

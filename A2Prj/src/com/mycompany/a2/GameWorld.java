@@ -237,7 +237,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		while(theElements.hasNext()) {
 			if(psExists()) {
-				//int index = getPlayerShipIndex();
 				GameObject GameObject = (GameObject) theElements.getNext();
 				if(GameObject instanceof PlayerShip) {
 		            /* Gets the number of missiles and checks if there's enough to fire one*/
@@ -266,22 +265,22 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * L */
 	public void launchNPSMissile() {
 		IIterator theElements = go.getIterator();
-		if(nonPSExists()) {
-			int index = getNonPlayerShipIndex();
-			NonPlayerShip nps = (NonPlayerShip) theElements.getNext(); //TODO WHAT DOES THIS LINE DO ?????????????????????????
-			int numMissiles = nps.getMissileCount();
-			if (numMissiles < 1)
-				System.err.println("NONPLAYERSHIP is out of missiles, cannot fire.");
-			else {
-				nps.setMissileCount(numMissiles - 1);
-				MissileLauncher ml = nps.getML();
-				/* creates object Missiles called missile, uses NONplayership's params*/
-				Missiles missile = new Missiles(nps.getLocation(), nps.getHeading(), nps.getSpeed(), width, height);
-				go.add(missile);
-				System.out.println("NONPLAYERSHIP MISSILE FIRED.");
-            }
-		} else
-            System.err.println("Cannot fire a NONPLAYERSHIP Missile, a NONPLAYERSHIP does not exist.");
+		while(theElements.hasNext()) {
+			if(nonPSExists()) {
+				GameObject GameObject = (GameObject) theElements.getNext();
+				if(GameObject instanceof NonPlayerShip) {
+					int numMissiles = ((NonPlayerShip) GameObject).getMissileCount();
+					((NonPlayerShip) GameObject).setMissileCount(numMissiles - 1);
+					MissileLauncher ml = ((NonPlayerShip) GameObject).getML();
+					/* creates object Missiles called missile, uses NONplayership's params*/
+					Missiles missile = new Missiles(((NonPlayerShip) GameObject).getLocation(), ((NonPlayerShip) GameObject).getHeading(),
+					((NonPlayerShip) GameObject).getSpeed(), width, height);
+					go.add(missile);
+					System.out.println("NONPLAYERSHIP MISSILE FIRED.");
+				} else
+					System.err.println("Cannot fire a NONPLAYERSHIP Missile, a NONPLAYERSHIP does not exist.");
+			}
+		}
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
@@ -295,9 +294,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(psExists()) {
 			while(theElements.hasNext()) {
 				GameObject GameObject = (GameObject) theElements.getNext();
-				if(theElements instanceof PlayerShip) {
+				if(GameObject instanceof PlayerShip) {
 					((PlayerShip) GameObject).setLocation(point);
-            		SteerableMissileLauncher sml = ((PlayerShip) GameObject).getPSML();
+					SteerableMissileLauncher sml = ((PlayerShip) GameObject).getPSML();
             		sml.setLocation(point); //gets the location of the PlayerShip to match
             		System.out.println("PLAYERSHIP JUMPED through hyperspace.");
                 }
@@ -314,7 +313,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(psExists()) {
 			while(theElements.hasNext()) {
 				GameObject GameObject = (GameObject) theElements.getNext();
-				if (theElements instanceof PlayerShip) {
+				if (GameObject instanceof PlayerShip) {
 					((PlayerShip) GameObject).setMissileCount(10); /* resets missile count to 10 */
 					System.out.println("PLAYERSHIP missile reload.");
 				}
@@ -366,6 +365,19 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
+	/** PlayerShip hit a NonPlayerShip
+	 * Lose a life
+	 * h */
+	public void hit() {
+		if(nonPSExists() & psExists()) {
+        removeNPS();
+        if(decrementPSLives())
+            System.out.println("PLAYER SHIP hit a NonPlayerShip.");
+		} else
+			System.err.println("Did not hit PLAYERSHIP with NonPlayerShip.");
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
+	}
 	/** PlayerShip Crashed into an Asteriod
 	 * Lose a life
 	 * c */
@@ -377,19 +389,6 @@ public class GameWorld extends Observable implements IGameWorld{
         }
         else
             System.err.println("An ASTEROID did not hit your PLAYERSHIP.");
-		this.setChanged();
-		this.notifyObservers(new GameWorldProxy(this));
-	}
-	/** PlayerShip hit a NonPlayerShip
-	 * Lose a life
-	 * h */
-	public void hit() {
-		if(nonPSExists() & psExists()) {
-        removeNPS();
-        if(decrementPSLives())
-            System.out.println("PLAYER SHIP hit a NonPlayerShip.");
-		} else
-			System.err.println("Did not hit PLAYERSHIP with NonPlayerShip.");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
@@ -553,8 +552,10 @@ public class GameWorld extends Observable implements IGameWorld{
 		System.out.println("---------------------------------------");
         System.err.println("GAME OVER - You ran out of Lives!");
         System.out.println("\tIf you would like to quit, type 'Y'");
-        
-//        go.removeAllElements(); 									SHIT DONT WORKKKK
+        while(theElements.hasNext()) {
+        	GameObject GameObj = (GameObject) theElements.getNext();
+        	go.remove(GameObj);
+        }
     }
 	
 	@Override
@@ -693,7 +694,7 @@ public class GameWorld extends Observable implements IGameWorld{
         	while(theElements.hasNext()) {
         		GameObject GameObj = (GameObject) theElements.getNext();
         		if (GameObj instanceof PlayerShip) {
-                    numLives = ((PlayerShip) theElements).getLives();
+                    numLives = ((PlayerShip) GameObj).getLives();
                     if (numLives > 1) {
                     	((PlayerShip) GameObj).setLives(numLives - 1);
                     	return true;
