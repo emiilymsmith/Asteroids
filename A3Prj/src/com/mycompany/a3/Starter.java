@@ -1,4 +1,4 @@
-package com.mycompany.a3;
+package com.mycompany.a2;
 
 
 import static com.codename1.ui.CN.*;
@@ -51,9 +51,7 @@ public class Starter {
             current.show();
             return;
         }
-        Form hi = new Form("Hi World", BoxLayout.y());
-        hi.add(new Label("Hi World"));
-        hi.show();
+        new Game();
     }
 
     public void stop() {
