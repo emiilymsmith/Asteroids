@@ -27,7 +27,7 @@ public class Missiles extends MovableObject{
 	
 	/* Getters and Setters */
 	public int getFuelLevel() {
-		return fuelLevel = 10;
+		return fuelLevel;
 	}
 
 	public void setFuelLevel(int fuel) {

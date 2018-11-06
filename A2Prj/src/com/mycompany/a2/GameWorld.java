@@ -1,10 +1,8 @@
 package com.mycompany.a2;
 
+import java.util.ArrayList;
 import java.util.Observable;
-//import java.util.Vector;
 import java.util.Vector;
-
-import com.codename1.io.gzip.Adler32;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a2.GameObjects.GameObject;
 import com.mycompany.a2.GameObjects.IMovable;
@@ -59,15 +57,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.go = new GameCollection();
 		
 	}
-
-//	/* Display objects in the collection */
-//	public void displayCollection() {
-//		IIterator theElements = go.getIterator();
-//		while(theElements.hasNext()) {
-//			GameObject go = (GameObject) theElements.getNext();
-//			System.out.println(go);
-//		}
-//	}
 	
 	/** Create a new Asteroid Object 
 	 *  Adds it to vector: 'storage'
@@ -359,6 +348,12 @@ public class GameWorld extends Observable implements IGameWorld{
 		if( psExists() & nonPSExists()) {
 			removePS();
 			score += 8;
+			if(lives<=1) {
+				lives --; 
+			} else if ( lives == 0 ){
+				System.out.println("You lost all your lives, try again!");
+				System.exit(1);
+			}
 			System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
 		} else
 			System.err.println("NonPlayerShip did not hit PLAYERSHIP with a MISSILE.");
@@ -451,19 +446,28 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void updateFuel() {
 		IIterator theElements = go.getIterator();
+		ArrayList<Integer> garbage = new ArrayList<Integer>();
+		int index = 0;
 		if(missileExists()){
             while(theElements.hasNext()) {
             	GameObject GameObject = (GameObject) theElements.getNext(); //this casts it to a game object
             	if(GameObject instanceof Missiles) {
 	            	Missiles missile = ((Missiles) GameObject);
 	            	int fuelLevel = missile.getFuelLevel();
-	            	if (fuelLevel <= 1) {
-	            		go.remove(missile);
+	            	if (fuelLevel < 1) {
+	            		//add placeholder to garbage to be removed after while loop
+	            		garbage.add(index);
+	            		//go.remove(missile); //breaks code 
 	            		System.out.println("Removed a MISSILE that ran out of fuel.");
 	            	} else
 	            		missile.setFuelLevel(fuelLevel - 1);
             	} //end if game object
+            	index++;
             }//end while
+            for(int i = 0; i < garbage.size(); i++) {
+            	go.remove(garbage.get(i)-i);
+            	
+            }
         }//end exists
         else
             System.out.println("No MISSILES exist.");
@@ -581,7 +585,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	@Override
 	public int getMissileCount( ) {
-		return 0;
+		return 0;										//FFFFFFFFIIIIIIXXXXXXXXX
 	}
 	
 	@Override
@@ -689,63 +693,46 @@ public class GameWorld extends Observable implements IGameWorld{
 	private boolean decrementPSLives() {
 		IIterator theElements = go.getIterator();
 		boolean quit = false;
-        int numLives;
-        if(psExists()) {
+		if(psExists()) {
         	while(theElements.hasNext()) {
         		GameObject GameObj = (GameObject) theElements.getNext();
         		if (GameObj instanceof PlayerShip) {
-                    numLives = ((PlayerShip) GameObj).getLives();
-                    if (numLives > 1) {
-                    	((PlayerShip) GameObj).setLives(numLives - 1);
-                    	return true;
-                    } else {
-                    	((PlayerShip) GameObj).setLives(numLives - 1);
-                    	quit = true;
-                    }
-                }
-            }
-        }
+	        		if (this.lives-1 == 0) {
+						System.out.println("GAME OVER");
+						//System.exit(1);
+						quit = true;
+					} else {
+						this.lives -= 1;
+						/* Create an PS object */
+						PlayerShip newPS = new PlayerShip(width, height);
+						go.add(newPS);
+					}
+        		}
+        	}
+		}//end if psExists
+
+//        int numLives;
+//        if(psExists()) {
+//        	while(theElements.hasNext()) {
+//        		GameObject GameObj = (GameObject) theElements.getNext();
+//        		if (GameObj instanceof PlayerShip) {
+//                    numLives = ((PlayerShip) GameObj).getLives();
+//                    if (numLives > 1) {
+//                    	((PlayerShip) GameObj).setLives(numLives - 1);
+//                    	return true;
+//                    } else {
+//                    	((PlayerShip) GameObj).setLives(numLives - 1);
+//                    	quit = true;
+//                    }
+//                } 
+//            }
+//        }
+        this.setChanged();
+        this.notifyObservers(new GameWorldProxy(this));
         //Game exits if the ship is out of lives
         if(quit)
             gameOver(); /* Called when lives are 0 */
         return false;
-	}
-	 /*
-	  * The following 3 methods are getters for object indexes
-	  * */
-	private int getPlayerShipIndex(){
-		IIterator theElements = go.getIterator();
-		int psLoc = 0; //player ship location in storage
-		while(theElements.hasNext()) {
-			GameObject GameObject = (GameObject) theElements.getNext(); //this casts it to a game object
-			if (GameObject instanceof PlayerShip) {
-//                psLoc = go.indexOf(GameObject); //write indexOf Method in GameCollection?
-            }
-        }
-        return psLoc;
-    }
-	
-	private int getNonPlayerShipIndex(){
-		IIterator theElements = go.getIterator();
-		int npsLoc = 0; //player ship location in storage
-		while(theElements.hasNext()) {
-            if (theElements instanceof NonPlayerShip) {
-//              npsLoc = theElements.indexOf(theElements); //THIS SHIT DONT WORK EITHER DAMN
-                return 13;
-            }
-        }
-        return npsLoc;
-	}
-	
-	public int missileIndex() {
-		IIterator theElements = go.getIterator();
-		int missileIndex = 0;
-		while(theElements.hasNext()) {
-            if (theElements instanceof Missiles) {
-                //missileIndex = storage.indexOf(missile);  ///// IDDDDKKKK
-            }
-        }
-        return missileIndex;
 	}
 	
 	/* The following methods remove objects from the GameWorld*/

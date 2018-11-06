@@ -28,6 +28,10 @@ public class GameCollection implements ICollection{
 		theCollection.removeElement(object);
 	}
 	
+	public void remove(int i) {
+		theCollection.remove(i);
+	}
+	
 	public IIterator getIterator() {
 		return new GameVectorIterator();
 	}

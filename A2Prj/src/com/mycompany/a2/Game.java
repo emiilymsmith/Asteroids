@@ -57,6 +57,7 @@ import com.mycompany.a2.Commands.UndoCommand;
  * 
  * A2 additions:
  * 		removing functionality of play() to initializing mapview and pointsview
+ * 		adding command classes
  */
 
 public class Game extends Form {
@@ -88,9 +89,6 @@ public class Game extends Form {
 	private ClockTickCommand tickCommand;
 	private QuitCommand qCommand;
 
-	
-	
-	
 	/* Game Constructor */
 	public Game() {
 		setLayout(new BorderLayout());
