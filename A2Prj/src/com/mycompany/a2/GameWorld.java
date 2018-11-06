@@ -10,6 +10,7 @@ import com.mycompany.a2.GameObjects.FixedObjects.SpaceStation;
 import com.mycompany.a2.GameObjects.MovableObjects.Asteroids;
 import com.mycompany.a2.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a2.GameObjects.MovableObjects.Missiles;
+import com.mycompany.a2.GameObjects.MovableObjects.Ship;
 import com.mycompany.a2.GameObjects.MovableObjects.SteerableMissileLauncher;
 import com.mycompany.a2.GameObjects.MovableObjects.Ships.NonPlayerShip;
 import com.mycompany.a2.GameObjects.MovableObjects.Ships.PlayerShip;
@@ -312,7 +313,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
-	/** Destroy Asteriod 
+	/** Destroy Asteriod (killed asteroid)
 	 *  PlayerShip Missile hit an asteroid and destroyed it
 	 *  Awarded 4 points
 	 * k */
@@ -334,7 +335,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void eliminatedNPS() {
 		if( psExists() & nonPSExists()) {
 			removeNPS();
-			score += 8;
+			score += 6;
 			System.out.println("NonPlayerShip was destroyed by PLAYERSHIP MISSILE.");
 		} else
 			System.err.println("Did not hit NonPlayerShip with PLAYERSHIP MISSILE.");
@@ -347,29 +348,17 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void explodePS() {
 		if( psExists() & nonPSExists()) {
 			removePS();
-			score += 8;
-			if(lives<=1) {
-				lives --; 
+			removeMissile();
+			score -= 5;
+			if(lives>=1) {
+				lives --;
+				System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
 			} else if ( lives == 0 ){
 				System.out.println("You lost all your lives, try again!");
 				System.exit(1);
 			}
-			System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
 		} else
 			System.err.println("NonPlayerShip did not hit PLAYERSHIP with a MISSILE.");
-		this.setChanged();
-		this.notifyObservers(new GameWorldProxy(this));
-	}
-	/** PlayerShip hit a NonPlayerShip
-	 * Lose a life
-	 * h */
-	public void hit() {
-		if(nonPSExists() & psExists()) {
-        removeNPS();
-        if(decrementPSLives())
-            System.out.println("PLAYER SHIP hit a NonPlayerShip.");
-		} else
-			System.err.println("Did not hit PLAYERSHIP with NonPlayerShip.");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
@@ -379,11 +368,34 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void crash() {
 		if( asteroidExists() & psExists()) {
             removeAsteroid();
-            if(decrementPSLives())
-                System.out.println("PLAYERSHIP hit an ASTEROID.");
-        }
-        else
-            System.err.println("An ASTEROID did not hit your PLAYERSHIP.");
+            removePS();
+            if(lives>=1) {
+    			lives --;
+    			System.out.println("PLAYERSHIP crashed into an ASTEROID, lost a life!");
+    		} else if ( lives == 0 ){
+    			System.out.println("You lost all your lives, try again!");
+    			System.exit(1);
+    		}
+        } else
+            System.err.println("A CRASH did not happen.");
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
+	}
+	/** PlayerShip hit a NonPlayerShip
+	 * PS Lose a life
+	 * h */
+	public void hit() {
+		if(nonPSExists() & psExists()) {
+			removeNPS();
+			if(lives>=1) {
+				lives --;
+				System.out.println("PLAYER SHIP hit a NonPlayerShip, lost a life!");
+			} else if ( lives == 0 ){
+				System.out.println("You lost all your lives, try again!");
+				System.exit(1);
+			} 
+		} else
+			System.err.println("Did not hit PLAYERSHIP with NonPlayerShip.");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
@@ -508,19 +520,9 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * 
 	 * p */
 	public void printDisplay() {
-		IIterator theElements = go.getIterator();
-		int missileCount = -1;
-        while(theElements.hasNext()) {
-			if (psExists()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-				if (GameObject instanceof PlayerShip) {
-                    missileCount = ((PlayerShip) GameObject).getMissileCount();
-                }
-	        }
-        }
-	        System.out.println("--------------------------------------------------------------------------------\n"
+		System.out.println("--------------------------------------------------------------------------------\n"
 	                         + "---------------------------- Current Game States: ------------------------------\n"
-	                         + "--------------- Points: "+score+" -------- Missiles: "+missileCount+" -------- Time: "+ticks
+	                         + "--------------- Points: "+score+" -------- Lives: "+lives+" -------- Time: "+ticks
 	                         +"----------------\n"
 	                         + "--------------------------------------------------------------------------------\n");
 	}
@@ -585,7 +587,16 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	@Override
 	public int getMissileCount( ) {
-		return 0;										//FFFFFFFFIIIIIIXXXXXXXXX
+		int missileCount = 0;
+		IIterator theElements = go.getIterator();
+		/* Remove all objects from GameWorld */
+		while (theElements.hasNext()) {
+			GameObject GameObj = (GameObject)theElements.getNext();
+			if (GameObj instanceof PlayerShip) {
+				missileCount = ((PlayerShip) GameObj).getMissileCount();
+			} 
+		}
+		return missileCount;
 	}
 	
 	@Override
@@ -635,7 +646,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		while(theElements.hasNext()) {
 			GameObject GameObj = (GameObject) theElements.getNext();
 			if(GameObj instanceof PlayerShip) {
-                //System.out.println(psexists);
 				psexists = true;
             }
         }
@@ -684,55 +694,6 @@ public class GameWorld extends Observable implements IGameWorld{
         if(!ssexists)
             System.out.println("A SPACESTATION does not exist.");
         return ssexists;
-	}
-	
-	 /*
-	  * Gets called @ crash() with Asteroid
-	  * decrements lives
-	  * */
-	private boolean decrementPSLives() {
-		IIterator theElements = go.getIterator();
-		boolean quit = false;
-		if(psExists()) {
-        	while(theElements.hasNext()) {
-        		GameObject GameObj = (GameObject) theElements.getNext();
-        		if (GameObj instanceof PlayerShip) {
-	        		if (this.lives-1 == 0) {
-						System.out.println("GAME OVER");
-						//System.exit(1);
-						quit = true;
-					} else {
-						this.lives -= 1;
-						/* Create an PS object */
-						PlayerShip newPS = new PlayerShip(width, height);
-						go.add(newPS);
-					}
-        		}
-        	}
-		}//end if psExists
-
-//        int numLives;
-//        if(psExists()) {
-//        	while(theElements.hasNext()) {
-//        		GameObject GameObj = (GameObject) theElements.getNext();
-//        		if (GameObj instanceof PlayerShip) {
-//                    numLives = ((PlayerShip) GameObj).getLives();
-//                    if (numLives > 1) {
-//                    	((PlayerShip) GameObj).setLives(numLives - 1);
-//                    	return true;
-//                    } else {
-//                    	((PlayerShip) GameObj).setLives(numLives - 1);
-//                    	quit = true;
-//                    }
-//                } 
-//            }
-//        }
-        this.setChanged();
-        this.notifyObservers(new GameWorldProxy(this));
-        //Game exits if the ship is out of lives
-        if(quit)
-            gameOver(); /* Called when lives are 0 */
-        return false;
 	}
 	
 	/* The following methods remove objects from the GameWorld*/
