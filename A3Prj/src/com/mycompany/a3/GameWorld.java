@@ -34,8 +34,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	/* Collection of Objects */
 //	Vector<GameObject> storage = new Vector<GameObject>();
 	
-	/* All State Variables are stored here */
-	private Vector gameObjects = new Vector();
 	private GameCollection go;
 	
 	/* Fixed Window Dimensions */
@@ -55,6 +53,8 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.lives = 3;
 		this.ticks = 0;
 		this.go = new GameCollection();
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
 		
 	}
 	
@@ -614,8 +614,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	@Override
-	public IIterator getIterator(){
-		return getIterator();
+	public IIterator getGWIterator(){
+		return go.getIterator();
 	}
 	
 	/*

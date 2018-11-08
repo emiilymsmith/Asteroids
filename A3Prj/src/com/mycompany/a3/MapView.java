@@ -1,6 +1,6 @@
 package com.mycompany.a3;
 
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,25 +21,24 @@ public class MapView extends Container implements Observer{
 	private IGameWorld igw;
 	public MapView() {
 		/* container for points view */
-		Container mapContainer = new Container();
-
-		mapContainer.setLayout(new FlowLayout());
-		mapContainer.getAllStyles().setBgTransparency(255);
-		mapContainer.getAllStyles().setBgColor(ColorUtil.LTGRAY);
-		
-		Label textLabel = new Label(" Map View Area ");
-		textLabel.getAllStyles().setPaddingBottom(150);
-		textLabel.getAllStyles().setPaddingRight(50);
-		
-		mapContainer.add(textLabel);
-		
-		this.add(mapContainer);
+//		Container mapContainer = new Container();
+//
+//		mapContainer.setLayout(new FlowLayout());
+//		mapContainer.getAllStyles().setBgTransparency(255);
+//		mapContainer.getAllStyles().setBgColor(ColorUtil.LTGRAY);
+//		
+//		Label textLabel = new Label(" Map View Area ");
+//		textLabel.getAllStyles().setPaddingBottom(150);
+//		textLabel.getAllStyles().setPaddingRight(50);
+//		
+//		mapContainer.add(textLabel);
+//		
+//		this.add(mapContainer);
 	}
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		
-		IIterator theElements = igw.getIterator();
+		IIterator theElements = igw.getGWIterator();
 		while(theElements.hasNext()) {
 			GameObject gameObj = (GameObject) theElements.getNext();
 			if(gameObj instanceof IDrawable) {

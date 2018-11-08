@@ -60,8 +60,8 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 		gw.map();
 	}
 	@Override
-	public IIterator getIterator(){
-		return gw.getIterator();
+	public IIterator getGWIterator(){
+		return gw.getGWIterator();
 	}
 	
 }

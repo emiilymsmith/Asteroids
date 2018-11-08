@@ -17,6 +17,6 @@ public interface IGameWorld {
 	public void setWidth(int w);
 	public void setHeight(int h);
 	public void map();
-	IIterator getIterator();
+	public IIterator getGWIterator();
 
 }
