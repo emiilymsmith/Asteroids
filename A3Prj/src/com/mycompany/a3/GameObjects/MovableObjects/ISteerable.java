@@ -1,4 +1,4 @@
-package com.mycompany.a2.GameObjects.MovableObjects;
+package com.mycompany.a3.GameObjects.MovableObjects;
 
 public interface ISteerable {
 	public void turnLeft();

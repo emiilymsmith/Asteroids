@@ -1,4 +1,4 @@
-package com.mycompany.a2.GameObjects;
+package com.mycompany.a3.GameObjects;
 
 /**
  * @author Emily Smith
@@ -9,7 +9,7 @@ package com.mycompany.a2.GameObjects;
  * It has a Fixed location.
  * 
  */
-public class FixedObject extends GameObject {
+public class FixedObject extends GameObject{
 	private int id; // counter
 	private static int bsid;
 	

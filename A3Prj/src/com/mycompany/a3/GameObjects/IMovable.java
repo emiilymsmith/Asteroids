@@ -1,4 +1,4 @@
-package com.mycompany.a2.GameObjects;
+package com.mycompany.a3.GameObjects;
 
 /**
  * @author Emily Smith

@@ -1,7 +1,11 @@
-package com.mycompany.a2.GameObjects;
+package com.mycompany.a3.GameObjects;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
+import com.mycompany.a3.IDrawable;
+
 import java.util.Random;
 
 /**
@@ -12,7 +16,7 @@ import java.util.Random;
  * 
  */
 
-public abstract class GameObject{
+public abstract class GameObject implements IDrawable{
 	private Point2D location;
 	private int color;
 	protected Random r = new Random();
@@ -23,6 +27,12 @@ public abstract class GameObject{
 	public GameObject(int width, int height){
 		this.width = width;
 		this.height = height;
+	}
+	
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		/* Do nothing here */
+		// This is for testing
+		System.out.println("WRONG DRAW");
 	}
 	
 	/* getters and setters */

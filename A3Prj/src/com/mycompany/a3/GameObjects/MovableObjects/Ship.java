@@ -1,6 +1,6 @@
-package com.mycompany.a2.GameObjects.MovableObjects;
+package com.mycompany.a3.GameObjects.MovableObjects;
 
-import com.mycompany.a2.GameObjects.MovableObject;
+import com.mycompany.a3.GameObjects.MovableObject;
 /**
  * @author Emily Smith
  * @version 1.0

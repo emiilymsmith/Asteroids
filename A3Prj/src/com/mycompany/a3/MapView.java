@@ -1,12 +1,16 @@
-package com.mycompany.a2;
+package com.mycompany.a3;
 
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Container;
+import com.codename1.ui.Graphics;
 import com.codename1.ui.Label;
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.layouts.FlowLayout;
+import com.mycompany.a3.GameObjects.GameObject;
 
 /**
  * Map View is an Observer
@@ -14,6 +18,7 @@ import com.codename1.ui.layouts.FlowLayout;
  *   */
 
 public class MapView extends Container implements Observer{
+	private IGameWorld igw;
 	public MapView() {
 		/* container for points view */
 		Container mapContainer = new Container();
@@ -30,19 +35,24 @@ public class MapView extends Container implements Observer{
 		
 		this.add(mapContainer);
 	}
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		
+		IIterator theElements = igw.getIterator();
+		while(theElements.hasNext()) {
+			GameObject gameObj = (GameObject) theElements.getNext();
+			if(gameObj instanceof IDrawable) {
+				gameObj.draw(g, new Point(this.getX(), this.getY()));
+			}
+		}
+	}
 	
 	public void update(Observable o, Object arg) {
-		IGameWorld igw = (IGameWorld) arg;
+		igw = (IGameWorld) arg;
 		igw.setWidth(this.getWidth());
 		igw.setHeight(this.getHeight());
 		igw.map();
 		this.repaint();
-		//System.out.println("Map Width: " + igw.getMapHeight() + "Map Height: " + igw.getMapWidth());
-		/* Cast the observable objects as the GameWorld first to access variables */
-//		GameCollection go = gw.getGameObjects();
-//		IIterator gameIterator = go.getIterator();
-//		while(gameIterator.hasNext()) {
-//			System.out.println(gameIterator.getNext());
-//		}
 	}
 }

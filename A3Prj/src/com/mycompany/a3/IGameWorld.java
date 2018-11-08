@@ -1,4 +1,4 @@
-package com.mycompany.a2;
+package com.mycompany.a3;
 /**
  * This class's purpose is to make Game World Proxy a mirror of Game World
  * 
@@ -17,5 +17,6 @@ public interface IGameWorld {
 	public void setWidth(int w);
 	public void setHeight(int h);
 	public void map();
+	IIterator getIterator();
 
 }

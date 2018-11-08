@@ -1,8 +1,10 @@
-package com.mycompany.a2.GameObjects.MovableObjects.Ships;
+package com.mycompany.a3.GameObjects.MovableObjects.Ships;
 
 import com.codename1.charts.util.ColorUtil;
-import com.mycompany.a2.GameObjects.MovableObjects.MissileLauncher;
-import com.mycompany.a2.GameObjects.MovableObjects.Ship;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
+import com.mycompany.a3.GameObjects.MovableObjects.MissileLauncher;
+import com.mycompany.a3.GameObjects.MovableObjects.Ship;
 /**
  * @author Emily Smith
  * @version 1.0
@@ -48,5 +50,10 @@ public class NonPlayerShip extends Ship{
 		returnStr += "NPS Size: "+this.size+"0\n";
 		returnStr += "NonPlayerShip\n";		
 		return returnStr;
+	}
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		//g.setColor(ColorUtil.BLACK);
+		//g.drawRect((int)(pCmpRelPrnt.getX() + this.getX() - size/2), (int)(pCmpRelPrnt.getY()+this.getY()), size, size);
 	}
 }

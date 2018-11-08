@@ -1,19 +1,18 @@
-package com.mycompany.a2;
+package com.mycompany.a3;
 
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
 import com.codename1.ui.geom.Point2D;
-import com.mycompany.a2.GameObjects.GameObject;
-import com.mycompany.a2.GameObjects.IMovable;
-import com.mycompany.a2.GameObjects.FixedObjects.SpaceStation;
-import com.mycompany.a2.GameObjects.MovableObjects.Asteroids;
-import com.mycompany.a2.GameObjects.MovableObjects.MissileLauncher;
-import com.mycompany.a2.GameObjects.MovableObjects.Missiles;
-import com.mycompany.a2.GameObjects.MovableObjects.Ship;
-import com.mycompany.a2.GameObjects.MovableObjects.SteerableMissileLauncher;
-import com.mycompany.a2.GameObjects.MovableObjects.Ships.NonPlayerShip;
-import com.mycompany.a2.GameObjects.MovableObjects.Ships.PlayerShip;
+import com.mycompany.a3.GameObjects.GameObject;
+import com.mycompany.a3.GameObjects.IMovable;
+import com.mycompany.a3.GameObjects.FixedObjects.SpaceStation;
+import com.mycompany.a3.GameObjects.MovableObjects.Asteroids;
+import com.mycompany.a3.GameObjects.MovableObjects.MissileLauncher;
+import com.mycompany.a3.GameObjects.MovableObjects.Missiles;
+import com.mycompany.a3.GameObjects.MovableObjects.SteerableMissileLauncher;
+import com.mycompany.a3.GameObjects.MovableObjects.Ships.NonPlayerShip;
+import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
 
 /**
  * @author Emily Smith
@@ -612,6 +611,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	@Override
 	public void setHeight(int h) {
 		this.height = h;
+	}
+	
+	@Override
+	public IIterator getIterator(){
+		return getIterator();
 	}
 	
 	/*

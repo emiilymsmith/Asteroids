@@ -1,7 +1,9 @@
-package com.mycompany.a2.GameObjects.FixedObjects;
+package com.mycompany.a3.GameObjects.FixedObjects;
 
 import com.codename1.charts.util.ColorUtil;
-import com.mycompany.a2.GameObjects.FixedObject;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
+import com.mycompany.a3.GameObjects.FixedObject;
 
 /**
  * @author Emily Smith
@@ -47,5 +49,14 @@ public class SpaceStation extends FixedObject {
 		returnStr += "Blink Rate: "+this.blinkRate+"\n";
 		returnStr += "Space Station"+"\n";
 		return returnStr;
+	}
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+//		int radius = 50;
+//		g.setColor(super.getColor());
+//		if (go) 
+//			g.drawArc((int)(pCmpRelPrnt.getX() + this.getX() - (2*radius)), (int)(pCmpRelPrnt.getY()+this.getY() - (2*radius)), 2*radius, 2*radius, 0, 360);
+//		else 
+//			g.fillArc((int)(pCmpRelPrnt.getX() + this.getX() - (2*radius)), (int)(pCmpRelPrnt.getY()+this.getY() - (2*radius)), 2*radius, 2*radius, 0, 360);
 	}
 }

@@ -1,4 +1,4 @@
-package com.mycompany.a2;
+package com.mycompany.a3;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
@@ -16,32 +16,33 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
-import com.mycompany.a2.Commands.AICommand;
-import com.mycompany.a2.Commands.AboutCommand;
-import com.mycompany.a2.Commands.AddAsteroidCommand;
-import com.mycompany.a2.Commands.AddNPSCommand;
-import com.mycompany.a2.Commands.AddPSCommand;
-import com.mycompany.a2.Commands.AddSpaceStationCommand;
-import com.mycompany.a2.Commands.ClockTickCommand;
-import com.mycompany.a2.Commands.CollideXCommand;
-import com.mycompany.a2.Commands.CrashCommand;
-import com.mycompany.a2.Commands.DecreaseSpeedCommand;
-import com.mycompany.a2.Commands.DestroyAsteroidCommand;
-import com.mycompany.a2.Commands.EliminatedNPSCommand;
-import com.mycompany.a2.Commands.ExplodedPSCommand;
-import com.mycompany.a2.Commands.FireMissileCommand;
-import com.mycompany.a2.Commands.HitNPSCommand;
-import com.mycompany.a2.Commands.LaunchMissileCommand;
-import com.mycompany.a2.Commands.IncreaseSpeedCommand;
-import com.mycompany.a2.Commands.JumpCommand;
-import com.mycompany.a2.Commands.LeftTurnCommand;
-import com.mycompany.a2.Commands.LoadMissilesCommand;
-import com.mycompany.a2.Commands.NewGameCommand;
-import com.mycompany.a2.Commands.QuitCommand;
-import com.mycompany.a2.Commands.RightTurnCommand;
-import com.mycompany.a2.Commands.SaveCommand;
-import com.mycompany.a2.Commands.SoundCommand;
-import com.mycompany.a2.Commands.UndoCommand;
+import com.codename1.ui.util.UITimer;
+import com.mycompany.a3.Commands.AICommand;
+import com.mycompany.a3.Commands.AboutCommand;
+import com.mycompany.a3.Commands.AddAsteroidCommand;
+import com.mycompany.a3.Commands.AddNPSCommand;
+import com.mycompany.a3.Commands.AddPSCommand;
+import com.mycompany.a3.Commands.AddSpaceStationCommand;
+import com.mycompany.a3.Commands.ClockTickCommand;
+import com.mycompany.a3.Commands.CollideXCommand;
+import com.mycompany.a3.Commands.CrashCommand;
+import com.mycompany.a3.Commands.DecreaseSpeedCommand;
+import com.mycompany.a3.Commands.DestroyAsteroidCommand;
+import com.mycompany.a3.Commands.EliminatedNPSCommand;
+import com.mycompany.a3.Commands.ExplodedPSCommand;
+import com.mycompany.a3.Commands.FireMissileCommand;
+import com.mycompany.a3.Commands.HitNPSCommand;
+import com.mycompany.a3.Commands.IncreaseSpeedCommand;
+import com.mycompany.a3.Commands.JumpCommand;
+import com.mycompany.a3.Commands.LaunchMissileCommand;
+import com.mycompany.a3.Commands.LeftTurnCommand;
+import com.mycompany.a3.Commands.LoadMissilesCommand;
+import com.mycompany.a3.Commands.NewGameCommand;
+import com.mycompany.a3.Commands.QuitCommand;
+import com.mycompany.a3.Commands.RightTurnCommand;
+import com.mycompany.a3.Commands.SaveCommand;
+import com.mycompany.a3.Commands.SoundCommand;
+import com.mycompany.a3.Commands.UndoCommand;
 
 /**
  * @author Emily Smith
@@ -60,7 +61,7 @@ import com.mycompany.a2.Commands.UndoCommand;
  * 		adding command classes
  */
 
-public class Game extends Form {
+public class Game extends Form implements Runnable{
 	/* State Variables */
 	private GameWorld gw;
 	private MapView mv;
@@ -88,13 +89,18 @@ public class Game extends Form {
 	private AICommand impactCommand;
 	private ClockTickCommand tickCommand;
 	private QuitCommand qCommand;
-
+	private UITimer timer;
 	/* Game Constructor */
 	public Game() {
 		setLayout(new BorderLayout());
 		gw = new GameWorld();
 		mv = new MapView(); /* view for later */
 		pv = new PointsView(gw); /* view for map and score */
+		
+		//Timer
+		//UITimer timer = new UITimer(this);
+		//timer.schedule(timeMillis, repeat, bound);
+		//timer.schedule(1000, true, this);
 		
 		Container topContainer = new Container();
 		topContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
@@ -381,6 +387,13 @@ public class Game extends Form {
 		this.show();
 		
 		gw.init(mv.getWidth(), mv.getHeight()); /* This can't go before we get MapView coordinates */
+		
+		//timer = new UITimer(this);
+		//timer.schedule(20, true, this);
+	} //end Constructor
+	@Override
+	public void run() {
+		gw.ticked();
 	}
 	
 	/* *
