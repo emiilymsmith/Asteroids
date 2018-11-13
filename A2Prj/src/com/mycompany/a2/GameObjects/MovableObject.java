@@ -13,6 +13,7 @@ import com.codename1.ui.geom.Point2D;
 public abstract class MovableObject extends GameObject implements IMovable{
 	private int speed;
 	private int heading;
+	private boolean reverseX, reverseY;
 	
 	public MovableObject(int width, int height) {
 		super(width,height);
@@ -30,7 +31,6 @@ public abstract class MovableObject extends GameObject implements IMovable{
 		double originalY = originalP.getY();
 		
 		this.setLocation(new Point2D(originalX + newX, originalY + newY));
-		
 	}
 	
 	public int getSpeed() {

@@ -10,6 +10,7 @@ package com.mycompany.a2.GameObjects;
  * */
 public interface IMovable {
 	public void move();
+	//public void move(int ticks);
 	
 	public int getSpeed();
 	public void setSpeed(int speed);

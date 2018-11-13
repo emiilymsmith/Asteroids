@@ -17,7 +17,7 @@ public class CrashCommand extends Command {
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
-			gw.eliminatedNPS();
+			gw.crash();
 		}
 	}
 }

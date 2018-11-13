@@ -26,6 +26,44 @@ public class PointsView extends Container implements Observer{
 		pvContainer.getAllStyles().setBgTransparency(100);
 		pvContainer.getAllStyles().setBgColor(ColorUtil.BLUE);
 		
+		/* Instantiating Text Labels for values */
+		Label lpoints = new Label("Points: ");
+		Label lmissileCount = new Label("Missile Count: ");
+		Label lelapsedTime = new Label("Elapsed Time: ");
+		Label lsound = new Label("Sound: ");
+		Label llives = new Label("Lives: ");
+		
+		/* Style */
+		lpoints.getAllStyles().setBgTransparency(100);
+		lmissileCount.getAllStyles().setBgTransparency(100);
+		lelapsedTime.getAllStyles().setBgTransparency(100);
+		lsound.getAllStyles().setBgTransparency(100);
+		llives.getAllStyles().setBgTransparency(100);
+		
+		lpoints.getAllStyles().setBgColor(ColorUtil.BLUE);
+		lmissileCount.getAllStyles().setBgColor(ColorUtil.BLUE);
+		lelapsedTime.getAllStyles().setBgColor(ColorUtil.BLUE);
+		lsound.getAllStyles().setBgColor(ColorUtil.BLUE);
+		llives.getAllStyles().setBgColor(ColorUtil.BLUE);
+		
+		lpoints.getAllStyles().setFgColor(ColorUtil.WHITE);
+		lmissileCount.getAllStyles().setFgColor(ColorUtil.WHITE);
+		lelapsedTime.getAllStyles().setFgColor(ColorUtil.WHITE);
+		lsound.getAllStyles().setFgColor(ColorUtil.WHITE);
+		llives.getAllStyles().setFgColor(ColorUtil.WHITE);
+		
+		lpoints.getAllStyles().setPadding(LEFT,1);
+		lmissileCount.getAllStyles().setPadding(LEFT,1);
+		lelapsedTime.getAllStyles().setPadding(LEFT,1);
+		lsound.getAllStyles().setPadding(LEFT,1);
+		llives.getAllStyles().setPadding(LEFT,1);
+		
+		lpoints.getAllStyles().setPadding(RIGHT,1);
+		lmissileCount.getAllStyles().setPadding(RIGHT,1);
+		lelapsedTime.getAllStyles().setPadding(RIGHT,1);
+		lsound.getAllStyles().setPadding(RIGHT,1);
+		llives.getAllStyles().setPadding(RIGHT,1);
+		
 		/* Instantiating value labels v - for value */
 		vpoints = new Label("XXX");
 		vmissileCount = new Label("XXX");
@@ -63,44 +101,6 @@ public class PointsView extends Container implements Observer{
 		velapsedTime.getAllStyles().setPadding(RIGHT,1);
 		vsound.getAllStyles().setPadding(RIGHT,1);
 		vlives.getAllStyles().setPadding(RIGHT,1);
-		
-		/* Text Labels for values */
-		Label lpoints = new Label("Points: ");
-		Label lmissileCount = new Label("Missile Count: ");
-		Label lelapsedTime = new Label("Elapsed Time: ");
-		Label lsound = new Label("Sound: ");
-		Label llives = new Label("Lives: ");
-		
-		/* Style */
-		lpoints.getAllStyles().setBgTransparency(100);
-		lmissileCount.getAllStyles().setBgTransparency(100);
-		lelapsedTime.getAllStyles().setBgTransparency(100);
-		lsound.getAllStyles().setBgTransparency(100);
-		llives.getAllStyles().setBgTransparency(100);
-		
-		lpoints.getAllStyles().setBgColor(ColorUtil.BLUE);
-		lmissileCount.getAllStyles().setBgColor(ColorUtil.BLUE);
-		lelapsedTime.getAllStyles().setBgColor(ColorUtil.BLUE);
-		lsound.getAllStyles().setBgColor(ColorUtil.BLUE);
-		llives.getAllStyles().setBgColor(ColorUtil.BLUE);
-		
-		lpoints.getAllStyles().setFgColor(ColorUtil.WHITE);
-		lmissileCount.getAllStyles().setFgColor(ColorUtil.WHITE);
-		lelapsedTime.getAllStyles().setFgColor(ColorUtil.WHITE);
-		lsound.getAllStyles().setFgColor(ColorUtil.WHITE);
-		llives.getAllStyles().setFgColor(ColorUtil.WHITE);
-		
-		lpoints.getAllStyles().setPadding(LEFT,1);
-		lmissileCount.getAllStyles().setPadding(LEFT,1);
-		lelapsedTime.getAllStyles().setPadding(LEFT,1);
-		lsound.getAllStyles().setPadding(LEFT,1);
-		llives.getAllStyles().setPadding(LEFT,1);
-		
-		lpoints.getAllStyles().setPadding(RIGHT,1);
-		lmissileCount.getAllStyles().setPadding(RIGHT,1);
-		lelapsedTime.getAllStyles().setPadding(RIGHT,1);
-		lsound.getAllStyles().setPadding(RIGHT,1);
-		llives.getAllStyles().setPadding(RIGHT,1);
 		
 		// Adding all labels in order
 		pvContainer.add(lpoints);
