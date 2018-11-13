@@ -13,23 +13,41 @@ import com.codename1.ui.geom.Point2D;
 public abstract class MovableObject extends GameObject implements IMovable{
 	private int speed;
 	private int heading;
+	private boolean reverseX, reverseY;
 	
 	public MovableObject(int width, int height) {
 		super(width,height);
 		this.heading = getHeading();
 	}
 
-	public void move() {
+	public void move(int ticks) {
+		double x,y,newX,newY;
 		/*gets the new location based on current parameters*/
-		double newX = Math.cos(Math.toRadians(90 - this.getHeading())) * this.getSpeed();
-		double newY = Math.sin(Math.toRadians(90 - this.getHeading())) * this.getSpeed();
+		newX = Math.cos(Math.toRadians(90 - this.getHeading())) * this.getSpeed();
+		newY = Math.sin(Math.toRadians(90 - this.getHeading())) * this.getSpeed();
 		
-		/*gets original point*/
-		Point2D originalP = super.getLocation();
-		double originalX = originalP.getX();
-		double originalY = originalP.getY();
+		if (reverseX) 
+			x = super.getX() - newX;
+		else 
+			x = super.getX() + newX;
 		
-		this.setLocation(new Point2D(originalX + newX, originalY + newY));
+		if (reverseY) {
+			y = super.getY() - newY;
+		} else
+			y = super.getY() + newY;
+		
+		
+	    if ((x >= super.getWidth()) || (x < 0)) {
+	    	reverseX =  !reverseX;
+	    }
+
+	    
+	    if ((y >= super.getHeight()) || (y < 0)) {
+	    	reverseY =  !reverseY;
+	    }
+	    
+		super.setX(x);
+		super.setY(y);
 		
 	}
 	

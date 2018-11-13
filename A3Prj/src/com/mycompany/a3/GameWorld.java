@@ -445,7 +445,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		while(theElements.hasNext()){
 			GameObject GameObject = (GameObject) theElements.getNext();
             if(GameObject instanceof IMovable){
-                ((IMovable) GameObject).move();
+                ((IMovable) GameObject).move(ticks);
                 movable = true;
                 System.out.println("TICKTOCK: Moved all the moveable objects.");
             } else
