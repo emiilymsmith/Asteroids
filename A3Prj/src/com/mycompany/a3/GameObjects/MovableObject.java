@@ -13,7 +13,7 @@ import com.codename1.ui.geom.Point2D;
 public abstract class MovableObject extends GameObject implements IMovable{
 	private int speed;
 	private int heading;
-	private boolean reverseX, reverseY;
+	private boolean oppositeX, oppositeY;
 	
 	public MovableObject(int width, int height) {
 		super(width,height);
@@ -26,24 +26,20 @@ public abstract class MovableObject extends GameObject implements IMovable{
 		newX = Math.cos(Math.toRadians(90 - this.getHeading())) * this.getSpeed();
 		newY = Math.sin(Math.toRadians(90 - this.getHeading())) * this.getSpeed();
 		
-		if (reverseX) 
-			x = super.getX() - newX;
-		else 
-			x = super.getX() + newX;
+		/* bounce */
+		if (oppositeX) { x = super.getX() - newX; } 
+		else { x = super.getX() + newX; }
 		
-		if (reverseY) {
-			y = super.getY() - newY;
-		} else
-			y = super.getY() + newY;
-		
-		
+		if (oppositeY) { y = super.getY() - newY; } 
+		else { y = super.getY() + newY; }
+		 
+		/* keeps within boundaries */
 	    if ((x >= super.getWidth()) || (x < 0)) {
-	    	reverseX =  !reverseX;
+	    	oppositeX =  !oppositeX;
 	    }
 
-	    
 	    if ((y >= super.getHeight()) || (y < 0)) {
-	    	reverseY =  !reverseY;
+	    	oppositeY =  !oppositeY;
 	    }
 	    
 		super.setX(x);
