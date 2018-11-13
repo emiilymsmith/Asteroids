@@ -59,6 +59,9 @@ import com.mycompany.a3.Commands.UndoCommand;
  * A2 additions:
  * 		removing functionality of play() to initializing mapview and pointsview
  * 		adding command classes
+ * 
+ * A3 additions:
+ * 		adding timer to move objects shown in MapView
  */
 
 public class Game extends Form implements Runnable{
@@ -66,6 +69,7 @@ public class Game extends Form implements Runnable{
 	private GameWorld gw;
 	private MapView mv;
 	private PointsView pv;
+	private UITimer timer;
 	
 	/* Command Variables */
 	private AddAsteroidCommand addAsteroidCommand;
@@ -89,18 +93,13 @@ public class Game extends Form implements Runnable{
 	private AICommand impactCommand;
 	private ClockTickCommand tickCommand;
 	private QuitCommand qCommand;
-	private UITimer timer;
+	
 	/* Game Constructor */
 	public Game() {
 		setLayout(new BorderLayout());
 		gw = new GameWorld();
 		mv = new MapView(); /* view for later */
 		pv = new PointsView(gw); /* view for map and score */
-		
-		//Timer
-		//UITimer timer = new UITimer(this);
-		//timer.schedule(timeMillis, repeat, bound);
-		//timer.schedule(1000, true, this);
 		
 		Container topContainer = new Container();
 		topContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
@@ -333,15 +332,15 @@ public class Game extends Form implements Runnable{
 		addKeyListener('I', impactCommand);
 		
 		/* Game Clock Tick Button */
-		tickCommand = new ClockTickCommand(gw);
-		Button bTick = new Button("Game Clock Tick");
-		bTick.getAllStyles().setBgTransparency(100);
-		bTick.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bTick.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bTick.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bTick.setCommand(tickCommand);
-		buttonBar.add(bTick);
-		addKeyListener('t', tickCommand);
+//		tickCommand = new ClockTickCommand(gw);
+//		Button bTick = new Button("Game Clock Tick");
+//		bTick.getAllStyles().setBgTransparency(100);
+//		bTick.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bTick.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bTick.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bTick.setCommand(tickCommand);
+//		buttonBar.add(bTick);
+//		addKeyListener('t', tickCommand);
 		
 		qCommand = new QuitCommand(gw);
 		Button bquit = new Button("Quit");
@@ -388,113 +387,16 @@ public class Game extends Form implements Runnable{
 		
 		gw.init(mv.getWidth(), mv.getHeight()); /* This can't go before we get MapView coordinates */
 		
-		//timer = new UITimer(this);
-		//timer.schedule(20, true, this);
+		/*Initialize Timer*/
+		timer = new UITimer(this);
+		//timer.schedule(timeMillis, repeat, bound); :format
+		timer.schedule(20, true, this);
+		
+		
 	} //end Constructor
 	@Override
 	public void run() {
 		gw.ticked();
 	}
 	
-	/* *
-	 * The above edits replaces A1's play() method
-	 * 
-	 * creating interface IGameWorld
-	 * extending Observable from GameWorld and implementing IGameWorld
-	 * creating GameWorldProxy extending Observable from GameWorld and implementing IGameWorld
-	 * creating MapView extends container implements Observer
-	 * creating PointsView extends container implements Observer
-	 * 
-	 * */
-	
-//	public void play() {
-//		Label myLabel = new Label("Enter a Command:");
-//		this.addComponent(myLabel);
-//		final TextField myTextField = new TextField();
-//		this.addComponent(myTextField);
-//		this.show();
-//		myTextField.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent evt) {
-//				String sCommand = myTextField.getText().toString();
-//				myTextField.clear();
-//				switch(sCommand.charAt(0)) {
-//					case 'a':
-//						gw.addAsteroid();
-//						break;
-//					case 'y':
-//						gw.addNPS();
-//						break;
-//					case 'b':
-//						gw.addSpaceStation();
-//						break;
-//					case 's':
-//						gw.addPS();
-//						break;
-//					case 'i':
-//						gw.increaseSpeed();
-//						break;
-//					case 'd':
-//						gw.decreaseSpeed();
-//						break;
-//					case 'l':
-//						gw.turnLeft();
-//						break;
-//					case 'r':
-//						gw.turnRight();
-//						break;
-//					case '<':
-//						gw.aimML();
-//						break;
-//					case 'f':
-//						gw.firePSMissile();
-//						break;
-//					case 'L':
-//						gw.launchNPSMissile();
-//						break;
-//					case 'j':
-//						//gw.jump();
-//						break;
-//					case 'n':
-//						gw.loadMissiles();
-//						break;
-//					case 'k':
-//						gw.destroyAsteroid();
-//						break;
-//					case 'e':
-//						gw.eliminatedNPS();
-//						break;
-//					case 'E':
-//						gw.explodePS();
-//						break;
-//					case 'c':
-//						gw.crash();
-//						break;
-//					case 'h':
-//						gw.hit();
-//						break;
-//					case 'x':
-//						gw.exterminate();
-//						break;
-//					case 'I':
-//						gw.impact();
-//						break;
-//					case 't':
-//						gw.ticked();
-//						break;
-//					case 'p':
-//						gw.printDisplay();
-//						break;
-//					case 'm':
-//						gw.map();
-//						break;
-//					case 'q':
-//						gw.quitGW();
-//						break;
-//					default:
-//						System.out.println("Sorry, that character doesn't do anything!");
-//				} /*end switch*/
-//			}/*action Performed*/
-//		} /*new ActionListener*/
-//		); /*addActionListener -- lambda expressions*/
-//	}/*end play*/
-}/*end Game*/
+} /*end Game*/
