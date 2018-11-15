@@ -3,6 +3,8 @@ package com.mycompany.a3;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
+
+import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.IMovable;
@@ -209,8 +211,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				GameObject GameObject = (GameObject) theElements.getNext();
 				if(theElements instanceof PlayerShip) {
 					SteerableMissileLauncher sml = ((PlayerShip) GameObject).getPSML();
-					sml.changeAngle(-10);
-					System.out.println("PLAYERSHIP has aimed MISSILE LAUNCHER.");
+					sml.changeAngle(-20);
+					//System.out.println("PLAYERSHIP has aimed MISSILE LAUNCHER.");
 				}
 			}
 		} else
@@ -278,7 +280,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 *  
 	 * j */
 	public void jump() {
-		Point2D point = new Point2D(512,384); /* original starting location */
+		Point point = new Point(512,384); /* original starting location */
 		IIterator theElements = go.getIterator();
 		if(psExists()) {
 			while(theElements.hasNext()) {
@@ -361,7 +363,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
-	/** PlayerShip Crashed into an Asteriod
+	/** PlayerShip Crashed into an Asteroid
 	 * Lose a life
 	 * c */
 	public void crash() {
@@ -492,10 +494,12 @@ public class GameWorld extends Observable implements IGameWorld{
         	while(theElements.hasNext()) {
         		GameObject GameObject = (GameObject) theElements.getNext(); //this casts it to a game object
                 if (GameObject instanceof SpaceStation) {
-                    ((SpaceStation) GameObject).toggleLight();
+                	if ((this.ticks % ((SpaceStation) GameObject).getBlinkRate()*10) == 0) {
+                		((SpaceStation) GameObject).toggleLight();
+                	}
                 }
             }
-        	System.out.println("SPACESTATION light was triggered.");
+        	//System.out.println("SPACESTATION light was triggered.");
         } else
         	System.out.println("No SPACESTATIONS exist.");
 		this.setChanged();
@@ -509,7 +513,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		ticks++;
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
-		System.out.println("-------------------TICKTOCK goes the CLOCK---------------------");
+//		System.out.println("-------------------TICKTOCK goes the CLOCK---------------------");
 	}
 	
 	/* Print display gives the following: 

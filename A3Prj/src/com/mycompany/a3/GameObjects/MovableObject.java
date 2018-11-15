@@ -11,8 +11,7 @@ import com.codename1.ui.geom.Point2D;
  * 
  */
 public abstract class MovableObject extends GameObject implements IMovable{
-	private int speed;
-	private int heading;
+	private int speed,heading;
 	private boolean oppositeX, oppositeY;
 	
 	public MovableObject(int width, int height) {
@@ -44,7 +43,6 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	    
 		super.setX(x);
 		super.setY(y);
-		
 	}
 	
 	public int getSpeed() {

@@ -18,7 +18,7 @@ public class Missiles extends MovableObject{
 	private int fuelLevel;
 	
 	/* Missiles Constructor */
-	public Missiles(Point2D location, int heading, int speed,int width, int height){
+	public Missiles(Point location, int heading, int speed,int width, int height){
 		super(width, height);
 		super.setColor(ColorUtil.BLACK); //from GameObject
 		super.setLocation(location); //from MovableObject

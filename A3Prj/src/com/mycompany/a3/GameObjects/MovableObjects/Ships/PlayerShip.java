@@ -3,7 +3,6 @@ package com.mycompany.a3.GameObjects.MovableObjects.Ships;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
-import com.codename1.ui.geom.Point2D;
 import com.mycompany.a3.GameObjects.MovableObjects.ISteerable;
 import com.mycompany.a3.GameObjects.MovableObjects.Ship;
 import com.mycompany.a3.GameObjects.MovableObjects.SteerableMissileLauncher;
@@ -18,17 +17,21 @@ import com.mycompany.a3.GameObjects.MovableObjects.SteerableMissileLauncher;
  */
 public class PlayerShip extends Ship implements ISteerable{
 	private int lives;
-
+	private Point center,top, bottomLeft, bottomRight;
 	private SteerableMissileLauncher playerShipML;
 	
 	public PlayerShip(int width, int height){
 		super(width, height);
-		Point2D point = new Point2D(width/2, height/2);
-
-		super.setColor(ColorUtil.MAGENTA);
+		center = new Point(width/2,height/2);
+		top = new Point(0,height/2);
+		bottomLeft = new Point( -width/2, -height/2);
+		bottomRight = new Point( width/2, -height/2);
+		
+		super.setColor(ColorUtil.MAGENTA); /* set transparency*/
+		super.setSize(10);
 		super.setSpeed(0);
 		super.setHeading(0);
-		super.setLocation(point);
+		super.setLocation(center);
 		super.setMissileCount(10); // has to be 10
 		playerShipML = new SteerableMissileLauncher(super.getLocation(), super.getHeading(), super.getSpeed(),width,height);
 	}
@@ -99,7 +102,37 @@ public class PlayerShip extends Ship implements ISteerable{
 	}
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		//g.setColor(ColorUtil.BLACK);
-		//g.drawRect((int)(pCmpRelPrnt.getX() + this.getX() - size/2), (int)(pCmpRelPrnt.getY()+this.getY()), size, size);
+		g.setColor(super.getColor());
+		g.drawLine((int)(pCmpRelPrnt.getX() + this.getX()), 
+				(int)(pCmpRelPrnt.getY()+ this.getY() + super.getSize()),
+				(int)(pCmpRelPrnt.getX() - super.getSize() + this.getX()),
+				(int)(pCmpRelPrnt.getY() - super.getSize() + this.getY())); 
+		
+		g.drawLine ((int)(pCmpRelPrnt.getX() - super.getSize() + this.getX()),
+				(int)(pCmpRelPrnt.getY() - super.getSize() + this.getY()),
+				(int)(pCmpRelPrnt.getX() + super.getSize() + this.getX()),
+				(int)(pCmpRelPrnt.getY() - super.getSize() + this.getY()));
+		
+		g.drawLine ((int)(pCmpRelPrnt.getX() + super.getSize() + this.getX()),
+				(int)(pCmpRelPrnt.getY() - super.getSize() + this.getY()),
+				(int)(pCmpRelPrnt.getX()  + this.getX()),
+				(int)(pCmpRelPrnt.getY() + super.getSize() + this.getY()));
+		
+		playerShipML.draw(g, pCmpRelPrnt);
+		
+//		g.drawLine((int)(pCmpRelPrnt.getX() + top.getX()), 
+//				(int)(pCmpRelPrnt.getY() + top.getY() + super.getSize()),
+//				(int)(pCmpRelPrnt.getX() + bottomLeft.getX() - super.getSize()),
+//				(int)(pCmpRelPrnt.getY() + bottomLeft.getY() - super.getSize())); 
+//		
+//		g.drawLine ((int)(pCmpRelPrnt.getX() + bottomLeft.getX() - super.getSize()),
+//				(int)(pCmpRelPrnt.getY() + bottomLeft.getY() - super.getSize()),
+//				(int)(pCmpRelPrnt.getX() + bottomRight.getX() + super.getSize()),
+//				(int)(pCmpRelPrnt.getY() + bottomRight.getY() - super.getSize()));
+//		
+//		g.drawLine ((int)(pCmpRelPrnt.getX() + bottomRight.getX() + super.getSize()),
+//				(int)(pCmpRelPrnt.getY() + bottomRight.getY() - super.getSize()),
+//				(int)(pCmpRelPrnt.getX() + top.getX()),
+//				(int)(pCmpRelPrnt.getY() + top.getY() + super.getSize()));
 	}
 }

@@ -15,12 +15,12 @@ import com.mycompany.a3.GameObjects.MovableObject;
 public class MissileLauncher extends MovableObject{
 	
 	/*we need to pass through location, heading, speed*/
-	public MissileLauncher(Point2D location,int heading,int speed,int width,int height) {
+	public MissileLauncher(Point location,int heading,int speed,int width,int height) {
 		super(width, height);
 		super.setLocation(location); //get NPS location
 		this.setHeading(heading); //get NPS heading
 		super.setSpeed(speed); //same as NPS
-		super.setColor(ColorUtil.WHITE);
+		super.setColor(ColorUtil.rgb(255, 0, 0));
 	}
 	
 	public String toString() {
@@ -31,8 +31,12 @@ public class MissileLauncher extends MovableObject{
 	}
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		//g.setColor(ColorUtil.BLACK);
-		//g.drawRect((int)(pCmpRelPrnt.getX() + this.getX() - size/2), (int)(pCmpRelPrnt.getY()+this.getY()), size, size);	
+		g.setColor(super.getColor());
+		g.drawLine((int)(pCmpRelPrnt.getX() + this.getX()),
+				(int)(pCmpRelPrnt.getY()+this.getY()),
+				(int)((pCmpRelPrnt.getX() + this.getX())+super.getSpeed()*(Math.cos(Math.toRadians(90-this.getHeading())))),
+				(int)((pCmpRelPrnt.getY() + this.getY())+super.getSpeed()*(Math.sin(Math.toRadians(90-this.getHeading())))));
+		
 	}
 
 }

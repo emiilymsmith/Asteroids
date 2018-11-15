@@ -17,21 +17,23 @@ public class SpaceStation extends FixedObject {
 	private int blinkRate;
 	private int missileStock; /* unused on purpose, placeholder for future use */
 	private int tickTock;
+	private boolean blink;
 	
 	/* SpaceStation Constructor */
 	public SpaceStation(int width, int height) {
 		super(width,height);
 		super.setId();
 		setBlinkRate(); //from here
-		super.setColor(ColorUtil.BLUE); //from GameObject
+		super.setColor(ColorUtil.YELLOW); //from GameObject
 		super.setRandomLocation(); //from GameObject
 	}
 	
 	/* If the mod (%) of tickTock (ticks) is 0, tick the clock and trigger a different color */
 	public void toggleLight() {
-		tickTock ++;
-        if((tickTock % this.getBlinkRate()) == 0)
-        	super.setColor(ColorUtil.YELLOW);
+//		tickTock ++;
+//        if((tickTock % this.getBlinkRate()) == 0)
+//        	super.setColor(ColorUtil.YELLOW);
+		blink = !blink;
 	}
 	
 	public void setBlinkRate() {
@@ -50,13 +52,16 @@ public class SpaceStation extends FixedObject {
 		returnStr += "Space Station"+"\n";
 		return returnStr;
 	}
+	
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-//		int radius = 50;
-//		g.setColor(super.getColor());
-//		if (go) 
-//			g.drawArc((int)(pCmpRelPrnt.getX() + this.getX() - (2*radius)), (int)(pCmpRelPrnt.getY()+this.getY() - (2*radius)), 2*radius, 2*radius, 0, 360);
-//		else 
-//			g.fillArc((int)(pCmpRelPrnt.getX() + this.getX() - (2*radius)), (int)(pCmpRelPrnt.getY()+this.getY() - (2*radius)), 2*radius, 2*radius, 0, 360);
+		int radius = 70;
+		g.setColor(super.getColor()); /* gets the color set in constructor */
+		if (blink) 
+			g.drawArc((int)(pCmpRelPrnt.getX() + this.getX() - (2 * radius)), 
+					(int)(pCmpRelPrnt.getY()+this.getY() - (2 * radius)), 2 * radius, 2 * radius, 0, 360);
+		else 
+			g.fillArc((int)(pCmpRelPrnt.getX() + this.getX() - (2 * radius)), 
+					(int)(pCmpRelPrnt.getY()+this.getY() - (2 * radius)), 2 * radius, 2 * radius, 0, 360);
 	}
 }

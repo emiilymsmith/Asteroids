@@ -17,11 +17,9 @@ import java.util.Random;
  */
 
 public abstract class GameObject implements IDrawable{
-	private Point2D location;
-	private int color;
+	private Point location;
+	private int color, width, height, size;
 	protected Random r = new Random();
-	private int width;
-	private int height;
 	
 	/* GameObject constructor */
 	public GameObject(int width, int height){
@@ -32,7 +30,7 @@ public abstract class GameObject implements IDrawable{
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		/* Do nothing here */
 		// This is for testing
-		System.out.println("WRONG DRAW");
+		//System.out.println("WRONG DRAW");
 	}
 	
 	/* getters and setters */
@@ -44,6 +42,14 @@ public abstract class GameObject implements IDrawable{
 		return this.height;
 	}
 	
+	public void setSize(int size) {
+		this.size = size;
+	}
+	
+	public int getSize() {
+		return this.size;
+	}
+	
 	public int getColor() {
 		return color;
 	}
@@ -52,11 +58,11 @@ public abstract class GameObject implements IDrawable{
 		this.color = color;
 	}
 
-	public Point2D getLocation() {
+	public Point getLocation() {
 		return this.location;
 	}
 	
-	public void setLocation(Point2D point) {
+	public void setLocation(Point point) {
 		this.location = point;
 	}
 	
@@ -66,7 +72,7 @@ public abstract class GameObject implements IDrawable{
 	
 	public void setX(double x) {
 		if (x >= 0 && x <= this.getWidth()) {
-			location.setX(x);
+			location.setX((int) x);
 		} else {
 			System.out.println("Input is out of bounds!");
 		}
@@ -78,7 +84,7 @@ public abstract class GameObject implements IDrawable{
 	
 	public void setY(double y) {
 		if (y >= 0 && y <= this.getHeight()) {
-			location.setY(y);
+			location.setY((int) y);
 		} else {
 			System.out.println("Input is out of bounds!");
 		}
@@ -102,9 +108,9 @@ public abstract class GameObject implements IDrawable{
 	
 	/* Sets a new random location on the map */
 	public void setRandomLocation() {
-		Point2D point = new Point2D(0,0);
-		point.setX(r.nextFloat()*this.getWidth());
-		point.setY(r.nextFloat()*this.getHeight());
+		Point point = new Point(0,0);
+		point.setX((int) (r.nextFloat()*this.getWidth()-(size/2)));
+		point.setY((int) (r.nextFloat()*this.getHeight()-(size/2)));
 		this.location = point;
 	}
 

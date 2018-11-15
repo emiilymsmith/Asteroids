@@ -14,9 +14,9 @@ import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
  */
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable{
 	
-	public SteerableMissileLauncher(Point2D location, int heading, int speed, int width, int height){
+	public SteerableMissileLauncher(Point location, int heading, int speed, int width, int height){
 		super(location, heading, speed, width, height);
-		super.setColor(ColorUtil.YELLOW);
+		super.setColor(ColorUtil.MAGENTA);
 	}
 	
 	/* This method's purpose is so that it will be able to rotate independently(left) of the PlayerShip */
@@ -53,8 +53,12 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 	}
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		//g.setColor(ColorUtil.BLACK);
-		//g.drawRect((int)(pCmpRelPrnt.getX() + this.getX() - size/2), (int)(pCmpRelPrnt.getY()+this.getY()), size, size);
+		g.setColor(super.getColor());
+		g.drawLine((int)(pCmpRelPrnt.getX() + this.getX()),
+				(int)(pCmpRelPrnt.getY()+this.getY()),
+				(int)((pCmpRelPrnt.getX() + this.getX() + 3)+super.getSpeed()*(Math.cos(Math.toRadians(90-this.getHeading())))),
+				(int)((pCmpRelPrnt.getY() + this.getY() + 3)+super.getSpeed()*(Math.sin(Math.toRadians(90-this.getHeading())))));
+		
 	}
 }
 /*

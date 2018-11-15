@@ -21,8 +21,8 @@ public class NonPlayerShip extends Ship{
 	public NonPlayerShip(int width, int height) {
 		super(width,height);
 		super.setRandomLocation();
-		super.setColor(ColorUtil.GREEN);
-		this.size = this.getRandomSize();
+		super.setColor(ColorUtil.BLUE);
+		this.size = this.setRandomSize();
 		super.setSpeed(5);
 		super.setRandomHeading();
 		super.setFixedMissileCount(); // 2 at most
@@ -39,8 +39,8 @@ public class NonPlayerShip extends Ship{
 		this.size = size;
 	}
 	
-	public int getRandomSize() {
-		int num = r.nextInt(3) + 1; /*+1 so it doesn't start at 0*/
+	public int setRandomSize() {
+		int num = r.nextInt(6) + 1; /*+1 so it doesn't start at 0*/
 		return num;
 	}
 	
@@ -53,7 +53,19 @@ public class NonPlayerShip extends Ship{
 	}
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		//g.setColor(ColorUtil.BLACK);
-		//g.drawRect((int)(pCmpRelPrnt.getX() + this.getX() - size/2), (int)(pCmpRelPrnt.getY()+this.getY()), size, size);
+		g.setColor(super.getColor());
+		g.fillTriangle((int)(pCmpRelPrnt.getX()+this.getX()+0), (int)(pCmpRelPrnt.getY()+this.getY()+super.getSpeed()),
+				(int)(pCmpRelPrnt.getX()+this.getX()-super.getSpeed()), (int)(pCmpRelPrnt.getY()+this.getY()-super.getSpeed()),
+				(int)(pCmpRelPrnt.getX()+this.getX()+super.getSpeed()), (int)(pCmpRelPrnt.getY()+this.getY()-super.getSpeed()));
+		nonPlayerShipML.draw(g, pCmpRelPrnt);
 	}
+	/**
+	 *  fillTriangle(int x1, int y1, int x2, int y2, int x3, int y3) 
+	 *  x1 - the x coordinate of the first vertex of the triangle
+	 *  y1 - the y coordinate of the first vertex of the triangle
+	 *  x2 - the x coordinate of the second vertex of the triangle
+	 *  y2 - the y coordinate of the second vertex of the triangle
+	 *  x3 - the x coordinate of the third vertex of the triangle
+	 *  y3 - the y coordinate of the third vertex of the triangle
+	 *  */
 }
