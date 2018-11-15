@@ -18,7 +18,7 @@ public class ClockTickCommand extends Command{
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
 			gw.ticked();
-			System.out.println("Tick Tock");
+			//System.out.println("Tick Tock");
 		}
 	}
 }

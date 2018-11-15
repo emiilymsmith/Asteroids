@@ -23,6 +23,10 @@ public class MissileLauncher extends MovableObject{
 		super.setColor(ColorUtil.rgb(255, 0, 0));
 	}
 	
+	public Missiles fireMissile() {
+		return new Missiles(this.getLocation(), this.getHeading(), this.getSpeed()+2, this.getWidth(), this.getHeight());
+	}
+	
 	public String toString() {
 		String returnStr = "";
 		returnStr += super.toString();

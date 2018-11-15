@@ -4,6 +4,7 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.mycompany.a3.GameObjects.MovableObjects.ISteerable;
+import com.mycompany.a3.GameObjects.MovableObjects.Missiles;
 import com.mycompany.a3.GameObjects.MovableObjects.Ship;
 import com.mycompany.a3.GameObjects.MovableObjects.SteerableMissileLauncher;
 /**
@@ -28,7 +29,7 @@ public class PlayerShip extends Ship implements ISteerable{
 		bottomRight = new Point( width/2, -height/2);
 		
 		super.setColor(ColorUtil.MAGENTA); /* set transparency*/
-		super.setSize(10);
+		super.setSize(20);
 		super.setSpeed(0);
 		super.setHeading(0);
 		super.setLocation(center);
@@ -70,6 +71,10 @@ public class PlayerShip extends Ship implements ISteerable{
 	public void decreasePSSpeed() {
 		super.decreaseSpeed();
 		playerShipML.decreaseSpeed();
+	}
+	
+	public Missiles fireMissile() {
+		return playerShipML.fireMissile();
 	}
 	
 	public String toString(){

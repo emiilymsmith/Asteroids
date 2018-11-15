@@ -24,6 +24,10 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 		this.setHeading(this.getHeading() + degChange);
 	}
 	
+	public Missiles fireMissile() {
+		return new Missiles(this.getLocation(), this.getHeading(), this.getSpeed()+2, this.getWidth(), this.getHeight());
+	}
+	
 	public String toString() {
 		String returnStr = "";
 		returnStr += super.toString();

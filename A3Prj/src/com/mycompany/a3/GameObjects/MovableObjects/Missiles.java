@@ -20,7 +20,7 @@ public class Missiles extends MovableObject{
 	/* Missiles Constructor */
 	public Missiles(Point location, int heading, int speed,int width, int height){
 		super(width, height);
-		super.setColor(ColorUtil.BLACK); //from GameObject
+		super.setColor(ColorUtil.GREEN); //from GameObject
 		super.setLocation(location); //from MovableObject
 		super.setHeading(heading); //from MovableObject //heading comes from ship
 		super.setSpeed(speed+3); //from MovableObject //speed is greater than playership's like +2
@@ -45,8 +45,8 @@ public class Missiles extends MovableObject{
 	}
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		//g.setColor(ColorUtil.BLACK);
-		//g.drawRect((int)(pCmpRelPrnt.getX() + this.getX() - size/2), (int)(pCmpRelPrnt.getY()+this.getY()), size, size);
+		g.setColor(super.getColor());
+		g.fillRect((int)(pCmpRelPrnt.getX()+this.getX()), (int)(pCmpRelPrnt.getY()+this.getY()), 9, 9);
 		
 	}
 }

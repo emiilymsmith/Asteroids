@@ -238,10 +238,10 @@ public class GameWorld extends Observable implements IGameWorld{
 		            	/* decrements number of missiles*/
 		            	((PlayerShip) GameObject).setMissileCount(numMissiles - 1);
 		                /* creates object Missiles called missile, uses playership's params*/
-		                Missiles missile = new Missiles(((PlayerShip) GameObject).getLocation(), ((PlayerShip) GameObject).getHeading(), 
-		                		((PlayerShip) GameObject).getSpeed(), width, height);
+		            	
+		            	Missiles missile = ((PlayerShip) GameObject).fireMissile();
 		                go.add(missile);
-		                System.out.println("PLAYERSHIP missile FIRED.");
+		                //System.out.println("PLAYERSHIP missile FIRED.");
 		            }
 	            }
 			} else
