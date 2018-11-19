@@ -4,6 +4,7 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
+import com.mycompany.a3.ICollider;
 import com.mycompany.a3.IDrawable;
 
 import java.util.Random;
@@ -16,10 +17,11 @@ import java.util.Random;
  * 
  */
 
-public abstract class GameObject implements IDrawable{
+public abstract class GameObject implements IDrawable, ICollider{
 	private Point location;
 	private int color, width, height, size;
 	protected Random r = new Random();
+	private boolean exploded;
 	
 	/* GameObject constructor */
 	public GameObject(int width, int height){
@@ -88,6 +90,39 @@ public abstract class GameObject implements IDrawable{
 		} else {
 			System.out.println("Input is out of bounds!");
 		}
+	}
+	
+	@Override
+	public boolean collisionWith(ICollider obj) {
+		
+		GameObject otherObject = (GameObject)obj;
+		
+		boolean collide = false;
+		int thisCenterX = (int)this.getX() + (this.getSize()/2); // find centers
+		int thisCenterY = (int)this.getY() + (this.getSize()/2);
+		int otherCenterX = (int)otherObject.getX() + (this.getSize()/2);
+		int otherCenterY = (int)otherObject.getY() + (this.getSize()/2);
+		// find dist between centers (use square, to avoid taking roots)
+		int dx = thisCenterX - otherCenterX;
+		int dy = thisCenterY - otherCenterY;
+		int distBetweenCentersSqr = (dx*dx + dy*dy);
+		// find square of sum of radii
+		int thisRadius = this.getSize()/2;
+		int otherRadius = otherObject.getSize()/2;
+		int radiiSqr = (thisRadius*thisRadius + 2*thisRadius*otherRadius
+		+ otherRadius*otherRadius);
+		if (distBetweenCentersSqr <= radiiSqr) {
+			collide = true ;
+		}
+		return collide;
+	}
+	
+	public void isExploded() {
+		this.exploded = true;
+	}
+	
+	public boolean getExploded() {
+		return this.exploded;
 	}
 	
 	/*print color and location here*/

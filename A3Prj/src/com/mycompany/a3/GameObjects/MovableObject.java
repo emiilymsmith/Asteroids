@@ -1,6 +1,6 @@
 package com.mycompany.a3.GameObjects;
 
-import com.codename1.ui.geom.Point2D;
+
 /**
  * @author Emily Smith
  * @version 1.0

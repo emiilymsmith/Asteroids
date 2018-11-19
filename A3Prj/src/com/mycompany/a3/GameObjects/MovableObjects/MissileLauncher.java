@@ -4,6 +4,8 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
+import com.mycompany.a3.ICollider;
+import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.MovableObject;
 /**
  * @author Emily Smith
@@ -40,6 +42,12 @@ public class MissileLauncher extends MovableObject{
 				(int)(pCmpRelPrnt.getY()+this.getY()),
 				(int)((pCmpRelPrnt.getX() + this.getX())+super.getSpeed()*(Math.cos(Math.toRadians(90-this.getHeading())))),
 				(int)((pCmpRelPrnt.getY() + this.getY())+super.getSpeed()*(Math.sin(Math.toRadians(90-this.getHeading())))));
+		
+	}
+
+	@Override
+	public void handleCollision(ICollider obj) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -3,6 +3,8 @@ package com.mycompany.a3.GameObjects.MovableObjects.Ships;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
+import com.mycompany.a3.ICollider;
+import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.MovableObjects.ISteerable;
 import com.mycompany.a3.GameObjects.MovableObjects.Missiles;
 import com.mycompany.a3.GameObjects.MovableObjects.Ship;
@@ -140,4 +142,12 @@ public class PlayerShip extends Ship implements ISteerable{
 //				(int)(pCmpRelPrnt.getX() + top.getX()),
 //				(int)(pCmpRelPrnt.getY() + top.getY() + super.getSize()));
 	}
+
+
+	@Override
+	public void handleCollision(ICollider obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

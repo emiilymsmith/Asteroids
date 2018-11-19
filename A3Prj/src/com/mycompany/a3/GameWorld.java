@@ -5,7 +5,6 @@ import java.util.Observable;
 import java.util.Vector;
 
 import com.codename1.ui.geom.Point;
-import com.codename1.ui.geom.Point2D;
 import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.IMovable;
 import com.mycompany.a3.GameObjects.FixedObjects.SpaceStation;
@@ -510,6 +509,30 @@ public class GameWorld extends Observable implements IGameWorld{
 		moveAllObjects();
 		updateFuel();
 		blinkSS();
+		
+		/* Handle Collision of Objects */
+		//IIterator theElements = go.getIterator();
+		IIterator elements1;
+		IIterator elements2;
+		
+
+			//GameObject gameObj = (GameObject)theElements.getNext();
+			elements1 = go.getIterator();
+			if(go.iteratorSize() > 1) { /* if there's only one object don't check for collision */
+				while(elements1.hasNext()) {
+					ICollider currentObject = (ICollider)elements1.getNext();
+					elements2 = go.getIterator();
+					while(elements2.hasNext()) {
+						ICollider otherObject = (ICollider)elements1.getNext(); 
+						if(otherObject!=currentObject) {
+							if(currentObject.collisionWith(otherObject)) {
+								currentObject.handleCollision(otherObject);
+							}//end collision handle
+						}//end if same object check
+					}//end parse through ele2
+				}//end parse through ele1
+			} else {/* don't check for collision */}
+		
 		ticks++;
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));

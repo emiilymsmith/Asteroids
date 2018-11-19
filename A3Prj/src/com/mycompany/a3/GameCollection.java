@@ -32,6 +32,14 @@ public class GameCollection implements ICollection{
 		theCollection.remove(i);
 	}
 	
+	public int iteratorSize() {
+		return theCollection.size();
+	}
+	
+	public Object elementAt(int location) {
+		return theCollection.elementAt(location);
+	}
+	
 	public IIterator getIterator() {
 		return new GameVectorIterator();
 	}

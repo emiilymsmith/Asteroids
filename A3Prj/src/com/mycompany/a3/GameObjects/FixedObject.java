@@ -1,5 +1,7 @@
 package com.mycompany.a3.GameObjects;
 
+import com.mycompany.a3.ICollider;
+
 /**
  * @author Emily Smith
  * @version 1.0
@@ -30,5 +32,17 @@ public class FixedObject extends GameObject{
 		returnStr += super.toString();
 		returnStr += "Space Station ID: "+this.getId()+"\n";
 		return returnStr;
+	}
+
+	@Override
+	public boolean collisionWith(ICollider obj) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void handleCollision(ICollider obj) {
+		// TODO Auto-generated method stub
+		
 	}
 }

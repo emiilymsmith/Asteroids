@@ -26,6 +26,7 @@ public class SpaceStation extends FixedObject {
 		setBlinkRate(); //from here
 		super.setColor(ColorUtil.YELLOW); //from GameObject
 		super.setRandomLocation(); //from GameObject
+		super.setSize(10);
 	}
 	
 	/* If the mod (%) of tickTock (ticks) is 0, tick the clock and trigger a different color */
@@ -58,10 +59,10 @@ public class SpaceStation extends FixedObject {
 		int radius = 70;
 		g.setColor(super.getColor()); /* gets the color set in constructor */
 		if (blink) 
-			g.drawArc((int)(pCmpRelPrnt.getX() + this.getX() - (2 * radius)), 
-					(int)(pCmpRelPrnt.getY()+this.getY() - (2 * radius)), 2 * radius, 2 * radius, 0, 360);
+			g.drawArc((int)(pCmpRelPrnt.getX() + this.getX() - (super.getSize() * radius)), 
+					(int)(pCmpRelPrnt.getY()+this.getY() - (super.getSize() * radius)), super.getSize() * radius, super.getSize() * radius, 0, 360);
 		else 
-			g.fillArc((int)(pCmpRelPrnt.getX() + this.getX() - (2 * radius)), 
-					(int)(pCmpRelPrnt.getY()+this.getY() - (2 * radius)), 2 * radius, 2 * radius, 0, 360);
+			g.fillArc((int)(pCmpRelPrnt.getX() + this.getX() - (super.getSize() * radius)), 
+					(int)(pCmpRelPrnt.getY()+this.getY() - (super.getSize() * radius)), super.getSize() * radius, super.getSize() * radius, 0, 360);
 	}
 }

@@ -4,6 +4,7 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
+import com.mycompany.a3.ICollider;
 import com.mycompany.a3.GameObjects.MovableObject;
 /**
  * @author Emily Smith
@@ -47,6 +48,18 @@ public class Missiles extends MovableObject{
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(super.getColor());
 		g.fillRect((int)(pCmpRelPrnt.getX()+this.getX()), (int)(pCmpRelPrnt.getY()+this.getY()), 9, 9);
+		
+	}
+
+	@Override
+	public boolean collisionWith(ICollider obj) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void handleCollision(ICollider obj) {
+		// TODO Auto-generated method stub
 		
 	}
 }

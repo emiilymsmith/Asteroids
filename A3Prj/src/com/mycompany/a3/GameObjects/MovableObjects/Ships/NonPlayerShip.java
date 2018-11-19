@@ -3,6 +3,8 @@ package com.mycompany.a3.GameObjects.MovableObjects.Ships;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
+import com.mycompany.a3.ICollider;
+import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a3.GameObjects.MovableObjects.Ship;
 /**
@@ -68,4 +70,11 @@ public class NonPlayerShip extends Ship{
 	 *  x3 - the x coordinate of the third vertex of the triangle
 	 *  y3 - the y coordinate of the third vertex of the triangle
 	 *  */
+
+	@Override
+	public void handleCollision(ICollider obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
