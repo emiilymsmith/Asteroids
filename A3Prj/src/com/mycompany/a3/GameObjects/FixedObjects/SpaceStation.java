@@ -56,7 +56,7 @@ public class SpaceStation extends FixedObject {
 	
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		int radius = 70;
+		int radius = 15;
 		g.setColor(super.getColor()); /* gets the color set in constructor */
 		if (blink) 
 			g.drawArc((int)(pCmpRelPrnt.getX() + this.getX() - (super.getSize() * radius)), 

@@ -68,7 +68,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		/*add asteroid to storage vector*/
 		go.add(asteroid);
 		/*feedback for creation*/
-		System.out.println("An ASTEROID has been created.");	
+		//System.out.println("An ASTEROID has been created.");	
 		System.out.println(asteroid);
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -79,7 +79,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addNPS() {
 		NonPlayerShip nps = new NonPlayerShip(this.width, this.height);
 		go.add(nps);
-		System.out.println("A NON-PLAYERSHIP has been created.");
+		//System.out.println("A NON-PLAYERSHIP has been created.");
 		System.out.println(nps);
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -90,7 +90,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addSpaceStation() {
 		SpaceStation bs = new SpaceStation(this.width, this.height);
 		go.add(bs);
-		System.out.println("A SPACE STATION has been created.");
+		//System.out.println("A SPACE STATION has been created.");
 		System.out.println(bs);
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -103,7 +103,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(!psExists()) { //returning false
 			PlayerShip ps = new PlayerShip(this.width, this.height);
 			go.add(ps);
-			System.out.println("A PLAYER SHIP has been created.");
+			//System.out.println("A PLAYER SHIP has been created.");
 			System.out.println(ps);
 		} else {
  			System.err.println("A PLAYERSHIP already exists.");
@@ -119,15 +119,15 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(psExists()) {
             while(theElements.hasNext()) {
             	//changed a for loop to a while to look through iterator
-            	GameObject GameObject = (GameObject) theElements.getNext(); //this casts it to a game object
-            	if (GameObject instanceof PlayerShip) {
-                    int currentSpeed = ((PlayerShip) GameObject).getSpeed();
+            	GameObject gameObj = (GameObject) theElements.getNext(); //this casts it to a game object
+            	if (gameObj instanceof PlayerShip) {
+                    int currentSpeed = ((PlayerShip) gameObj).getSpeed();
                     if (currentSpeed > 10) {
                         System.out.println("Already at MAX PLAYERSHIP speed.");
                     } else if (currentSpeed >= 0 ) {
-                        ((PlayerShip) GameObject).increaseSpeed();
-                        System.out.println("PLAYERSHIP speed INCREASED.");
-                        System.out.println(GameObject);
+                        ((PlayerShip) gameObj).increaseSpeed();
+                        //System.out.println("PLAYERSHIP speed INCREASED.");
+                        //System.out.println(GameObject);
                     }
                 }
             }//end while
@@ -143,15 +143,15 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		if(psExists()) {
 			while(theElements.hasNext()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-                if (GameObject instanceof PlayerShip) {
-                    int currentSpeed = ((PlayerShip) GameObject).getSpeed();
+				GameObject gameObj = (GameObject) theElements.getNext();
+                if (gameObj instanceof PlayerShip) {
+                    int currentSpeed = ((PlayerShip) gameObj).getSpeed();
                     if (currentSpeed == 0) {
                         System.out.println("Already at MIN PLAYERSHIP speed.");
                     } else if (currentSpeed < 10) {
-                        ((PlayerShip) GameObject).decreaseSpeed();
-                        System.out.println("PLAYERSHIP speed DECREASED.");
-                        System.out.println(GameObject);
+                        ((PlayerShip) gameObj).decreaseSpeed();
+                        //System.out.println("PLAYERSHIP speed DECREASED.");
+                        //System.out.println(GameObject);
                     }
                 }
             }
@@ -169,9 +169,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		if(psExists()) {
 			while(theElements.hasNext()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-				if (theElements instanceof PlayerShip) {
-					((PlayerShip) GameObject).changeHeading(-15); 
+				GameObject gameObj = (GameObject) theElements.getNext();
+				if (gameObj instanceof PlayerShip) {
+					((PlayerShip) gameObj).changeHeading(-15); 
                     System.out.println("PLAYERSHIP LEFT.");
                 }
             }
@@ -188,9 +188,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		if(psExists()) {
 			while(theElements.hasNext()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-				if (theElements instanceof PlayerShip) {
-                    ((PlayerShip) GameObject).changeHeading(15); //changeHeading from Steerable
+				GameObject gameObj = (GameObject) theElements.getNext();
+				if (gameObj instanceof PlayerShip) {
+                    ((PlayerShip) gameObj).changeHeading(15); //changeHeading from Steerable
                     System.out.println("PLAYERSHIP RIGHT.");
                 }
             }
@@ -207,9 +207,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		if (psExists()) {
 			while(theElements.hasNext()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-				if(theElements instanceof PlayerShip) {
-					SteerableMissileLauncher sml = ((PlayerShip) GameObject).getPSML();
+				GameObject gameObj = (GameObject) theElements.getNext();
+				if(gameObj instanceof PlayerShip) {
+					SteerableMissileLauncher sml = ((PlayerShip) gameObj).getPSML();
 					sml.changeAngle(-20);
 					//System.out.println("PLAYERSHIP has aimed MISSILE LAUNCHER.");
 				}
@@ -227,18 +227,17 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		while(theElements.hasNext()) {
 			if(psExists()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-				if(GameObject instanceof PlayerShip) {
+				GameObject gameObj = (GameObject) theElements.getNext();
+				if(gameObj instanceof PlayerShip) {
 		            /* Gets the number of missiles and checks if there's enough to fire one*/
-		            int numMissiles = ((PlayerShip) GameObject).getMissileCount();
+		            int numMissiles = ((PlayerShip) gameObj).getMissileCount();
 		            if (numMissiles < 1)
 		            	System.err.println("PLAYERSHIP is out of MISSILES.");
 		            else {
 		            	/* decrements number of missiles*/
-		            	((PlayerShip) GameObject).setMissileCount(numMissiles - 1);
+		            	((PlayerShip) gameObj).setMissileCount(numMissiles - 1);
 		                /* creates object Missiles called missile, uses playership's params*/
-		            	
-		            	Missiles missile = ((PlayerShip) GameObject).fireMissile();
+		            	Missiles missile = ((PlayerShip) gameObj).firePlayerSMissile();
 		                go.add(missile);
 		                //System.out.println("PLAYERSHIP missile FIRED.");
 		            }
@@ -257,14 +256,14 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		while(theElements.hasNext()) {
 			if(nonPSExists()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-				if(GameObject instanceof NonPlayerShip) {
-					int numMissiles = ((NonPlayerShip) GameObject).getMissileCount();
-					((NonPlayerShip) GameObject).setMissileCount(numMissiles - 1);
-					MissileLauncher ml = ((NonPlayerShip) GameObject).getML();
+				GameObject gameObj = (GameObject) theElements.getNext();
+				if(gameObj instanceof NonPlayerShip) {
+					int numMissiles = ((NonPlayerShip) gameObj).getMissileCount();
+					((NonPlayerShip) gameObj).setMissileCount(numMissiles - 1);
+					MissileLauncher ml = ((NonPlayerShip) gameObj).getML();
 					/* creates object Missiles called missile, uses NONplayership's params*/
-					Missiles missile = new Missiles(((NonPlayerShip) GameObject).getLocation(), ((NonPlayerShip) GameObject).getHeading(),
-					((NonPlayerShip) GameObject).getSpeed(), width, height);
+					Missiles missile = new Missiles(((NonPlayerShip) gameObj).getX(), ((NonPlayerShip) gameObj).getY(), 
+							((NonPlayerShip) gameObj).getHeading(),((NonPlayerShip) gameObj).getSpeed(), width, height, false);
 					go.add(missile);
 					System.out.println("NONPLAYERSHIP MISSILE FIRED.");
 				} else
@@ -283,10 +282,10 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		if(psExists()) {
 			while(theElements.hasNext()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-				if(GameObject instanceof PlayerShip) {
-					((PlayerShip) GameObject).setLocation(point);
-					SteerableMissileLauncher sml = ((PlayerShip) GameObject).getPSML();
+				GameObject gameObj = (GameObject) theElements.getNext();
+				if(gameObj instanceof PlayerShip) {
+					((PlayerShip) gameObj).setLocation(point);
+					SteerableMissileLauncher sml = ((PlayerShip) gameObj).getPSML();
             		sml.setLocation(point); //gets the location of the PlayerShip to match
             		System.out.println("PLAYERSHIP JUMPED through hyperspace.");
                 }
@@ -302,9 +301,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		if(psExists()) {
 			while(theElements.hasNext()) {
-				GameObject GameObject = (GameObject) theElements.getNext();
-				if (GameObject instanceof PlayerShip) {
-					((PlayerShip) GameObject).setMissileCount(10); /* resets missile count to 10 */
+				GameObject gameObj = (GameObject) theElements.getNext();
+				if (gameObj instanceof PlayerShip) {
+					((PlayerShip) gameObj).setMissileCount(10); /* resets missile count to 10 */
 					System.out.println("PLAYERSHIP missile reload.");
 				}
 			}
@@ -432,52 +431,34 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
-	/* Each 'tick' does the following, split into 4 functions: 
-	 * 1. moveAllObjects() - all movable objects update position based on speed and heading
-	 * 2. updateFuel() - missiles fuel level is reduced, those empty are removed
-	 * 3. blinkSS() - space station blinks
-	 * 4. ticked() - (main) calls the above methods and elapses game time by 1 tick
+	/* Each 'tick' does the following, split into 3 functions: 
+	 * 1. updateFuel() - missiles fuel level is reduced, those empty are removed
+	 * 2. blinkSS() - space station blinks
+	 * 3. ticked() - (main) calls the above methods and elapses game time by 1 tick
 	 * 
 	 * */
-	public void moveAllObjects() {
-		/* Check if something moves */
-		IIterator theElements = go.getIterator();
-		boolean movable = false;
-		while(theElements.hasNext()){
-			GameObject GameObject = (GameObject) theElements.getNext();
-            if(GameObject instanceof IMovable){
-                ((IMovable) GameObject).move(ticks);
-                movable = true;
-                System.out.println("TICKTOCK: Moved all the moveable objects.");
-            } else
-                System.out.println("TICKTOCK: No movable objects exist!");
-        }
-        this.setChanged();
-		this.notifyObservers(new GameWorldProxy(this));
-	}
-	
+
 	public void updateFuel() {
 		IIterator theElements = go.getIterator();
-		ArrayList<Integer> garbage = new ArrayList<Integer>();
+		ArrayList<Integer> poofBucket = new ArrayList<Integer>();
 		int index = 0;
 		if(missileExists()){
             while(theElements.hasNext()) {
-            	GameObject GameObject = (GameObject) theElements.getNext(); //this casts it to a game object
-            	if(GameObject instanceof Missiles) {
-	            	Missiles missile = ((Missiles) GameObject);
+            	GameObject gameObj = (GameObject) theElements.getNext(); //this casts it to a game object
+            	if(gameObj instanceof Missiles) {
+	            	Missiles missile = ((Missiles) gameObj);
 	            	int fuelLevel = missile.getFuelLevel();
 	            	if (fuelLevel < 1) {
-	            		//add placeholder to garbage to be removed after while loop
-	            		garbage.add(index);
-	            		//go.remove(missile); //breaks code 
-	            		System.out.println("Removed a MISSILE that ran out of fuel.");
+	            		//add placeholder to poofBucket to be removed after while loop
+	            		poofBucket.add(index);
+	            		//System.out.println("Removed a MISSILE that ran out of fuel.");
 	            	} else
 	            		missile.setFuelLevel(fuelLevel - 1);
             	} //end if game object
             	index++;
             }//end while
-            for(int i = 0; i < garbage.size(); i++) {
-            	go.remove(garbage.get(i)-i);
+            for(int i = 0; i < poofBucket.size(); i++) {
+            	go.remove(poofBucket.get(i)-i);
             	
             }
         }//end exists
@@ -491,10 +472,10 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		if (spaceStationExists()) {
         	while(theElements.hasNext()) {
-        		GameObject GameObject = (GameObject) theElements.getNext(); //this casts it to a game object
-                if (GameObject instanceof SpaceStation) {
-                	if ((this.ticks % ((SpaceStation) GameObject).getBlinkRate()*10) == 0) {
-                		((SpaceStation) GameObject).toggleLight();
+        		GameObject gameObj = (GameObject) theElements.getNext(); //this casts it to a game object
+                if (gameObj instanceof SpaceStation) {
+                	if ((this.ticks % ((SpaceStation) gameObj).getBlinkRate()*10) == 0) {
+                		((SpaceStation) gameObj).toggleLight();
                 	}
                 }
             }
@@ -506,38 +487,46 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	/* t */
 	public void ticked() {
-		moveAllObjects();
+
+		/* Check if something moves, if it does move it */
+		IIterator theElements = go.getIterator();
+		boolean movable = false;
+		while(theElements.hasNext()){
+			GameObject gameObj = (GameObject) theElements.getNext();
+            if(gameObj instanceof IMovable){
+                ((IMovable) gameObj).move(ticks);
+                movable = true;
+                //System.out.println("TICKTOCK: Moved all the movable objects.");
+            } else
+                System.out.println("TICKTOCK: No movable objects exist!");
+        
+    		/* Handle Collision of Objects */
+    		IIterator elements1;
+    		IIterator elements2;
+    		
+    		elements1 = go.getIterator();
+    		while(elements1.hasNext()) {
+    			ICollider currentObject = (ICollider)elements1.getNext();
+    			elements2 = go.getIterator();
+    			while(elements2.hasNext()) {
+    				ICollider otherObject = (ICollider)elements2.getNext(); 
+    				if(otherObject!=currentObject) {
+    					if(currentObject.collisionWith(otherObject)) {
+    						currentObject.handleCollision(otherObject);
+    					}//end collision handle
+    				}//end if same object check
+    			}//end parse through ele2
+    		}//end parse through ele1
+		} //end "parent" while
+
 		updateFuel();
 		blinkSS();
-		
-		/* Handle Collision of Objects */
-		//IIterator theElements = go.getIterator();
-		IIterator elements1;
-		IIterator elements2;
-		
-
-			//GameObject gameObj = (GameObject)theElements.getNext();
-			elements1 = go.getIterator();
-			if(go.iteratorSize() > 1) { /* if there's only one object don't check for collision */
-				while(elements1.hasNext()) {
-					ICollider currentObject = (ICollider)elements1.getNext();
-					elements2 = go.getIterator();
-					while(elements2.hasNext()) {
-						ICollider otherObject = (ICollider)elements1.getNext(); 
-						if(otherObject!=currentObject) {
-							if(currentObject.collisionWith(otherObject)) {
-								currentObject.handleCollision(otherObject);
-							}//end collision handle
-						}//end if same object check
-					}//end parse through ele2
-				}//end parse through ele1
-			} else {/* don't check for collision */}
 		
 		ticks++;
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 //		System.out.println("-------------------TICKTOCK goes the CLOCK---------------------");
-	}
+	}//end ticked
 	
 	/* Print display gives the following: 
 	 * 1. current score 
@@ -558,12 +547,12 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void map() {
 		/* prints out a list of all the objects */
 		IIterator theElements = go.getIterator();
-		System.out.println("---------------------------------------\n"
-                + "-------------- Game Map ----------------\n"
-                + "----------------------------------------");
+//		System.out.println("---------------------------------------\n"
+//                + "-------------- Game Map ----------------\n"
+//                + "----------------------------------------");
 		while(theElements.hasNext()) {
-			GameObject gameObject = (GameObject) theElements.getNext();
-			System.out.println(gameObject);
+			GameObject gameObj = (GameObject) theElements.getNext();
+			System.out.println(gameObj);
 		}
 		System.out.println("---------------------------------------\n");
 	}
@@ -579,15 +568,29 @@ public class GameWorld extends Observable implements IGameWorld{
 		System.exit(0);
 	}
 
-	private void gameOver() {
+	private void clearPoofs() {
 		IIterator theElements = go.getIterator();
-		System.out.println("---------------------------------------");
-        System.err.println("GAME OVER - You ran out of Lives!");
-        System.out.println("\tIf you would like to quit, type 'Y'");
+        
         while(theElements.hasNext()) {
-        	GameObject GameObj = (GameObject) theElements.getNext();
-        	go.remove(GameObj);
+        	GameObject gameO = (GameObject) theElements.getNext();
+        
+        	for (int i = 0; i < go.iteratorSize(); i++) {
+    			GameObject gameObj = (GameObject)go.elementAt(i);
+    			if(gameObj.getPoof()) {
+    				if (gameObj instanceof PlayerShip) {
+    					if (this.getLives() > 1) {
+    						this.lives -= 1;
+    					} else {
+    						System.out.println("GAME OVER!!!!");
+    						System.exit(1);
+    					}
+    				}
+    				go.remove(i);
+    			}
+    		}
         }
+        
+        
     }
 	
 	@Override
@@ -617,9 +620,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		/* Remove all objects from GameWorld */
 		while (theElements.hasNext()) {
-			GameObject GameObj = (GameObject)theElements.getNext();
-			if (GameObj instanceof PlayerShip) {
-				missileCount = ((PlayerShip) GameObj).getMissileCount();
+			GameObject gameObj = (GameObject)theElements.getNext();
+			if (gameObj instanceof PlayerShip) {
+				missileCount = ((PlayerShip) gameObj).getMissileCount();
 			} 
 		}
 		return missileCount;
@@ -675,8 +678,8 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		boolean psexists = false;
 		while(theElements.hasNext()) {
-			GameObject GameObj = (GameObject) theElements.getNext();
-			if(GameObj instanceof PlayerShip) {
+			GameObject gameObj = (GameObject) theElements.getNext();
+			if(gameObj instanceof PlayerShip) {
 				psexists = true;
             }
         }
@@ -689,8 +692,8 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		boolean npsexists = false;
 		while(theElements.hasNext()) {
-			GameObject GameObj = (GameObject) theElements.getNext();
-			if(GameObj instanceof NonPlayerShip) {
+			GameObject gameObj = (GameObject) theElements.getNext();
+			if(gameObj instanceof NonPlayerShip) {
                 npsexists = true;
             }
         }
@@ -703,13 +706,13 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		boolean mexists = false;
         while(theElements.hasNext()) {
-        	GameObject GameObj = (GameObject) theElements.getNext();
-        	if(GameObj instanceof Missiles) {
+        	GameObject gameObj = (GameObject) theElements.getNext();
+        	if(gameObj instanceof Missiles) {
                 mexists = true;
             }
         }
-        if(!mexists)
-            System.out.println("A MISSILE does not exist.");
+//        if(!mexists)
+//            System.out.println("A MISSILE does not exist.");
         return mexists;
     }
 
@@ -717,13 +720,13 @@ public class GameWorld extends Observable implements IGameWorld{
 		IIterator theElements = go.getIterator();
 		boolean ssexists = false;
 		while(theElements.hasNext()) {
-			GameObject GameObj = (GameObject) theElements.getNext();
-			if(GameObj instanceof SpaceStation) {
+			GameObject gameObj = (GameObject) theElements.getNext();
+			if(gameObj instanceof SpaceStation) {
                 ssexists = true;
             }
         }
-        if(!ssexists)
-            System.out.println("A SPACESTATION does not exist.");
+//        if(!ssexists)
+//            System.out.println("A SPACESTATION does not exist.");
         return ssexists;
 	}
 	
@@ -731,24 +734,25 @@ public class GameWorld extends Observable implements IGameWorld{
 	private boolean removeAsteroid(){
 		IIterator theElements = go.getIterator();
 		while(theElements.hasNext()) {
-			GameObject GameObj = (GameObject) theElements.getNext();
-			if(GameObj instanceof Asteroids) {
-				go.remove(GameObj);
+			GameObject gameObj = (GameObject) theElements.getNext();
+			if(gameObj instanceof Asteroids) {
+				go.remove(gameObj);
 				System.out.println("Removed ASTEROID.");
                 return true;
             }
         }
-        System.err.println("Did not remove ASTEROID.");
+        //System.err.println("Did not remove ASTEROID.");
         return false;
     }
 	
 	private boolean removeMissile() {
 		IIterator theElements = go.getIterator();
 		while(theElements.hasNext()) {
-			GameObject GameObj = (GameObject) theElements.getNext();
-			if(theElements instanceof Missiles) {
-                go.remove(GameObj);
-                System.out.println("Removed MISSILE.");
+			GameObject gameObj = (GameObject) theElements.getNext();
+			if(gameObj instanceof Missiles) {
+                go.remove(gameObj);
+                //TODO make this work for item at index i
+                //System.out.println("Removed MISSILE.");
                 return true;
             }
         }
@@ -759,28 +763,28 @@ public class GameWorld extends Observable implements IGameWorld{
 	private boolean removeNPS() {
 		IIterator theElements = go.getIterator();
 		while(theElements.hasNext()) {
-        	GameObject GameObj = (GameObject) theElements.getNext();
-            if(GameObj instanceof NonPlayerShip) {
-                go.remove(GameObj);
-                System.out.println("Removed NonPlayerShip from GAMEWORLD.");
+        	GameObject gameObj = (GameObject) theElements.getNext();
+            if(gameObj instanceof NonPlayerShip) {
+                go.remove(gameObj);
+                //System.out.println("Removed NonPlayerShip from GAMEWORLD.");
                 return true;
             }
         }
-        System.err.println("Did not remove NonPlayerShip.");
+        //System.err.println("Did not remove NonPlayerShip.");
         return false;
 	}
 	
 	private boolean removePS() {
 		IIterator theElements = go.getIterator();
 		while(theElements.hasNext()) {
-			GameObject GameObj = (GameObject) theElements.getNext();
-			if(theElements instanceof PlayerShip) {
-                go.remove(GameObj);
-                System.out.println("Removed PLAYERSHIP from GAMEWORLD.");
+			GameObject gameObj = (GameObject) theElements.getNext();
+			if(gameObj instanceof PlayerShip) {
+                go.remove(gameObj);
+                //System.out.println("Removed PLAYERSHIP from GAMEWORLD.");
                 return true;
             }
         }
-        System.err.println("Did not remove PLAYERSHIP.");
+        //System.err.println("Did not remove PLAYERSHIP.");
         return false;
 	}
 	

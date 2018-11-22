@@ -5,7 +5,10 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a3.ICollider;
+import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.MovableObject;
+import com.mycompany.a3.GameObjects.MovableObjects.Ships.NonPlayerShip;
+import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
 /**
  * @author Emily Smith
  * @version 1.0
@@ -17,14 +20,19 @@ import com.mycompany.a3.GameObjects.MovableObject;
 // f fires Missile
 public class Missiles extends MovableObject{
 	private int fuelLevel;
+	private boolean mType; //missile type
 	
 	/* Missiles Constructor */
-	public Missiles(Point location, int heading, int speed,int width, int height){
+	public Missiles(double x, double y, int heading, int speed,int width, int height, boolean mType){
 		super(width, height);
-		super.setColor(ColorUtil.GREEN); //from GameObject
-		super.setLocation(location); //from MovableObject
+		super.setColor(ColorUtil.rgb(75,0,130)); //from GameObject
+		this.mType = mType;
+		//super.setLocation(location); //from MovableObject
+		super.setX(x); //from Game Object
+		super.setY(y);
+		super.setSize(7);
 		super.setHeading(heading); //from MovableObject //heading comes from ship
-		super.setSpeed(speed+3); //from MovableObject //speed is greater than playership's like +2
+		super.setSpeed(speed); //from MovableObject //speed is greater than playership's like +2
 		this.setFuelLevel(10); //= getFuelLevel(); //from here
 	}
 	
@@ -37,6 +45,10 @@ public class Missiles extends MovableObject{
 		this.fuelLevel = fuel;
 	}
 	
+	public boolean getMType() {
+		return this.mType;
+	}
+	
 	public String toString(){
 		String returnStr = "";
 		returnStr += super.toString();
@@ -47,19 +59,24 @@ public class Missiles extends MovableObject{
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(super.getColor());
-		g.fillRect((int)(pCmpRelPrnt.getX()+this.getX()), (int)(pCmpRelPrnt.getY()+this.getY()), 9, 9);
-		
-	}
-
-	@Override
-	public boolean collisionWith(ICollider obj) {
-		// TODO Auto-generated method stub
-		return false;
+		g.fillRect((int)(pCmpRelPrnt.getX()+this.getX()), (int)(pCmpRelPrnt.getY()+this.getY()), super.getSize(), 2*super.getSize());
 	}
 
 	@Override
 	public void handleCollision(ICollider obj) {
-		// TODO Auto-generated method stub
-		
+		GameObject gameObj = (GameObject)obj;
+		if(obj instanceof PlayerShip) {
+			PlayerShip pship = (PlayerShip)obj;
+			if(this.mType == false) {
+				this.poofed();
+				pship.poofed();
+			}
+		} else if(obj instanceof NonPlayerShip) {
+			NonPlayerShip nonPS = (NonPlayerShip)obj;
+			if(this.mType = true) {
+				this.poofed();
+				nonPS.poofed();
+			}
+		} else {}
 	}
 }

@@ -75,7 +75,7 @@ public class PlayerShip extends Ship implements ISteerable{
 		playerShipML.decreaseSpeed();
 	}
 	
-	public Missiles fireMissile() {
+	public Missiles firePlayerSMissile() {
 		return playerShipML.fireMissile();
 	}
 	
@@ -95,7 +95,6 @@ public class PlayerShip extends Ship implements ISteerable{
 		} else {
 			super.setHeading(heading-15+360);
 		}
-		System.out.println("PLAYERSHIP TURNED LEFT");
 	}
 	@Override
 	public void turnRight() {
@@ -105,7 +104,6 @@ public class PlayerShip extends Ship implements ISteerable{
 		} else {
 			super.setHeading(heading+15-360);
 		}
-		System.out.println("PLAYERSHIP TURNED RIGHT");
 	}
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
@@ -126,21 +124,6 @@ public class PlayerShip extends Ship implements ISteerable{
 				(int)(pCmpRelPrnt.getY() + super.getSize() + this.getY()));
 		
 		playerShipML.draw(g, pCmpRelPrnt);
-		
-//		g.drawLine((int)(pCmpRelPrnt.getX() + top.getX()), 
-//				(int)(pCmpRelPrnt.getY() + top.getY() + super.getSize()),
-//				(int)(pCmpRelPrnt.getX() + bottomLeft.getX() - super.getSize()),
-//				(int)(pCmpRelPrnt.getY() + bottomLeft.getY() - super.getSize())); 
-//		
-//		g.drawLine ((int)(pCmpRelPrnt.getX() + bottomLeft.getX() - super.getSize()),
-//				(int)(pCmpRelPrnt.getY() + bottomLeft.getY() - super.getSize()),
-//				(int)(pCmpRelPrnt.getX() + bottomRight.getX() + super.getSize()),
-//				(int)(pCmpRelPrnt.getY() + bottomRight.getY() - super.getSize()));
-//		
-//		g.drawLine ((int)(pCmpRelPrnt.getX() + bottomRight.getX() + super.getSize()),
-//				(int)(pCmpRelPrnt.getY() + bottomRight.getY() - super.getSize()),
-//				(int)(pCmpRelPrnt.getX() + top.getX()),
-//				(int)(pCmpRelPrnt.getY() + top.getY() + super.getSize()));
 	}
 
 

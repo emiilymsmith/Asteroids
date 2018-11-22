@@ -21,7 +21,7 @@ public abstract class GameObject implements IDrawable, ICollider{
 	private Point location;
 	private int color, width, height, size;
 	protected Random r = new Random();
-	private boolean exploded;
+	private boolean poof;
 	
 	/* GameObject constructor */
 	public GameObject(int width, int height){
@@ -102,27 +102,26 @@ public abstract class GameObject implements IDrawable, ICollider{
 		int thisCenterY = (int)this.getY() + (this.getSize()/2);
 		int otherCenterX = (int)otherObject.getX() + (this.getSize()/2);
 		int otherCenterY = (int)otherObject.getY() + (this.getSize()/2);
-		// find dist between centers (use square, to avoid taking roots)
+		// find dist between centers
 		int dx = thisCenterX - otherCenterX;
 		int dy = thisCenterY - otherCenterY;
 		int distBetweenCentersSqr = (dx*dx + dy*dy);
 		// find square of sum of radii
 		int thisRadius = this.getSize()/2;
 		int otherRadius = otherObject.getSize()/2;
-		int radiiSqr = (thisRadius*thisRadius + 2*thisRadius*otherRadius
-		+ otherRadius*otherRadius);
+		int radiiSqr = (thisRadius * thisRadius + 2*thisRadius*otherRadius + otherRadius * otherRadius);
 		if (distBetweenCentersSqr <= radiiSqr) {
 			collide = true ;
 		}
 		return collide;
 	}
 	
-	public void isExploded() {
-		this.exploded = true;
+	public void poofed() {
+		this.poof = true;
 	}
 	
-	public boolean getExploded() {
-		return this.exploded;
+	public boolean getPoof() {
+		return this.poof;
 	}
 	
 	/*print color and location here*/

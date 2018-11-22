@@ -26,7 +26,7 @@ public class MissileLauncher extends MovableObject{
 	}
 	
 	public Missiles fireMissile() {
-		return new Missiles(this.getLocation(), this.getHeading(), this.getSpeed()+2, this.getWidth(), this.getHeight());
+		return new Missiles(this.getX(), this.getY(), this.getHeading(), this.getSpeed()+2, this.getWidth(), this.getHeight(), false);
 	}
 	
 	public String toString() {

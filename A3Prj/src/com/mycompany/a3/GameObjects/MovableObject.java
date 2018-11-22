@@ -1,6 +1,5 @@
 package com.mycompany.a3.GameObjects;
 
-
 /**
  * @author Emily Smith
  * @version 1.0
@@ -16,7 +15,7 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	
 	public MovableObject(int width, int height) {
 		super(width,height);
-		this.heading = getHeading();
+		//this.heading = getHeading();
 	}
 
 	public void move(int ticks) {
@@ -40,9 +39,20 @@ public abstract class MovableObject extends GameObject implements IMovable{
 	    if ((y >= super.getHeight()) || (y < 0)) {
 	    	oppositeY =  !oppositeY;
 	    }
-	    
 		super.setX(x);
 		super.setY(y);
+	}
+
+	public int getHeading() {
+		return this.heading;
+	}
+	
+	public void setHeading(int heading) {
+		this.heading = heading;
+	}
+	
+	public void setRandomHeading() {
+		this.heading = r.nextInt(359)+1;
 	}
 	
 	public int getSpeed() {
@@ -53,43 +63,20 @@ public abstract class MovableObject extends GameObject implements IMovable{
 		this.speed = speed;
 	}
 	
-	public int getHeading() {
-		return this.heading;
-	}
-	
-	public void setHeading(int degChange /*Degree Change "heading"*/) {
-		if(degChange > 360) {
-			this.heading = degChange - 360;
-		} else if(degChange < 0){
-			this.heading = 360 + degChange;
-		} else {
-			this.heading = degChange;
-		}
-	}
-	
 	public void setRandomSpeed() {
-		this.speed = r.nextInt(10)+1;
-	}
-	
-	public void setRandomHeading() {
-		this.heading = r.nextInt(359)+1;
-		
+		this.speed = r.nextInt(15)+1;
 	}
 	
 	public void increaseSpeed() {
-		if(this.speed < 10 && this.speed >= 0) {
+		if(this.speed < 15 && this.speed >= 0) {
 			this.speed++;
-		} else {
-			System.out.println("Error: Object speed could not be increased!");
-		}
+		} else {}
 	}
 	
 	public void decreaseSpeed() {
-		if(this.speed < 10 && this.speed >= 0) {
+		if(this.speed < 15 && this.speed >= 0) {
 			this.speed--;
-		} else {
-			System.out.println("Error: Object speed could not be increased!");
-		}
+		} else {}
 	}
 	
 	public String toString() {

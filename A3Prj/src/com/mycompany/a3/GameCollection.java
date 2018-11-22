@@ -45,29 +45,29 @@ public class GameCollection implements ICollection{
 	}
 	
 	private class GameVectorIterator implements IIterator{
-		private int currElementIndex;
+		private int currentElementIndex;
 		
 		public GameVectorIterator() {
-			currElementIndex = -1;
+			currentElementIndex = -1;
 		}
 		
 		public boolean hasNext() {
 			if (theCollection.size() <= 0)
 				return false;
-			if(currElementIndex == theCollection.size() - 1)
+			if(currentElementIndex == theCollection.size() - 1)
 				return false;
 			return true;
 		}
 		
 		public Object getNext() {
-			currElementIndex ++;
-			return(theCollection.elementAt(currElementIndex));
+			currentElementIndex++;
+			return(theCollection.elementAt(currentElementIndex));
 		}
 		
 		public Object checkNext() {
-			return(theCollection.elementAt(currElementIndex));
+			return(theCollection.elementAt(currentElementIndex));
 		}
 		
-	}
+	}/* end GameVectorIterator */
 	
-}
+}/* End GameCollection */

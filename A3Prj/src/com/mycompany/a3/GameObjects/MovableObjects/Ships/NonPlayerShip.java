@@ -24,7 +24,7 @@ public class NonPlayerShip extends Ship{
 		super(width,height);
 		super.setRandomLocation();
 		super.setColor(ColorUtil.BLUE);
-		this.size = this.setRandomSize();
+		super.setSize(this.setRandomSize());
 		super.setSpeed(5);
 		super.setRandomHeading();
 		super.setFixedMissileCount(); // 2 at most
@@ -37,13 +37,17 @@ public class NonPlayerShip extends Ship{
         return nonPlayerShipML;
     }
 	
-	public void setSize(int size) {
-		this.size = size;
+	public int getSize() {
+		return this.size;
 	}
 	
 	public int setRandomSize() {
-		int num = r.nextInt(6) + 1; /*+1 so it doesn't start at 0*/
-		return num;
+		int rsize = r.nextInt(15) + 1; /*+1 so it doesn't start at 0*/
+		if(rsize > 7) {
+			rsize = 15;
+		} else
+			rsize = 11;
+		return rsize;
 	}
 	
 	public String toString() {
@@ -56,9 +60,9 @@ public class NonPlayerShip extends Ship{
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(super.getColor());
-		g.fillTriangle((int)(pCmpRelPrnt.getX()+this.getX()+0), (int)(pCmpRelPrnt.getY()+this.getY()+super.getSpeed()),
-				(int)(pCmpRelPrnt.getX()+this.getX()-super.getSpeed()), (int)(pCmpRelPrnt.getY()+this.getY()-super.getSpeed()),
-				(int)(pCmpRelPrnt.getX()+this.getX()+super.getSpeed()), (int)(pCmpRelPrnt.getY()+this.getY()-super.getSpeed()));
+		g.fillTriangle((int)(pCmpRelPrnt.getX()+this.getX()+0), (int)(pCmpRelPrnt.getY()+this.getY()+super.getSize()),
+				(int)(pCmpRelPrnt.getX()+this.getX()-super.getSize()), (int)(pCmpRelPrnt.getY()+this.getY()-super.getSize()),
+				(int)(pCmpRelPrnt.getX()+this.getX()+super.getSize()), (int)(pCmpRelPrnt.getY()+this.getY()-super.getSize()));
 		nonPlayerShipML.draw(g, pCmpRelPrnt);
 	}
 	/**

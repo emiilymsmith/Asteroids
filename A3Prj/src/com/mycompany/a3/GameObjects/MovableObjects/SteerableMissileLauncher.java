@@ -25,7 +25,8 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 	}
 	
 	public Missiles fireMissile() {
-		return new Missiles(this.getLocation(), this.getHeading(), this.getSpeed()+2, this.getWidth(), this.getHeight());
+		return new Missiles(this.getX(), this.getY(), this.getHeading(), this.getSpeed()+3, this.getWidth(), this.getHeight(), true);
+		/* true if the missile is a playerships */
 	}
 	
 	public String toString() {
@@ -60,8 +61,8 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 		g.setColor(super.getColor());
 		g.drawLine((int)(pCmpRelPrnt.getX() + this.getX()),
 				(int)(pCmpRelPrnt.getY()+this.getY()),
-				(int)((pCmpRelPrnt.getX() + this.getX() + 3)+super.getSpeed()*(Math.cos(Math.toRadians(90-this.getHeading())))),
-				(int)((pCmpRelPrnt.getY() + this.getY() + 3)+super.getSpeed()*(Math.sin(Math.toRadians(90-this.getHeading())))));
+				(int)((pCmpRelPrnt.getX() + this.getX() + 4)+super.getSpeed()*(Math.cos(Math.toRadians(90-this.getHeading())))),
+				(int)((pCmpRelPrnt.getY() + this.getY() + 4)+super.getSpeed()*(Math.sin(Math.toRadians(90-this.getHeading())))));
 		
 	}
 }

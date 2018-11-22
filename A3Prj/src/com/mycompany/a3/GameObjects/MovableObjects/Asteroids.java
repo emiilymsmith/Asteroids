@@ -56,9 +56,9 @@ public class Asteroids extends MovableObject{
 	public void handleCollision(ICollider obj) {
 		GameObject otherObj = (GameObject)obj;
 		if(obj instanceof Asteroids) {
-			this.isExploded();
-			otherObj.isExploded();
-		} else {}
+			this.poofed();
+			otherObj.poofed();
+		}
 		
 	}
 }
