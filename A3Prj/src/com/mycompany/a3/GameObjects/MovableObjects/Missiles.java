@@ -29,10 +29,10 @@ public class Missiles extends MovableObject{
 		this.mType = mType;
 //		super.setX(x); //from Game Object //ERROR
 //		super.setY(y);
-		super.setLocation(location);
+		this.setLocation(location); //uses parent location
 		super.setSize(7);
 		super.setHeading(heading); //from MovableObject //heading comes from ship
-		super.setSpeed(speed); //from MovableObject //speed is greater than playership's like +2
+		super.setSpeed(speed+3); //from MovableObject //speed is greater than playership's like +2
 		this.setFuelLevel(10); //= getFuelLevel(); //from here
 	}
 	
@@ -43,6 +43,11 @@ public class Missiles extends MovableObject{
 
 	public void setFuelLevel(int fuel) {
 		this.fuelLevel = fuel;
+	}
+	
+	public void setLocation(int x, int y) {
+		Point p = new Point(x,y);
+		super.setLocation(p);
 	}
 	
 	public boolean getMType() {

@@ -311,14 +311,14 @@ public class Game extends Form implements Runnable{
 		
 		/* Asteroids Collide/Exterminate Button */
 		collideCommand = new CollideXCommand(gw);
-		Button bACollision = new Button("Asteroid Collision");
-		bACollision.getAllStyles().setBgTransparency(100);
-		bACollision.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bACollision.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bACollision.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bACollision.setCommand(collideCommand);
-		buttonBar.add(bACollision);
-		addKeyListener('x', collideCommand);
+//		Button bACollision = new Button("Asteroid Collision");
+//		bACollision.getAllStyles().setBgTransparency(100);
+//		bACollision.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bACollision.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bACollision.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bACollision.setCommand(collideCommand);
+//		buttonBar.add(bACollision);
+//		addKeyListener('x', collideCommand);
 		
 		/* Asteroid hits NonPlayerShip Button */
 		impactCommand = new AICommand(gw);

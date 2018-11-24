@@ -44,7 +44,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	/* Fixed variables */
 	private int ticks; //time
 	private int score, lives;
-	private boolean sound;
+	private boolean sound = false;
 	
 	/* Constructor */
 	public void init(int w, int h){
@@ -258,9 +258,9 @@ public class GameWorld extends Observable implements IGameWorld{
 			if(nonPSExists()) {
 				GameObject gameObj = (GameObject) theElements.getNext();
 				if(gameObj instanceof NonPlayerShip) {
-					//int numMissiles = ((NonPlayerShip) gameObj).getMissileCount();
-					//((NonPlayerShip) gameObj).setMissileCount(numMissiles - 1);
-					//MissileLauncher ml = ((NonPlayerShip) gameObj).getML();
+//					int numMissiles = ((NonPlayerShip) gameObj).getMissileCount();
+//					((NonPlayerShip) gameObj).setMissileCount(numMissiles - 1);
+//					MissileLauncher ml = ((NonPlayerShip) gameObj).getML();
 					/* creates object Missiles called missile, uses NONplayership's params*/
 //					Missiles missile = new Missiles(((NonPlayerShip) gameObj).getX(), ((NonPlayerShip) gameObj).getY(), 
 //							((NonPlayerShip) gameObj).getHeading(),((NonPlayerShip) gameObj).getSpeed(), width, height, false);
@@ -684,8 +684,8 @@ public class GameWorld extends Observable implements IGameWorld{
                 aexists = true;
             }
         }
-        if(!aexists)
-            System.out.println("No ASTEROIDS exist.");
+//        if(!aexists)
+//            System.out.println("No ASTEROIDS exist.");
         return aexists;
     }
 
@@ -698,8 +698,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				psexists = true;
             }
         }
-        if(psexists == false)
-            System.out.println("Creating PLAYER SHIP....");/*does not exist, sends to add PS*/
+//        if(psexists == false)
+//            System.out.println("Creating PLAYER SHIP....");/*does not exist, sends to add PS*/
         return psexists;
 	}
 	
@@ -712,8 +712,8 @@ public class GameWorld extends Observable implements IGameWorld{
                 npsexists = true;
             }
         }
-        if(!npsexists)
-            System.out.println("No NON-PLAYER SHIPS exist.");
+//        if(!npsexists)
+//            System.out.println("No NON-PLAYER SHIPS exist.");
         return npsexists;
     }
 	
@@ -771,7 +771,7 @@ public class GameWorld extends Observable implements IGameWorld{
                 return true;
             }
         }
-        System.err.println("Did not remove MISSILE.");
+        //System.err.println("Did not remove MISSILE.");
         return false;
     }
 	
