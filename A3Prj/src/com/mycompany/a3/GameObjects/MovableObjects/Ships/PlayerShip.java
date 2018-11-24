@@ -19,8 +19,7 @@ import com.mycompany.a3.GameObjects.MovableObjects.SteerableMissileLauncher;
  * 
  */
 public class PlayerShip extends Ship implements ISteerable{
-	private int lives;
-	private Point center,top, bottomLeft, bottomRight;
+	private Point center,top, bottomLeft, bottomRight; //TODO: implement this from slides
 	private SteerableMissileLauncher playerShipML;
 	
 	public PlayerShip(int width, int height){
@@ -52,14 +51,6 @@ public class PlayerShip extends Ship implements ISteerable{
 		playerShipML.turnRight();
 	}
 	
-	public int getLives() {
-		return lives = 3;
-	}
-	
-	public void setLives(int lives) {
-		this.lives = lives;
-	}
-	
 	public void changeHeading(int degChange){
 		this.setHeading(this.getHeading() + degChange);
 	}
@@ -82,7 +73,6 @@ public class PlayerShip extends Ship implements ISteerable{
 	public String toString(){
 		String returnStr = "";
 		returnStr += super.toString();
-		returnStr += "Ship Lives: "+ this.getLives()+"\n";
 		returnStr += "PlayerShip\n";
 		return returnStr;
 	}

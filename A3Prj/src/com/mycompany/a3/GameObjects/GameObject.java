@@ -53,7 +53,7 @@ public abstract class GameObject implements IDrawable, ICollider{
 	}
 	
 	public int getColor() {
-		return color;
+		return this.color;
 	}
 
 	public void setColor(int color) {
@@ -76,7 +76,7 @@ public abstract class GameObject implements IDrawable, ICollider{
 		if (x >= 0 && x <= this.getWidth()) {
 			location.setX((int) x);
 		} else {
-			System.out.println("Input is out of bounds!");
+			System.out.println("Out of bounds");
 		}
 	}
 	
@@ -88,7 +88,7 @@ public abstract class GameObject implements IDrawable, ICollider{
 		if (y >= 0 && y <= this.getHeight()) {
 			location.setY((int) y);
 		} else {
-			System.out.println("Input is out of bounds!");
+			System.out.println("Out of bounds");
 		}
 	}
 	
@@ -98,20 +98,20 @@ public abstract class GameObject implements IDrawable, ICollider{
 		GameObject otherObject = (GameObject)obj;
 		
 		boolean collide = false;
-		int thisCenterX = (int)this.getX() + (this.getSize()/2); // find centers
-		int thisCenterY = (int)this.getY() + (this.getSize()/2);
-		int otherCenterX = (int)otherObject.getX() + (this.getSize()/2);
-		int otherCenterY = (int)otherObject.getY() + (this.getSize()/2);
-		// find dist between centers
-		int dx = thisCenterX - otherCenterX;
-		int dy = thisCenterY - otherCenterY;
-		int distBetweenCentersSqr = (dx*dx + dy*dy);
-		// find square of sum of radii
-		int thisRadius = this.getSize()/2;
-		int otherRadius = otherObject.getSize()/2;
-		int radiiSqr = (thisRadius * thisRadius + 2*thisRadius*otherRadius + otherRadius * otherRadius);
-		if (distBetweenCentersSqr <= radiiSqr) {
-			collide = true ;
+		int objCenterX = (int)this.getX() + (this.getSize()/ 2); // find centers
+		int objCenterY = (int)this.getY() + (this.getSize()/ 2);
+		int otherObjCenterX = (int)otherObject.getX() + (this.getSize()/ 2);
+		int otherObjCenterY = (int)otherObject.getY() + (this.getSize()/ 2);
+		// find the distance between obj centers
+		int deltax = objCenterX - otherObjCenterX;
+		int deltay = objCenterY - otherObjCenterY;
+		int deltaCenter = (deltax * deltax + deltay * deltay);
+		// find the square of sum of radii
+		int objRadius = this.getSize()/ 2;
+		int otherObjRadius = otherObject.getSize()/ 2;
+		int radiusSquare = (objRadius * objRadius + 2 * objRadius*otherObjRadius + otherObjRadius * otherObjRadius);
+		if (deltaCenter <= radiusSquare) {
+			collide = true;
 		}
 		return collide;
 	}

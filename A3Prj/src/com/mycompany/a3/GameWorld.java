@@ -348,9 +348,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		if( psExists() & nonPSExists()) {
 			removePS();
 			removeMissile();
-			score -= 5;
+			score-=5;
 			if(lives>=1) {
-				lives --;
+				lives--;
 				System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
 			} else if ( lives == 0 ){
 				System.out.println("You lost all your lives, try again!");
@@ -369,7 +369,7 @@ public class GameWorld extends Observable implements IGameWorld{
             removeAsteroid();
             removePS();
             if(lives>=1) {
-    			lives --;
+    			lives--;
     			System.out.println("PLAYERSHIP crashed into an ASTEROID, lost a life!");
     		} else if ( lives == 0 ){
     			System.out.println("You lost all your lives, try again!");
@@ -387,7 +387,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(nonPSExists() & psExists()) {
 			removeNPS();
 			if(lives>=1) {
-				lives --;
+				lives--;
 				System.out.println("PLAYER SHIP hit a NonPlayerShip, lost a life!");
 			} else if ( lives == 0 ){
 				System.out.println("You lost all your lives, try again!");
@@ -503,7 +503,7 @@ public class GameWorld extends Observable implements IGameWorld{
     		/* Handle Collision of Objects */
     		IIterator elements1;
     		IIterator elements2;
-    		
+
     		elements1 = go.getIterator();
     		while(elements1.hasNext()) {
     			ICollider currentObject = (ICollider)elements1.getNext();
@@ -513,12 +513,13 @@ public class GameWorld extends Observable implements IGameWorld{
     				if(otherObject!=currentObject) {
     					if(currentObject.collisionWith(otherObject)) {
     						currentObject.handleCollision(otherObject);
+    						
     					}//end collision handle
     				}//end if same object check
     			}//end parse through ele2
     		}//end parse through ele1
 		} //end "parent" while
-
+		clearPoofs();
 		updateFuel();
 		blinkSS();
 		
@@ -568,27 +569,28 @@ public class GameWorld extends Observable implements IGameWorld{
 		System.exit(0);
 	}
 
-	private void clearPoofs() {
-		IIterator theElements = go.getIterator();
-        
-        while(theElements.hasNext()) {
-        	GameObject gameO = (GameObject) theElements.getNext();
-        
+	public void clearPoofs() {
+		//IIterator theElements = go.getIterator();
+		//ArrayList<Integer> poofBucket = new ArrayList<Integer>();
+//        while(theElements.hasNext()) {
         	for (int i = 0; i < go.iteratorSize(); i++) {
     			GameObject gameObj = (GameObject)go.elementAt(i);
     			if(gameObj.getPoof()) {
-    				if (gameObj instanceof PlayerShip) {
-    					if (this.getLives() > 1) {
-    						this.lives -= 1;
-    					} else {
-    						System.out.println("GAME OVER!!!!");
-    						System.exit(1);
-    					}
+    				if(gameObj instanceof Asteroids) {
+    					go.remove(i);
     				}
-    				go.remove(i);
+//    				if (gameObj instanceof PlayerShip) {
+//    					if (this.getLives() > 1) {
+//    						this.lives -= 1;
+//    					} else {
+//    						System.out.println("GAME OVER!!!!");
+//    						System.exit(1);
+//    					}
+//    				}
+//    				go.remove(i);
     			}
     		}
-        }
+        //}
         
         
     }
