@@ -6,6 +6,7 @@ import com.codename1.ui.geom.Point;
 import com.mycompany.a3.ICollider;
 import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.MovableObjects.MissileLauncher;
+import com.mycompany.a3.GameObjects.MovableObjects.Missiles;
 import com.mycompany.a3.GameObjects.MovableObjects.Ship;
 /**
  * @author Emily Smith
@@ -36,6 +37,10 @@ public class NonPlayerShip extends Ship{
 	public MissileLauncher getML() {
         return nonPlayerShipML;
     }
+	
+	public Missiles fireNPSMissile() {
+		return nonPlayerShipML.fireNPSMissile();
+	}
 	
 	public int getSize() {
 		return this.size;

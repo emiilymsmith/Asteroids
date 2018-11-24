@@ -25,7 +25,7 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 	}
 	
 	public Missiles fireMissile() {
-		return new Missiles(this.getX(), this.getY(), this.getHeading(), this.getSpeed()+3, this.getWidth(), this.getHeight(), true);
+		return new Missiles(this.getLocation(), this.getHeading(), this.getSpeed()+3, this.getWidth(), this.getHeight(), true);
 		/* true if the missile is a playerships */
 	}
 	

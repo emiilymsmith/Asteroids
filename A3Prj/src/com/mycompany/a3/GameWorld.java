@@ -258,12 +258,13 @@ public class GameWorld extends Observable implements IGameWorld{
 			if(nonPSExists()) {
 				GameObject gameObj = (GameObject) theElements.getNext();
 				if(gameObj instanceof NonPlayerShip) {
-					int numMissiles = ((NonPlayerShip) gameObj).getMissileCount();
-					((NonPlayerShip) gameObj).setMissileCount(numMissiles - 1);
-					MissileLauncher ml = ((NonPlayerShip) gameObj).getML();
+					//int numMissiles = ((NonPlayerShip) gameObj).getMissileCount();
+					//((NonPlayerShip) gameObj).setMissileCount(numMissiles - 1);
+					//MissileLauncher ml = ((NonPlayerShip) gameObj).getML();
 					/* creates object Missiles called missile, uses NONplayership's params*/
-					Missiles missile = new Missiles(((NonPlayerShip) gameObj).getX(), ((NonPlayerShip) gameObj).getY(), 
-							((NonPlayerShip) gameObj).getHeading(),((NonPlayerShip) gameObj).getSpeed(), width, height, false);
+//					Missiles missile = new Missiles(((NonPlayerShip) gameObj).getX(), ((NonPlayerShip) gameObj).getY(), 
+//							((NonPlayerShip) gameObj).getHeading(),((NonPlayerShip) gameObj).getSpeed(), width, height, false);
+					Missiles missile = ((NonPlayerShip) gameObj).fireNPSMissile();
 					go.add(missile);
 					System.out.println("NONPLAYERSHIP MISSILE FIRED.");
 				} else
@@ -440,7 +441,7 @@ public class GameWorld extends Observable implements IGameWorld{
 
 	public void updateFuel() {
 		IIterator theElements = go.getIterator();
-		ArrayList<Integer> poofBucket = new ArrayList<Integer>();
+		//ArrayList<Integer> poofBucket = new ArrayList<Integer>();
 		int index = 0;
 		if(missileExists()){
             while(theElements.hasNext()) {
@@ -450,17 +451,22 @@ public class GameWorld extends Observable implements IGameWorld{
 	            	int fuelLevel = missile.getFuelLevel();
 	            	if (fuelLevel < 1) {
 	            		//add placeholder to poofBucket to be removed after while loop
-	            		poofBucket.add(index);
+	            		//poofBucket.add(index);
+	            		for (int i = 0; i < go.iteratorSize(); i++) {
+	            			if(missile.getPoof() == true) {
+	            				go.remove(i);
+	            			}
+	            		}
 	            		//System.out.println("Removed a MISSILE that ran out of fuel.");
 	            	} else
 	            		missile.setFuelLevel(fuelLevel - 1);
             	} //end if game object
             	index++;
             }//end while
-            for(int i = 0; i < poofBucket.size(); i++) {
-            	go.remove(poofBucket.get(i)-i);
-            	
-            }
+//            for(int i = 0; i < poofBucket.size(); i++) {
+//            	go.remove(poofBucket.get(i)-i);
+//            	
+//            }
         }//end exists
         else
             System.out.println("No MISSILES exist.");
@@ -570,8 +576,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 
 	public void clearPoofs() {
-		//IIterator theElements = go.getIterator();
-		//ArrayList<Integer> poofBucket = new ArrayList<Integer>();
+//		IIterator theElements = go.getIterator();
 //        while(theElements.hasNext()) {
         	for (int i = 0; i < go.iteratorSize(); i++) {
     			GameObject gameObj = (GameObject)go.elementAt(i);
@@ -579,7 +584,16 @@ public class GameWorld extends Observable implements IGameWorld{
     				if(gameObj instanceof Asteroids) {
     					go.remove(i);
     				}
-//    				if (gameObj instanceof PlayerShip) {
+    				if(gameObj instanceof NonPlayerShip){
+    					go.remove(i);
+    				}
+    				if(gameObj instanceof NonPlayerShip){
+    					go.remove(i);
+    				}
+    				if (gameObj instanceof PlayerShip) {
+    					go.remove(i);
+    				}
+    				
 //    					if (this.getLives() > 1) {
 //    						this.lives -= 1;
 //    					} else {
@@ -587,7 +601,6 @@ public class GameWorld extends Observable implements IGameWorld{
 //    						System.exit(1);
 //    					}
 //    				}
-//    				go.remove(i);
     			}
     		}
         //}

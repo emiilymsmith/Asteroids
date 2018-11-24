@@ -23,13 +23,13 @@ public class Missiles extends MovableObject{
 	private boolean mType; //missile type
 	
 	/* Missiles Constructor */
-	public Missiles(double x, double y, int heading, int speed,int width, int height, boolean mType){
+	public Missiles(Point location, int heading, int speed,int width, int height, boolean mType){
 		super(width, height);
 		super.setColor(ColorUtil.rgb(75,0,130)); //from GameObject
 		this.mType = mType;
-		//super.setLocation(location); //from MovableObject
-		super.setX(x); //from Game Object
-		super.setY(y);
+//		super.setX(x); //from Game Object //ERROR
+//		super.setY(y);
+		super.setLocation(location);
 		super.setSize(7);
 		super.setHeading(heading); //from MovableObject //heading comes from ship
 		super.setSpeed(speed); //from MovableObject //speed is greater than playership's like +2
@@ -64,7 +64,7 @@ public class Missiles extends MovableObject{
 
 	@Override
 	public void handleCollision(ICollider obj) {
-		GameObject gameObj = (GameObject)obj;
+		//GameObject gameObj = (GameObject)obj;
 		if(obj instanceof PlayerShip) {
 			PlayerShip pship = (PlayerShip)obj;
 			if(this.mType == false) {
