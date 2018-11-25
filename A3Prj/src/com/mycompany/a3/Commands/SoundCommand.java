@@ -24,9 +24,9 @@ public class SoundCommand extends Command {
 			gw.sound();
 			pauseB = !pauseB;
 			if (pauseB)
-				sound.pause();
-			else
 				sound.play();
+			else
+				sound.pause();
 		}
 	}
 }

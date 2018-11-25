@@ -3,7 +3,13 @@ package com.mycompany.a3.GameObjects.FixedObjects;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
+import com.mycompany.a3.ICollider;
 import com.mycompany.a3.GameObjects.FixedObject;
+import com.mycompany.a3.GameObjects.GameObject;
+import com.mycompany.a3.GameObjects.MovableObjects.Asteroids;
+import com.mycompany.a3.GameObjects.MovableObjects.Missiles;
+import com.mycompany.a3.GameObjects.MovableObjects.Ships.NonPlayerShip;
+import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
 
 /**
  * @author Emily Smith
@@ -64,5 +70,13 @@ public class SpaceStation extends FixedObject {
 		else 
 			g.fillArc((int)(pCmpRelPrnt.getX() + this.getX() - (super.getSize() * radius)), 
 					(int)(pCmpRelPrnt.getY()+this.getY() - (super.getSize() * radius)), super.getSize() * radius, super.getSize() * radius, 0, 360);
+	}
+	@Override
+	public void handleCollision(ICollider obj) {
+		GameObject otherObj = (GameObject)obj;
+		if(obj instanceof PlayerShip){
+			PlayerShip ps = (PlayerShip)obj;
+			ps.setMissileCount(10);
+		} else {/* do nothing */}
 	}
 }

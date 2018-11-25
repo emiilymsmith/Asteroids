@@ -245,14 +245,14 @@ public class Game extends Form implements Runnable{
 		
 		/* Reload Missiles */
 		loadCommand = new LoadMissilesCommand(gw);
-		Button bloadMissiles = new Button("Reload Missiles");
-		bloadMissiles.getAllStyles().setBgTransparency(100);
-		bloadMissiles.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bloadMissiles.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bloadMissiles.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bloadMissiles.setCommand(loadCommand);
-		buttonBar.add(bloadMissiles);
-		addKeyListener('n', loadCommand);
+//		Button bloadMissiles = new Button("Reload Missiles");
+//		bloadMissiles.getAllStyles().setBgTransparency(100);
+//		bloadMissiles.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bloadMissiles.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bloadMissiles.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bloadMissiles.setCommand(loadCommand);
+//		buttonBar.add(bloadMissiles);
+//		addKeyListener('n', loadCommand);
 		
 		/* Missile Destroys Asteroid Button */
 		daCommand = new DestroyAsteroidCommand(gw);
@@ -289,24 +289,24 @@ public class Game extends Form implements Runnable{
 		
 		/* PlayerShip crashes into Asteroid Button */
 		cCommand = new CrashCommand(gw);
-		Button bCrash = new Button("PlayerShip Crash into Asteroid");
-		bCrash.getAllStyles().setBgTransparency(100);
-		bCrash.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bCrash.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bCrash.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bCrash.setCommand(cCommand);
-		buttonBar.add(bCrash);
+//		Button bCrash = new Button("PlayerShip Crash into Asteroid");
+//		bCrash.getAllStyles().setBgTransparency(100);
+//		bCrash.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bCrash.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bCrash.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bCrash.setCommand(cCommand);
+//		buttonBar.add(bCrash);
 		addKeyListener('c', cCommand);
 		
 		/* PlayerShip hits NonPlayerShip Button */
 		hitCommand = new HitNPSCommand(gw);
-		Button bHit = new Button("PlayerShip Hits NonPlayerShip");
-		bHit.getAllStyles().setBgTransparency(100);
-		bHit.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bHit.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bHit.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bHit.setCommand(hitCommand);
-		buttonBar.add(bHit);
+//		Button bHit = new Button("PlayerShip Hits NonPlayerShip");
+//		bHit.getAllStyles().setBgTransparency(100);
+//		bHit.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bHit.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bHit.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bHit.setCommand(hitCommand);
+//		buttonBar.add(bHit);
 		addKeyListener('h',hitCommand);
 		
 		/* Asteroids Collide/Exterminate Button */
@@ -322,13 +322,13 @@ public class Game extends Form implements Runnable{
 		
 		/* Asteroid hits NonPlayerShip Button */
 		impactCommand = new AICommand(gw);
-		Button bANPSCollision = new Button("Asteroid hits NonPlayerShip");
-		bANPSCollision.getAllStyles().setBgTransparency(100);
-		bANPSCollision.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bANPSCollision.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bANPSCollision.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bANPSCollision.setCommand(impactCommand);
-		buttonBar.add(bANPSCollision);
+//		Button bANPSCollision = new Button("Asteroid hits NonPlayerShip");
+//		bANPSCollision.getAllStyles().setBgTransparency(100);
+//		bANPSCollision.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bANPSCollision.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bANPSCollision.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bANPSCollision.setCommand(impactCommand);
+//		buttonBar.add(bANPSCollision);
 		addKeyListener('I', impactCommand);
 		
 		/* Game Clock Tick Button */

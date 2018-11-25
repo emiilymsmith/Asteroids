@@ -5,6 +5,8 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.mycompany.a3.ICollider;
 import com.mycompany.a3.GameObjects.GameObject;
+import com.mycompany.a3.GameObjects.FixedObjects.SpaceStation;
+import com.mycompany.a3.GameObjects.MovableObjects.Asteroids;
 import com.mycompany.a3.GameObjects.MovableObjects.MissileLauncher;
 import com.mycompany.a3.GameObjects.MovableObjects.Missiles;
 import com.mycompany.a3.GameObjects.MovableObjects.Ship;
@@ -82,7 +84,25 @@ public class NonPlayerShip extends Ship{
 
 	@Override
 	public void handleCollision(ICollider obj) {
-		// TODO Auto-generated method stub
+		GameObject otherObj = (GameObject)obj;
+		if(obj instanceof Asteroids) {
+			this.poofed();
+			otherObj.poofed();
+		} else if(obj instanceof PlayerShip) {
+			this.poofed();
+			otherObj.poofed();
+			//TODO does this tie to a command, how to get points for it
+		}else if(obj instanceof Missiles){
+			Missiles tempM = (Missiles)obj;
+			if(tempM.getMType() == true) {
+				this.poofed();
+				tempM.poofed();
+			}
+		} else if(obj instanceof NonPlayerShip){
+			this.poofed();
+			otherObj.poofed();
+			//TODO this doesnt work
+		} else {/* do nothing */}
 		
 	}
 

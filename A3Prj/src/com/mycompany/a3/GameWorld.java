@@ -44,7 +44,9 @@ public class GameWorld extends Observable implements IGameWorld{
 	/* Fixed variables */
 	private int ticks; //time
 	private int score, lives;
-	private boolean sound = false;
+	private boolean sound = true;
+	
+	private BGSound bgSound;
 	
 	/* Constructor */
 	public void init(int w, int h){
@@ -56,7 +58,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.go = new GameCollection();
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
-		
+		bgSound = new BGSound("background.mp3");
 	}
 	
 	/** Create a new Asteroid Object 
@@ -126,8 +128,6 @@ public class GameWorld extends Observable implements IGameWorld{
                         System.out.println("Already at MAX PLAYERSHIP speed.");
                     } else if (currentSpeed >= 0 ) {
                         ((PlayerShip) gameObj).increaseSpeed();
-                        //System.out.println("PLAYERSHIP speed INCREASED.");
-                        //System.out.println(GameObject);
                     }
                 }
             }//end while
@@ -279,16 +279,18 @@ public class GameWorld extends Observable implements IGameWorld{
 	 *  
 	 * j */
 	public void jump() {
-		Point point = new Point(512,384); /* original starting location */
+		Point point = new Point(this.width/2, this.height/2); /* original starting location */
 		IIterator theElements = go.getIterator();
 		if(psExists()) {
 			while(theElements.hasNext()) {
 				GameObject gameObj = (GameObject) theElements.getNext();
 				if(gameObj instanceof PlayerShip) {
 					((PlayerShip) gameObj).setLocation(point);
+					((PlayerShip) gameObj).setHeading(0);
+					((PlayerShip) gameObj).setSpeed(0);
 					SteerableMissileLauncher sml = ((PlayerShip) gameObj).getPSML();
             		sml.setLocation(point); //gets the location of the PlayerShip to match
-            		System.out.println("PLAYERSHIP JUMPED through hyperspace.");
+            		//System.out.println("PLAYERSHIP JUMPED through hyperspace.");
                 }
             }
 		}else
@@ -305,7 +307,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				GameObject gameObj = (GameObject) theElements.getNext();
 				if (gameObj instanceof PlayerShip) {
 					((PlayerShip) gameObj).setMissileCount(10); /* resets missile count to 10 */
-					System.out.println("PLAYERSHIP missile reload.");
+					//System.out.println("PLAYERSHIP missile reload.");
 				}
 			}
 		} else
@@ -322,7 +324,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			removeAsteroid();
 			removeMissile();
 			score += 4;
-			System.out.println("Asteroid was destroyed by PLAYERSHIP MISSILE.");
+			//System.out.println("Asteroid was destroyed by PLAYERSHIP MISSILE.");
 		} else
 			System.err.println("Did not hit ASTEROID with a PLAYERSHIP MISSILE.");
 		this.setChanged();
@@ -336,7 +338,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		if( psExists() & nonPSExists()) {
 			removeNPS();
 			score += 6;
-			System.out.println("NonPlayerShip was destroyed by PLAYERSHIP MISSILE.");
+			//System.out.println("NonPlayerShip was destroyed by PLAYERSHIP MISSILE.");
 		} else
 			System.err.println("Did not hit NonPlayerShip with PLAYERSHIP MISSILE.");
 		this.setChanged();
@@ -408,7 +410,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			removeAsteroid();
             if(asteroidExists()){
                 removeAsteroid();
-                System.out.println("Two ASTEROIDS collided and EXTERMINATED each other.");
+                //System.out.println("Two ASTEROIDS collided and EXTERMINATED each other.");
             } else
             	System.err.println("Only one ASTEROID was removed...");
 		} else
@@ -417,14 +419,14 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.notifyObservers(new GameWorldProxy(this));
 	}
 	/** 
-	 * 
+	 * Asteroid hits NonPlayerShip
 	 *  
 	 * I */
 	public void impact() {
 		if( nonPSExists() & asteroidExists()) {
             removeNPS();
             removeAsteroid();
-            System.out.println("ASTEROID impact with a NONPLAYERSHIP");
+            //System.out.println("ASTEROID impact with a NONPLAYERSHIP");
         }
         else
             System.err.println("Could not hit a NONPLAYERSHIP with an ASTEROID");
@@ -432,16 +434,17 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
-	/* Each 'tick' does the following, split into 3 functions: 
+	/* Each 'tick' does the following, split into 4 functions: 
 	 * 1. updateFuel() - missiles fuel level is reduced, those empty are removed
 	 * 2. blinkSS() - space station blinks
-	 * 3. ticked() - (main) calls the above methods and elapses game time by 1 tick
+	 * 3. clearPoofs() - removes objects that have collided
+	 * 4. ticked() - (main) calls the above methods and elapses game time by 1 tick
 	 * 
 	 * */
 
 	public void updateFuel() {
 		IIterator theElements = go.getIterator();
-		//ArrayList<Integer> poofBucket = new ArrayList<Integer>();
+		ArrayList<Integer> poofBucket = new ArrayList<Integer>();
 		int index = 0;
 		if(missileExists()){
             while(theElements.hasNext()) {
@@ -451,25 +454,18 @@ public class GameWorld extends Observable implements IGameWorld{
 	            	int fuelLevel = missile.getFuelLevel();
 	            	if (fuelLevel < 1) {
 	            		//add placeholder to poofBucket to be removed after while loop
-	            		//poofBucket.add(index);
-	            		for (int i = 0; i < go.iteratorSize(); i++) {
-	            			if(missile.getPoof() == true) {
-	            				go.remove(i);
-	            			}
-	            		}
-	            		//System.out.println("Removed a MISSILE that ran out of fuel.");
+	            		poofBucket.add(index);
 	            	} else
 	            		missile.setFuelLevel(fuelLevel - 1);
             	} //end if game object
             	index++;
             }//end while
-//            for(int i = 0; i < poofBucket.size(); i++) {
-//            	go.remove(poofBucket.get(i)-i);
-//            	
-//            }
-        }//end exists
-        else
-            System.out.println("No MISSILES exist.");
+            /* Empty Bucket */
+            for(int i = 0; i < poofBucket.size(); i++) {
+            	go.remove(poofBucket.get(i)-i);
+            }
+        } else {} /* end exists */
+		
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
@@ -532,8 +528,40 @@ public class GameWorld extends Observable implements IGameWorld{
 		ticks++;
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
-//		System.out.println("-------------------TICKTOCK goes the CLOCK---------------------");
 	}//end ticked
+	
+	public void clearPoofs() {
+//		IIterator theElements = go.getIterator();
+//        while(theElements.hasNext()) {
+        	for (int i = 0; i < go.iteratorSize(); i++) {
+    			GameObject gameObj = (GameObject)go.elementAt(i);
+    			if(gameObj.getPoof()) {
+    				if(gameObj instanceof Asteroids) {
+    					go.remove(i);
+    				}
+    				if(gameObj instanceof NonPlayerShip){
+    					go.remove(i);
+    				}
+    				if(gameObj instanceof Missiles){
+    					go.remove(i);
+    				}
+    				if (gameObj instanceof PlayerShip) {
+    					go.remove(i);
+    				}
+    				
+//    					if (this.getLives() > 1) {
+//    						this.lives -= 1;
+//    					} else {
+//    						System.out.println("GAME OVER!!!!");
+//    						System.exit(1);
+//    					}
+//    				}
+    			}
+    		}
+        //}
+        
+        
+    }
 	
 	/* Print display gives the following: 
 	 * 1. current score 
@@ -574,39 +602,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void quitGW() {
 		System.exit(0);
 	}
-
-	public void clearPoofs() {
-//		IIterator theElements = go.getIterator();
-//        while(theElements.hasNext()) {
-        	for (int i = 0; i < go.iteratorSize(); i++) {
-    			GameObject gameObj = (GameObject)go.elementAt(i);
-    			if(gameObj.getPoof()) {
-    				if(gameObj instanceof Asteroids) {
-    					go.remove(i);
-    				}
-    				if(gameObj instanceof NonPlayerShip){
-    					go.remove(i);
-    				}
-    				if(gameObj instanceof NonPlayerShip){
-    					go.remove(i);
-    				}
-    				if (gameObj instanceof PlayerShip) {
-    					go.remove(i);
-    				}
-    				
-//    					if (this.getLives() > 1) {
-//    						this.lives -= 1;
-//    					} else {
-//    						System.out.println("GAME OVER!!!!");
-//    						System.exit(1);
-//    					}
-//    				}
-    			}
-    		}
-        //}
-        
-        
-    }
 	
 	@Override
 	public int getPlayerScore() {

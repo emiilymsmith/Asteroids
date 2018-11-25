@@ -6,6 +6,7 @@ import com.codename1.ui.geom.Point;
 import com.mycompany.a3.ICollider;
 import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.MovableObject;
+import com.mycompany.a3.GameObjects.MovableObjects.Ships.NonPlayerShip;
 import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
 /**
  * @author Emily Smith
@@ -61,6 +62,9 @@ public class Asteroids extends MovableObject{
 			otherObj.poofed();
 		} else if(obj instanceof Missiles){
 			//TODO look into playership vs NPS
+			this.poofed();
+			otherObj.poofed();
+		} else if(obj instanceof NonPlayerShip) {
 			this.poofed();
 			otherObj.poofed();
 		} else if(obj instanceof PlayerShip){

@@ -17,7 +17,6 @@ import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
  * A Missile is an individual object because once it is fired it moves on it's own and can exist without a ship
  * 
  */
-// f fires Missile
 public class Missiles extends MovableObject{
 	private int fuelLevel;
 	private boolean mType; //missile type
@@ -25,15 +24,15 @@ public class Missiles extends MovableObject{
 	/* Missiles Constructor */
 	public Missiles(Point location, int heading, int speed,int width, int height, boolean mType){
 		super(width, height);
-		super.setColor(ColorUtil.rgb(75,0,130)); //from GameObject
+		super.setColor(ColorUtil.rgb(75,0,130));
 		this.mType = mType;
-//		super.setX(x); //from Game Object //ERROR
+//		super.setX(x); //from Game Object //TODO ERROR
 //		super.setY(y);
-		this.setLocation(location); //uses parent location
+		this.setLocation(location); //uses parent location TODO this needs to change
 		super.setSize(7);
 		super.setHeading(heading); //from MovableObject //heading comes from ship
-		super.setSpeed(speed+3); //from MovableObject //speed is greater than playership's like +2
-		this.setFuelLevel(10); //= getFuelLevel(); //from here
+		super.setSpeed(speed+7); //from MovableObject //speed is greater than playership's
+		this.setFuelLevel(30); //= getFuelLevel(); //from here
 	}
 	
 	/* Getters and Setters */
@@ -69,7 +68,7 @@ public class Missiles extends MovableObject{
 
 	@Override
 	public void handleCollision(ICollider obj) {
-		//GameObject gameObj = (GameObject)obj;
+		GameObject gameObj = (GameObject)obj;
 		if(obj instanceof PlayerShip) {
 			PlayerShip pship = (PlayerShip)obj;
 			if(this.mType == false) {
@@ -82,6 +81,10 @@ public class Missiles extends MovableObject{
 				this.poofed();
 				nonPS.poofed();
 			}
+		} else if (obj instanceof Missiles){
+			Missiles m = (Missiles)obj;
+			this.poofed();
+			m.poofed();
 		} else {}
 	}
 }
