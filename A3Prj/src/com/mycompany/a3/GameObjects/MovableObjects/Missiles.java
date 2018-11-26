@@ -5,6 +5,7 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 import com.mycompany.a3.ICollider;
+import com.mycompany.a3.ISelectable;
 import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.MovableObject;
 import com.mycompany.a3.GameObjects.MovableObjects.Ships.NonPlayerShip;
@@ -17,9 +18,9 @@ import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
  * A Missile is an individual object because once it is fired it moves on it's own and can exist without a ship
  * 
  */
-public class Missiles extends MovableObject{
+public class Missiles extends MovableObject implements ISelectable{
 	private int fuelLevel;
-	private boolean mType; //missile type
+	private boolean mType, selected; //missile type
 	
 	/* Missiles Constructor */
 	public Missiles(Point location, int heading, int speed,int width, int height, boolean mType){
@@ -86,5 +87,30 @@ public class Missiles extends MovableObject{
 			this.poofed();
 			m.poofed();
 		} else {}
+	}
+	
+	@Override
+	public void setSelected(boolean select) {
+		this.selected = select;
+	}
+	
+	@Override
+	public boolean isSelected() {
+		return selected;
+	}
+	
+	@Override
+	public boolean contains(Point pPtrRelPrnt, Point pCmpRelPrnt){
+		boolean contains = false;
+		int pointx = pPtrRelPrnt.getX();
+		int pointy = pPtrRelPrnt.getY();
+		int locationx = this.getLocation().getX() + pCmpRelPrnt.getX();
+		int locationy = this.getLocation().getY() + pCmpRelPrnt.getY();
+		
+		if(pointx >= locationx && pointx <= locationx+7 && pointy >= locationy && pointy <= locationy+14) {
+			contains = true;
+		}
+		
+		return contains;
 	}
 }

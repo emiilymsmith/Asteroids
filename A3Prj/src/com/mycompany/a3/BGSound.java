@@ -12,6 +12,8 @@ public class BGSound implements Runnable{
 		try {
 			InputStream is = Display.getInstance().getResourceAsStream(getClass(), "/"+fileName);
 			m = MediaManager.createMedia(is, "audio/mp3", this);
+			System.out.println("sound is : " + fileName);
+			//System.exit(1);
 		} catch (Exception e){
 			e.printStackTrace();
 		}

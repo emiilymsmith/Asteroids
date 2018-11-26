@@ -13,7 +13,7 @@ public class SoundCommand extends Command {
 	public SoundCommand(GameWorld gw){
 		super("Sound");
 		this.gw = gw;
-		sound = new Sound("background.mp3");
+		//sound = new Sound("background.mp3");
 	}
 	/**
 	 * Calls the sound method in GameWorld
@@ -22,11 +22,11 @@ public class SoundCommand extends Command {
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getKeyEvent() != -1) {
 			gw.sound();
-			pauseB = !pauseB;
-			if (pauseB)
-				sound.play();
-			else
-				sound.pause();
+//			pauseB = !pauseB;
+//			if (pauseB)
+//				sound.play();
+//			else
+//				sound.pause();
 		}
 	}
 }

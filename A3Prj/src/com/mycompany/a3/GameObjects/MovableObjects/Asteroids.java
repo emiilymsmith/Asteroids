@@ -4,6 +4,7 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.mycompany.a3.ICollider;
+import com.mycompany.a3.ISelectable;
 import com.mycompany.a3.GameObjects.GameObject;
 import com.mycompany.a3.GameObjects.MovableObject;
 import com.mycompany.a3.GameObjects.MovableObjects.Ships.NonPlayerShip;
@@ -15,8 +16,8 @@ import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
  * Asteroids
  * 
  */
-public class Asteroids extends MovableObject{
-	//private int radius, radius2; /* Using two radius sizes to make each asteroid different */
+public class Asteroids extends MovableObject implements ISelectable{
+	private boolean selected;
 	
 	/* Asteroid Constructor */
 	public Asteroids(int width, int height){
@@ -27,6 +28,7 @@ public class Asteroids extends MovableObject{
 		super.setRandomHeading();// from MovableObject
 		super.setRandomSpeed(); //me asking parent what my speed is
 		super.setRandomLocation(); //from GameObject
+		selected = false;
 	}
 	
 	/* getters and setters */
@@ -71,5 +73,25 @@ public class Asteroids extends MovableObject{
 			this.poofed();
 			otherObj.poofed();
 		} else {/* do nothing */}
+	}
+	
+	@Override
+	public void setSelected(boolean select) {
+		this.selected = select;
+	}
+	
+	@Override
+	public boolean isSelected() {
+		return selected;
+	}
+	
+	@Override
+	public boolean contains(Point pPtrRelPrnt, Point pCmpRelPrnt){
+		boolean contains = false;
+//		int pointX = pPtrRelPrnt.getX();
+//		int pointY = pPtrRelPrnt.getY();
+//		int 
+//		if(pointX)
+		return contains;
 	}
 }

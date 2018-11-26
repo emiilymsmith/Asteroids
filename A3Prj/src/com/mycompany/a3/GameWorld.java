@@ -26,9 +26,10 @@ import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
  * 
  * A2 additions:
  * 		extends observable implements IGameWorld
- * code to hold and manipulate world objects, handle observer registration,
- * invoke observer callbacks by passing a GameWorld proxy, etc.
+ * 		code to hold and manipulate world objects, handle observer registration,
+ * 		invoke observer callbacks by passing a GameWorld proxy, etc.
  * 
+ * A3 additions:
  */
 
 public class GameWorld extends Observable implements IGameWorld{
@@ -44,9 +45,10 @@ public class GameWorld extends Observable implements IGameWorld{
 	/* Fixed variables */
 	private int ticks; //time
 	private int score, lives;
+	private boolean pause = false;
 	private boolean sound = true;
 	
-	private BGSound bgSound;
+	private static final BGSound bgSound = new BGSound("background.mp3");
 	
 	/* Constructor */
 	public void init(int w, int h){
@@ -58,7 +60,11 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.go = new GameCollection();
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
-		bgSound = new BGSound("background.mp3");
+		bgSound.play();
+	}
+	
+	public void pause() {
+		pause = pause;
 	}
 	
 	/** Create a new Asteroid Object 
@@ -482,14 +488,13 @@ public class GameWorld extends Observable implements IGameWorld{
                 }
             }
         	//System.out.println("SPACESTATION light was triggered.");
-        } else
-        	System.out.println("No SPACESTATIONS exist.");
+        } else {}
+        	//System.out.println("No SPACESTATIONS exist.");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
 	/* t */
 	public void ticked() {
-
 		/* Check if something moves, if it does move it */
 		IIterator theElements = go.getIterator();
 		boolean movable = false;
@@ -531,37 +536,24 @@ public class GameWorld extends Observable implements IGameWorld{
 	}//end ticked
 	
 	public void clearPoofs() {
-//		IIterator theElements = go.getIterator();
-//        while(theElements.hasNext()) {
-        	for (int i = 0; i < go.iteratorSize(); i++) {
-    			GameObject gameObj = (GameObject)go.elementAt(i);
-    			if(gameObj.getPoof()) {
-    				if(gameObj instanceof Asteroids) {
-    					go.remove(i);
-    				}
-    				if(gameObj instanceof NonPlayerShip){
-    					go.remove(i);
-    				}
-    				if(gameObj instanceof Missiles){
-    					go.remove(i);
-    				}
-    				if (gameObj instanceof PlayerShip) {
-    					go.remove(i);
-    				}
-    				
-//    					if (this.getLives() > 1) {
-//    						this.lives -= 1;
-//    					} else {
-//    						System.out.println("GAME OVER!!!!");
-//    						System.exit(1);
-//    					}
-//    				}
+        for (int i = 0; i < go.iteratorSize(); i++) {
+    		GameObject gameObj = (GameObject)go.elementAt(i);
+    		if(gameObj.getPoof()) {
+    			if(gameObj instanceof Asteroids) {
+    				go.remove(i);
+    			}
+    			if(gameObj instanceof NonPlayerShip){
+    				go.remove(i);
+    			}
+    			if(gameObj instanceof Missiles){
+    				go.remove(i);
+    			}
+    			if (gameObj instanceof PlayerShip) {
+    				go.remove(i);
     			}
     		}
-        //}
-        
-        
-    }
+    	}//end for
+    }//end clear poofs
 	
 	/* Print display gives the following: 
 	 * 1. current score 
@@ -620,6 +612,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void sound() {
 		this.sound = !this.getSound();
+		if(this.sound) {
+			bgSound.play();
+		} else {
+			bgSound.pause();
+		}
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}

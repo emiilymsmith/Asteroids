@@ -389,7 +389,6 @@ public class Game extends Form implements Runnable{
 		
 		/*Initialize Timer*/
 		timer = new UITimer(this);
-		//timer.schedule(timeMillis, repeat, bound); :format
 		timer.schedule(20, true, this);
 		
 		
@@ -397,6 +396,7 @@ public class Game extends Form implements Runnable{
 	@Override
 	public void run() {
 		gw.ticked();
+		// TODO add stuff here that makes buttons turn off on pause
 	}
 	
 } /*end Game*/
