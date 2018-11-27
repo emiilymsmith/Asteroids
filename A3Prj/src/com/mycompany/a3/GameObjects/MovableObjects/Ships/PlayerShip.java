@@ -135,7 +135,7 @@ public class PlayerShip extends Ship implements ISteerable{
 			this.poofed();
 			otherObj.poofed();
 		} else if(obj instanceof SpaceStation) {
-			this.setMissileCount(10); //TODO replaces reload button
+			this.setMissileCount(10);
 		} else {/* do nothing */}
 		
 	}

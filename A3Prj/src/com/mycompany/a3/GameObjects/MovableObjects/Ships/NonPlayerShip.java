@@ -91,7 +91,6 @@ public class NonPlayerShip extends Ship{
 		} else if(obj instanceof PlayerShip) {
 			this.poofed();
 			otherObj.poofed();
-			//TODO does this tie to a command, how to get points for it
 		}else if(obj instanceof Missiles){
 			Missiles tempM = (Missiles)obj;
 			if(tempM.getMType() == true) {

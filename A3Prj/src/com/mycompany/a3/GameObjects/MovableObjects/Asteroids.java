@@ -63,9 +63,8 @@ public class Asteroids extends MovableObject implements ISelectable{
 			this.poofed();
 			otherObj.poofed();
 		} else if(obj instanceof Missiles){
-			//TODO look into playership vs NPS
 			this.poofed();
-			otherObj.poofed();
+			otherObj.poofed();		
 		} else if(obj instanceof NonPlayerShip) {
 			this.poofed();
 			otherObj.poofed();

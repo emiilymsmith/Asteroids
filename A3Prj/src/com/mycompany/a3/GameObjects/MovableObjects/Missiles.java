@@ -71,7 +71,7 @@ public class Missiles extends MovableObject implements ISelectable{
 
 	@Override
 	public void handleCollision(ICollider obj) {
-		GameObject gameObj = (GameObject)obj;
+		GameObject otherObj = (GameObject)obj;
 		if(obj instanceof PlayerShip) {
 			PlayerShip pship = (PlayerShip)obj;
 			if(this.mType == false) {
@@ -88,7 +88,10 @@ public class Missiles extends MovableObject implements ISelectable{
 			Missiles m = (Missiles)obj;
 			this.poofed();
 			m.poofed();
-		} else {}
+		} else if(obj instanceof Asteroids){
+			this.poofed();
+			otherObj.poofed();
+		}
 	}
 	
 	@Override
