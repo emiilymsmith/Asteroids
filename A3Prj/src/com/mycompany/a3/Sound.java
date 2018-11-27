@@ -12,7 +12,7 @@ public class Sound{
 	public Sound(String fileName){
 		try {
 			InputStream is = Display.getInstance().getResourceAsStream(getClass(), "/"+fileName);
-			m = MediaManager.createMedia(is, "audio/mp3");
+			m = MediaManager.createMedia(is, "audio/wav");
 		} catch (Exception e){
 			e.printStackTrace();
 		}

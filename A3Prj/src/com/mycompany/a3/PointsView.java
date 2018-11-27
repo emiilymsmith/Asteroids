@@ -146,6 +146,7 @@ public class PointsView extends Container implements Observer{
 		/* Getting and Displaying lives */
 		int lives = gw.getLives();
 		vlives.setText(""+lives+"");
+		this.getParent().revalidate();
 		
 		/*update*/
 		this.repaint();

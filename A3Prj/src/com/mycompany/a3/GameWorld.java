@@ -2,6 +2,7 @@ package com.mycompany.a3;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Random;
 import java.util.Vector;
 
 import com.codename1.ui.geom.Point;
@@ -48,7 +49,12 @@ public class GameWorld extends Observable implements IGameWorld{
 	private boolean pause = false;
 	private boolean sound = true;
 	
+	/* Sound Variables */
 	private static final BGSound bgSound = new BGSound("background.mp3");
+	private Sound fireSound;
+	private Sound shootAsteroidSound;
+	private Sound gameOverSound;
+	private Sound shipExplodeSound;
 	
 	/* Constructor */
 	public void init(int w, int h){
@@ -61,6 +67,10 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 		bgSound.play();
+		fireSound = new Sound("fireMissile.wav");
+		shootAsteroidSound = new Sound("asteroidExplosion.wav");
+		gameOverSound = new Sound("gameOver.wav");
+		shipExplodeSound = new Sound("shipExplode.wav");
 	}
 	
 	public void pause() {
@@ -178,11 +188,11 @@ public class GameWorld extends Observable implements IGameWorld{
 				GameObject gameObj = (GameObject) theElements.getNext();
 				if (gameObj instanceof PlayerShip) {
 					((PlayerShip) gameObj).changeHeading(-15); 
-                    System.out.println("PLAYERSHIP LEFT.");
+                    //System.out.println("PLAYERSHIP LEFT.");
                 }
             }
-        } else
-            System.err.println("Cannot turn PLAYERSHIP LEFT.");
+        } else {}
+            //System.err.println("Cannot turn PLAYERSHIP LEFT.");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
     }
@@ -197,11 +207,11 @@ public class GameWorld extends Observable implements IGameWorld{
 				GameObject gameObj = (GameObject) theElements.getNext();
 				if (gameObj instanceof PlayerShip) {
                     ((PlayerShip) gameObj).changeHeading(15); //changeHeading from Steerable
-                    System.out.println("PLAYERSHIP RIGHT.");
+                    //System.out.println("PLAYERSHIP RIGHT.");
                 }
             }
-        } else
-            System.err.println("Cannot turn PLAYERSHIP RIGHT.");
+        } else {}
+            //System.err.println("Cannot turn PLAYERSHIP RIGHT.");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
     }
@@ -244,12 +254,14 @@ public class GameWorld extends Observable implements IGameWorld{
 		            	((PlayerShip) gameObj).setMissileCount(numMissiles - 1);
 		                /* creates object Missiles called missile, uses playership's params*/
 		            	Missiles missile = ((PlayerShip) gameObj).firePlayerSMissile();
+		            	if(this.sound)
+		                    fireSound.play();
 		                go.add(missile);
 		                //System.out.println("PLAYERSHIP missile FIRED.");
 		            }
 	            }
-			} else
-	            System.err.println("Cannot fire a PLAYERSHIP MISSILE, a PLAYERSHIP does not exist.");
+			} else {}
+//	            System.err.println("Cannot fire a PLAYERSHIP MISSILE, a PLAYERSHIP does not exist.");
 		}
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -270,9 +282,10 @@ public class GameWorld extends Observable implements IGameWorld{
 					/* creates object Missiles called missile, uses NONplayership's params*/
 //					Missiles missile = new Missiles(((NonPlayerShip) gameObj).getX(), ((NonPlayerShip) gameObj).getY(), 
 //							((NonPlayerShip) gameObj).getHeading(),((NonPlayerShip) gameObj).getSpeed(), width, height, false);
-					Missiles missile = ((NonPlayerShip) gameObj).fireNPSMissile();
-					go.add(missile);
-					System.out.println("NONPLAYERSHIP MISSILE FIRED.");
+					//iterate to find specific NPS
+					Missiles npsmissile = ((NonPlayerShip) gameObj).fireNPSMissile();
+					go.add(npsmissile);
+					//System.out.println("NONPLAYERSHIP MISSILE FIRED.");
 				} else
 					System.err.println("Cannot fire a NONPLAYERSHIP Missile, a NONPLAYERSHIP does not exist.");
 			}
@@ -280,6 +293,26 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
+	
+	public void spawnRandomNPS(){
+		Random r = new Random();
+		int rInt = r.nextInt(50);
+        
+        if(rInt == 5){
+            addNPS();
+        }
+        if(rInt == 7 || rInt == 8){
+            IIterator theElements = go.getIterator();
+            while(theElements.hasNext()){
+                GameObject object = (GameObject) theElements.getNext();
+                if(object instanceof NonPlayerShip) {
+                    launchNPSMissile();
+                    break;
+                }
+            }
+        }
+    }//end randomNPS
+	
 	/** Jump through Hyperspace
 	 *  PlayerShip jumps back to default position center screen
 	 *  
@@ -327,6 +360,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * k */
 	public void destroyAsteroid() {
 		if( asteroidExists() & missileExists()) {
+			if(this.sound)
+                shootAsteroidSound.play();
 			removeAsteroid();
 			removeMissile();
 			score += 4;
@@ -359,8 +394,10 @@ public class GameWorld extends Observable implements IGameWorld{
 			removeMissile();
 			score-=5;
 			if(lives>=1) {
+				if(this.sound)
+					shipExplodeSound.play();
 				lives--;
-				System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
+				//System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
 			} else if ( lives == 0 ){
 				System.out.println("You lost all your lives, try again!");
 				System.exit(1);
@@ -378,14 +415,16 @@ public class GameWorld extends Observable implements IGameWorld{
             removeAsteroid();
             removePS();
             if(lives>=1) {
-    			lives--;
-    			System.out.println("PLAYERSHIP crashed into an ASTEROID, lost a life!");
+            	if(this.sound)
+					shipExplodeSound.play();
+            	lives--;
+    			//System.out.println("PLAYERSHIP crashed into an ASTEROID, lost a life!");
     		} else if ( lives == 0 ){
     			System.out.println("You lost all your lives, try again!");
     			System.exit(1);
     		}
-        } else
-            System.err.println("A CRASH did not happen.");
+        } else {}
+            //System.err.println("A CRASH did not happen.");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
@@ -396,14 +435,16 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(nonPSExists() & psExists()) {
 			removeNPS();
 			if(lives>=1) {
+				if(this.sound)
+					shipExplodeSound.play();
 				lives--;
-				System.out.println("PLAYER SHIP hit a NonPlayerShip, lost a life!");
+				//System.out.println("PLAYER SHIP hit a NonPlayerShip, lost a life!");
 			} else if ( lives == 0 ){
 				System.out.println("You lost all your lives, try again!");
 				System.exit(1);
 			} 
-		} else
-			System.err.println("Did not hit PLAYERSHIP with NonPlayerShip.");
+		} else {}
+			//System.err.println("Did not hit PLAYERSHIP with NonPlayerShip.");
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
@@ -529,6 +570,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		clearPoofs();
 		updateFuel();
 		blinkSS();
+		spawnRandomNPS();
 		
 		ticks++;
 		this.setChanged();
@@ -592,6 +634,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * confirm with user
 	 * q */
 	public void quitGW() {
+		if(this.sound)
+            gameOverSound.play();
 		System.exit(0);
 	}
 	

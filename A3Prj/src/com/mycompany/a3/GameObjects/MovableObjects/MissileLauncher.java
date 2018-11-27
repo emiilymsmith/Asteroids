@@ -15,18 +15,19 @@ import com.mycompany.a3.GameObjects.MovableObject;
  * 
  */
 public class MissileLauncher extends MovableObject{
-	
+	private Point missileOrigin;
 	/*we need to pass through location, heading, speed*/
 	public MissileLauncher(Point location,int heading,int speed,int width,int height) {
 		super(width, height);
 		super.setLocation(location); //get NPS location
+		missileOrigin = new Point((int)super.getX(),(int)super.getY());
 		this.setHeading(heading); //get NPS heading
 		super.setSpeed(speed); //same as NPS
 		super.setColor(ColorUtil.rgb(255, 0, 0));
 	}
 	
 	public Missiles fireNPSMissile() {
-		return new Missiles(this.getLocation(), this.getHeading(), this.getSpeed()+2, this.getWidth(), this.getHeight(), false);
+		return new Missiles(missileOrigin, this.getHeading(), this.getSpeed()+2, this.getWidth(), this.getHeight(), false);
 	}
 	
 	public String toString() {

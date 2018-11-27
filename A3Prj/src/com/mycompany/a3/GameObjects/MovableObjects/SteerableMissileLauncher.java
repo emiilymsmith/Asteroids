@@ -13,19 +13,22 @@ import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
  * It's only difference is that its heading rotates independently of the PlayerShip.
  */
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable{
-	
+	private Point missileOrigin;
 	public SteerableMissileLauncher(Point location, int heading, int speed, int width, int height){
 		super(location, heading, speed, width, height);
 		super.setColor(ColorUtil.MAGENTA);
+		missileOrigin = new Point((int)super.getX(),(int)super.getY());
 	}
 	
 	/* This method's purpose is so that it will be able to rotate independently(left) of the PlayerShip */
 	public void changeAngle(int degChange) {
 		this.setHeading(this.getHeading() + degChange);
 	}
-	
+		
 	public Missiles fireMissile() {
-		return new Missiles(this.getLocation(), this.getHeading(), this.getSpeed(), this.getWidth(), this.getHeight(), true);
+//		Point p = new Point(0,0);
+//		p = this.getLocation();
+		return new Missiles(missileOrigin, this.getHeading(), this.getSpeed()+7, this.getWidth(), this.getHeight(), true);
 		/* true if the missile is a playerships */
 	}
 	

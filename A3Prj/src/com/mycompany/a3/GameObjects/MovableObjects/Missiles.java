@@ -21,6 +21,7 @@ import com.mycompany.a3.GameObjects.MovableObjects.Ships.PlayerShip;
 public class Missiles extends MovableObject implements ISelectable{
 	private int fuelLevel;
 	private boolean mType, selected; //missile type
+//	private Point missileOrigin;
 	
 	/* Missiles Constructor */
 	public Missiles(Point location, int heading, int speed,int width, int height, boolean mType){
@@ -29,10 +30,11 @@ public class Missiles extends MovableObject implements ISelectable{
 		this.mType = mType;
 //		super.setX(x); //from Game Object //TODO ERROR
 //		super.setY(y);
-		this.setLocation(location); //uses parent location TODO this needs to change
+//		missileOrigin = new Point((int)super.getX(),(int)super.getY());
+		super.setLocation(location); //uses parent location TODo this needs to change
 		super.setSize(7);
 		super.setHeading(heading); //from MovableObject //heading comes from ship
-		super.setSpeed(speed+7); //from MovableObject //speed is greater than playership's
+		super.setSpeed(speed); //from MovableObject //speed is greater than playership's
 		this.setFuelLevel(30); //= getFuelLevel(); //from here
 	}
 	
@@ -45,10 +47,10 @@ public class Missiles extends MovableObject implements ISelectable{
 		this.fuelLevel = fuel;
 	}
 	
-	public void setLocation(int x, int y) {
-		Point p = new Point(x,y);
-		super.setLocation(p);
-	}
+//	public void setLocation(int x, int y) {
+//		Point p = new Point(x,y);
+//		super.setLocation(p);
+//	}
 	
 	public boolean getMType() {
 		return this.mType;
