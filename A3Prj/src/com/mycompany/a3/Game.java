@@ -40,6 +40,7 @@ import com.mycompany.a3.Commands.LoadMissilesCommand;
 import com.mycompany.a3.Commands.NewGameCommand;
 import com.mycompany.a3.Commands.PauseCommand;
 import com.mycompany.a3.Commands.QuitCommand;
+import com.mycompany.a3.Commands.RefuelCommand;
 import com.mycompany.a3.Commands.RightTurnCommand;
 import com.mycompany.a3.Commands.SaveCommand;
 import com.mycompany.a3.Commands.SoundCommand;
@@ -84,6 +85,7 @@ public class Game extends Form implements Runnable{
 	private FireMissileCommand fCommand;
 	private LaunchMissileCommand lNPSCommand;
 	private LoadMissilesCommand loadCommand;
+	private RefuelCommand refuelCommand;
 	private JumpCommand jCommand;
 	private DestroyAsteroidCommand daCommand;
 	private EliminatedNPSCommand elimNPSCommand;
@@ -256,6 +258,17 @@ public class Game extends Form implements Runnable{
 //		buttonBar.add(bloadMissiles);
 //		addKeyListener('n', loadCommand);
 		
+		/* Refuel Selected Missiles */
+		refuelCommand = new RefuelCommand(gw);
+		Button brefuel = new Button("Refuel Missiles");
+		brefuel.getAllStyles().setBgTransparency(100);
+		brefuel.getAllStyles().setBgColor(ColorUtil.GREEN);
+		brefuel.getAllStyles().setFgColor(ColorUtil.WHITE);
+		brefuel.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		brefuel.setCommand(refuelCommand);
+		buttonBar.add(brefuel);
+
+		
 		/* Missile Destroys Asteroid Button */
 		daCommand = new DestroyAsteroidCommand(gw);
 		Button bDestroyAsteroid = new Button("Missile Destroyed Asteroid");
@@ -298,7 +311,7 @@ public class Game extends Form implements Runnable{
 //		bCrash.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
 //		bCrash.setCommand(cCommand);
 //		buttonBar.add(bCrash);
-		addKeyListener('c', cCommand);
+//		addKeyListener('c', cCommand);
 		
 		/* PlayerShip hits NonPlayerShip Button */
 		hitCommand = new HitNPSCommand(gw);
@@ -309,7 +322,7 @@ public class Game extends Form implements Runnable{
 //		bHit.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
 //		bHit.setCommand(hitCommand);
 //		buttonBar.add(bHit);
-		addKeyListener('h',hitCommand);
+//		addKeyListener('h',hitCommand);
 		
 		/* Asteroids Collide/Exterminate Button */
 		collideCommand = new CollideXCommand(gw);
@@ -331,7 +344,7 @@ public class Game extends Form implements Runnable{
 //		bANPSCollision.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
 //		bANPSCollision.setCommand(impactCommand);
 //		buttonBar.add(bANPSCollision);
-		addKeyListener('I', impactCommand);
+//		addKeyListener('I', impactCommand);
 		
 		/* Game Clock Tick Button */
 //		tickCommand = new ClockTickCommand(gw);

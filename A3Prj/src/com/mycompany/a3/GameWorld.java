@@ -356,6 +356,30 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
+	/** Refuel Missiles
+	 *  ISelectible makes available - pause only
+	 * 	// TODO make sure it works
+	 * */
+	public void refuelMissiles() {
+		IIterator theElements = go.getIterator();
+		if(pause) {
+			if(missileExists()) {
+				while(theElements.hasNext()) {
+					GameObject gameObj = (GameObject) theElements.getNext();
+					if (gameObj instanceof Missiles) {
+						if(((Missiles) gameObj).isSelected()) {
+							((Missiles) gameObj).setFuelLevel(30); /* resets fuel level to 30 */
+							((Missiles) gameObj).setSelected(false);
+						}
+					} 
+				}
+			} else {/* nothing */}
+				
+			this.setChanged();
+			this.notifyObservers(new GameWorldProxy(this));
+		}
+	} //end refuel
+	
 	/** Destroy Asteriod (killed asteroid)
 	 *  PlayerShip Missile hit an asteroid and destroyed it
 	 *  Awarded 4 points
