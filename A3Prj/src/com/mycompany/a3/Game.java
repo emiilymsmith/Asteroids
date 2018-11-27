@@ -131,13 +131,13 @@ public class Game extends Form implements Runnable{
 
 		/* AddAsteroid Button */
 		addAsteroidCommand = new AddAsteroidCommand(gw);
-		Button bAddAsteroid = new Button("Add Asteroid");
-		bAddAsteroid.getAllStyles().setBgTransparency(100);
-		bAddAsteroid.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bAddAsteroid.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bAddAsteroid.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bAddAsteroid.setCommand(addAsteroidCommand);
-		buttonBar.add(bAddAsteroid);
+//		Button bAddAsteroid = new Button("Add Asteroid");
+//		bAddAsteroid.getAllStyles().setBgTransparency(100);
+//		bAddAsteroid.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bAddAsteroid.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bAddAsteroid.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bAddAsteroid.setCommand(addAsteroidCommand);
+//		buttonBar.add(bAddAsteroid);
 		
 		/* AddNonPlayerShip Button */
 		addNPSCommand = new AddNPSCommand(gw);
@@ -151,13 +151,13 @@ public class Game extends Form implements Runnable{
 		
 		/* AddSpaceStation Button */
 		addSSCommand = new AddSpaceStationCommand(gw);
-		Button bAddSpaceStation = new Button("Add Space Station");
-		bAddSpaceStation.getAllStyles().setBgTransparency(100);
-		bAddSpaceStation.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bAddSpaceStation.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bAddSpaceStation.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bAddSpaceStation.setCommand(addSSCommand);
-		buttonBar.add(bAddSpaceStation);
+//		Button bAddSpaceStation = new Button("Add Space Station");
+//		bAddSpaceStation.getAllStyles().setBgTransparency(100);
+//		bAddSpaceStation.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bAddSpaceStation.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bAddSpaceStation.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bAddSpaceStation.setCommand(addSSCommand);
+//		buttonBar.add(bAddSpaceStation);
 		
 		/* AddPlayerShip Button */
 		addPSCommand = new AddPSCommand(gw);

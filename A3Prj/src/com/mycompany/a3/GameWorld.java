@@ -64,6 +64,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.lives = 3;
 		this.ticks = 0;
 		this.go = new GameCollection();
+		this.addSpaceStation();
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 		bgSound.play();
@@ -289,10 +290,16 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
-	public void spawnRandomNPS(){
+	/* Used in ticked
+	 * */
+	public void spawnRandomObj(){
 		Random r = new Random();
 		int rInt = r.nextInt(100);
         
+		if(rInt == 23) {
+			addAsteroid();
+		}
+		
         if(rInt == 5){
             addNPS();
         }
@@ -568,7 +575,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			clearPoofs();
 			updateFuel();
 			blinkSS();
-			spawnRandomNPS();
+			spawnRandomObj(); //initializes asteroids and NonPlayerShips
 			
 			ticks++;
 			this.setChanged();

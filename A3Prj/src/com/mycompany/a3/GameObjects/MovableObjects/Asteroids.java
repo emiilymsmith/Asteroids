@@ -22,7 +22,7 @@ public class Asteroids extends MovableObject implements ISelectable{
 	/* Asteroid Constructor */
 	public Asteroids(int width, int height){
 		super(width,height);
-		super.setColor(ColorUtil.BLACK); // from GameObject
+		super.setColor(ColorUtil.rgb(89,92,94)); // from GameObject
 		this.setSize(getRandomSize());
 		//this.radius2 = getRandomSize();
 		super.setRandomHeading();// from MovableObject
