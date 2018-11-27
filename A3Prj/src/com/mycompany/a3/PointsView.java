@@ -138,7 +138,7 @@ public class PointsView extends Container implements Observer{
 		/* Getting and Displaying sound */
 		boolean sound = gw.getSound();
 		
-		if(sound = true) {
+		if(sound) {
 			vsound.setText("ON");
 		} else
 			vsound.setText("OFF");

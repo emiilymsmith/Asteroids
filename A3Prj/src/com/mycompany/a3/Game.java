@@ -38,6 +38,7 @@ import com.mycompany.a3.Commands.LaunchMissileCommand;
 import com.mycompany.a3.Commands.LeftTurnCommand;
 import com.mycompany.a3.Commands.LoadMissilesCommand;
 import com.mycompany.a3.Commands.NewGameCommand;
+import com.mycompany.a3.Commands.PauseCommand;
 import com.mycompany.a3.Commands.QuitCommand;
 import com.mycompany.a3.Commands.RightTurnCommand;
 import com.mycompany.a3.Commands.SaveCommand;
@@ -92,6 +93,7 @@ public class Game extends Form implements Runnable{
 	private CollideXCommand collideCommand;
 	private AICommand impactCommand;
 	private ClockTickCommand tickCommand;
+	private PauseCommand pCommand;
 	private QuitCommand qCommand;
 	
 	/* Game Constructor */
@@ -139,13 +141,13 @@ public class Game extends Form implements Runnable{
 		
 		/* AddNonPlayerShip Button */
 		addNPSCommand = new AddNPSCommand(gw);
-		Button bAddNonPlayerShip = new Button("Add Non Player Ship");
-		bAddNonPlayerShip.getAllStyles().setBgTransparency(100);
-		bAddNonPlayerShip.getAllStyles().setBgColor(ColorUtil.GREEN);
-		bAddNonPlayerShip.getAllStyles().setFgColor(ColorUtil.WHITE);
-		bAddNonPlayerShip.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
-		bAddNonPlayerShip.setCommand(addNPSCommand);
-		buttonBar.add(bAddNonPlayerShip);
+//		Button bAddNonPlayerShip = new Button("Add Non Player Ship");
+//		bAddNonPlayerShip.getAllStyles().setBgTransparency(100);
+//		bAddNonPlayerShip.getAllStyles().setBgColor(ColorUtil.GREEN);
+//		bAddNonPlayerShip.getAllStyles().setFgColor(ColorUtil.WHITE);
+//		bAddNonPlayerShip.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+//		bAddNonPlayerShip.setCommand(addNPSCommand);
+//		buttonBar.add(bAddNonPlayerShip);
 		
 		/* AddSpaceStation Button */
 		addSSCommand = new AddSpaceStationCommand(gw);
@@ -341,6 +343,16 @@ public class Game extends Form implements Runnable{
 //		bTick.setCommand(tickCommand);
 //		buttonBar.add(bTick);
 //		addKeyListener('t', tickCommand);
+		
+		pCommand = new PauseCommand(gw);
+		Button bpause = new Button("Quit");
+		bpause.getAllStyles().setBgTransparency(100);
+		bpause.getAllStyles().setBgColor(ColorUtil.rgb(255,165,0));
+		bpause.getAllStyles().setFgColor(ColorUtil.WHITE);
+		bpause.getAllStyles().setBorder(Border.createLineBorder(2,ColorUtil.WHITE));
+		bpause.setCommand(pCommand);
+		buttonBar.add(bpause);
+		addKeyListener('q', pCommand);
 		
 		qCommand = new QuitCommand(gw);
 		Button bquit = new Button("Quit");

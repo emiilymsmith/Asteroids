@@ -80,7 +80,7 @@ public class Missiles extends MovableObject implements ISelectable{
 			}
 		} else if(obj instanceof NonPlayerShip) {
 			NonPlayerShip nonPS = (NonPlayerShip)obj;
-			if(this.mType = true) {
+			if(this.mType == true) {
 				this.poofed();
 				nonPS.poofed();
 			}

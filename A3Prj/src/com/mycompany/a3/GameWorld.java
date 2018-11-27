@@ -74,7 +74,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void pause() {
-		pause = pause;
+		pause = !pause;
 	}
 	
 	/** Create a new Asteroid Object 
@@ -86,7 +86,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		/*add asteroid to storage vector*/
 		go.add(asteroid);
 		/*feedback for creation*/
-		//System.out.println("An ASTEROID has been created.");	
 		System.out.println(asteroid);
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -97,7 +96,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addNPS() {
 		NonPlayerShip nps = new NonPlayerShip(this.width, this.height);
 		go.add(nps);
-		//System.out.println("A NON-PLAYERSHIP has been created.");
 		System.out.println(nps);
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -108,7 +106,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addSpaceStation() {
 		SpaceStation bs = new SpaceStation(this.width, this.height);
 		go.add(bs);
-		//System.out.println("A SPACE STATION has been created.");
 		System.out.println(bs);
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -187,8 +184,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			while(theElements.hasNext()) {
 				GameObject gameObj = (GameObject) theElements.getNext();
 				if (gameObj instanceof PlayerShip) {
-					((PlayerShip) gameObj).changeHeading(-15); 
-                    //System.out.println("PLAYERSHIP LEFT.");
+					((PlayerShip) gameObj).changeHeading(-15);
                 }
             }
         } else {}
@@ -198,7 +194,7 @@ public class GameWorld extends Observable implements IGameWorld{
     }
 	/** Turn PlayerShip Right
 	 *  checks validity, for each instance (1) in storage
-	 *  calls PlayerShip's changeHeading from Isteerable by 15 degrees 
+	 *  calls PlayerShip's changeHeading from ISteerable by 15 degrees 
 	 * r */
 	public void turnRight() {
 		IIterator theElements = go.getIterator();
@@ -206,8 +202,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			while(theElements.hasNext()) {
 				GameObject gameObj = (GameObject) theElements.getNext();
 				if (gameObj instanceof PlayerShip) {
-                    ((PlayerShip) gameObj).changeHeading(15); //changeHeading from Steerable
-                    //System.out.println("PLAYERSHIP RIGHT.");
+                    ((PlayerShip) gameObj).changeHeading(15); //changeHeading from ISteerable
                 }
             }
         } else {}
@@ -296,12 +291,12 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void spawnRandomNPS(){
 		Random r = new Random();
-		int rInt = r.nextInt(50);
+		int rInt = r.nextInt(100);
         
         if(rInt == 5){
             addNPS();
         }
-        if(rInt == 7 || rInt == 8){
+        if(rInt == 15 || rInt == 35){
             IIterator theElements = go.getIterator();
             while(theElements.hasNext()){
                 GameObject object = (GameObject) theElements.getNext();
@@ -394,9 +389,9 @@ public class GameWorld extends Observable implements IGameWorld{
 			removeMissile();
 			score-=5;
 			if(lives>=1) {
+				lives--;
 				if(this.sound)
 					shipExplodeSound.play();
-				lives--;
 				//System.out.println("EXPLOSION! NonPlayerShip hit PLAYERSHIP.");
 			} else if ( lives == 0 ){
 				System.out.println("You lost all your lives, try again!");
@@ -415,9 +410,9 @@ public class GameWorld extends Observable implements IGameWorld{
             removeAsteroid();
             removePS();
             if(lives>=1) {
+            	lives--;
             	if(this.sound)
 					shipExplodeSound.play();
-            	lives--;
     			//System.out.println("PLAYERSHIP crashed into an ASTEROID, lost a life!");
     		} else if ( lives == 0 ){
     			System.out.println("You lost all your lives, try again!");
@@ -536,45 +531,51 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	/* t */
 	public void ticked() {
-		/* Check if something moves, if it does move it */
-		IIterator theElements = go.getIterator();
-		boolean movable = false;
-		while(theElements.hasNext()){
-			GameObject gameObj = (GameObject) theElements.getNext();
-            if(gameObj instanceof IMovable){
-                ((IMovable) gameObj).move(ticks);
-                movable = true;
-                //System.out.println("TICKTOCK: Moved all the movable objects.");
-            } else
-                System.out.println("TICKTOCK: No movable objects exist!");
-        
-    		/* Handle Collision of Objects */
-    		IIterator elements1;
-    		IIterator elements2;
-
-    		elements1 = go.getIterator();
-    		while(elements1.hasNext()) {
-    			ICollider currentObject = (ICollider)elements1.getNext();
-    			elements2 = go.getIterator();
-    			while(elements2.hasNext()) {
-    				ICollider otherObject = (ICollider)elements2.getNext(); 
-    				if(otherObject!=currentObject) {
-    					if(currentObject.collisionWith(otherObject)) {
-    						currentObject.handleCollision(otherObject);
-    						
-    					}//end collision handle
-    				}//end if same object check
-    			}//end parse through ele2
-    		}//end parse through ele1
-		} //end "parent" while
-		clearPoofs();
-		updateFuel();
-		blinkSS();
-		spawnRandomNPS();
-		
-		ticks++;
-		this.setChanged();
-		this.notifyObservers(new GameWorldProxy(this));
+		if(!pause) {
+			if(this.sound)
+				bgSound.play();	
+			/* Check if something moves, if it does move it */
+			IIterator theElements = go.getIterator();
+			boolean movable = false;
+			while(theElements.hasNext()){
+				GameObject gameObj = (GameObject) theElements.getNext();
+	            if(gameObj instanceof IMovable){
+	                ((IMovable) gameObj).move(ticks);
+	                movable = true;
+	                //System.out.println("TICKTOCK: Moved all the movable objects.");
+	            } else
+	                System.out.println("TICKTOCK: No movable objects exist!");
+	        
+	    		/* Handle Collision of Objects */
+	    		IIterator elements1;
+	    		IIterator elements2;
+	
+	    		elements1 = go.getIterator();
+	    		while(elements1.hasNext()) {
+	    			ICollider currentObject = (ICollider)elements1.getNext();
+	    			elements2 = go.getIterator();
+	    			while(elements2.hasNext()) {
+	    				ICollider otherObject = (ICollider)elements2.getNext(); 
+	    				if(otherObject!=currentObject) {
+	    					if(currentObject.collisionWith(otherObject)) {
+	    						currentObject.handleCollision(otherObject);
+	    						
+	    					}//end collision handle
+	    				}//end if same object check
+	    			}//end parse through ele2
+	    		}//end parse through ele1
+			} //end "parent" while
+			clearPoofs();
+			updateFuel();
+			blinkSS();
+			spawnRandomNPS();
+			
+			ticks++;
+			this.setChanged();
+			this.notifyObservers(new GameWorldProxy(this));
+		}
+		if(pause)
+			bgSound.pause();
 	}//end ticked
 	
 	public void clearPoofs() {
